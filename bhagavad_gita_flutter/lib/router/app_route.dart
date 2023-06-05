@@ -1,4 +1,6 @@
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
+import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
+import 'package:bhagavad_gita_flutter/screen/main_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/borading_slider/on_boarding.dart';
@@ -23,5 +25,18 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
       return const OnBoarding();
     },
   ),
-
+  GoRoute(
+    path: RouteNames.main,
+    name: RouteNames.main,
+    builder: (context, state) {
+      return const MainScreen();
+    },
+  ),
+  GoRoute(
+    path: RouteNames.home,
+    name: RouteNames.home,
+    builder: (context, state) {
+      return HomeScreen();
+    },
+  ),
 ]);

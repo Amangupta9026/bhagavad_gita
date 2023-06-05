@@ -1,5 +1,7 @@
+import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/utils/utils.dart';
+import 'package:go_router/go_router.dart';
 
 import 'Info.dart';
 import 'my_painter.dart';
@@ -47,14 +49,19 @@ class _MyPageOneState extends State<MyPageOne> {
                           letterSpacing: 1.2,
                           color: const Color(0xff757575)),
                     ),
-                    Text(
-                      'Skip',
-                      style: TextStyle(
-                        fontFamily: 'Sofia',
-                        fontSize: SizeConfig.blockSizeHorizontal * 4.4,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.4,
-                        color: textColor,
+                    InkWell(
+                      onTap: () {
+                        context.pushReplacementNamed(RouteNames.main);
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(
+                          fontFamily: 'Sofia',
+                          fontSize: SizeConfig.blockSizeHorizontal * 4.4,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.4,
+                          color: textColor,
+                        ),
                       ),
                     )
                   ],

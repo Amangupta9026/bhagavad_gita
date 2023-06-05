@@ -1,6 +1,8 @@
 import 'package:bhagavad_gita_client/bhagavad_gita_client.dart';
+import 'package:bhagavad_gita_flutter/firebase_options.dart';
 import 'package:bhagavad_gita_flutter/router/app_route.dart';
 import 'package:bhagavad_gita_flutter/utils/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
@@ -9,7 +11,7 @@ var client = Client('http://localhost:8080/')
   ..connectivityMonitor = FlutterConnectivityMonitor();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // await Prefs.init();
   
 
