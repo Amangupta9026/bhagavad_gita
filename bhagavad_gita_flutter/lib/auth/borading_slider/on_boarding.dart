@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 
-import 'PageOne.dart';
-import 'PageThree.dart';
-import 'PageTwo.dart';
+import 'page_one.dart';
+import 'page_three.dart';
+import 'page_two.dart';
 
 // ignore: must_be_immutable
 class OnBoarding extends StatefulWidget {
@@ -18,11 +20,11 @@ class _OnBoardingState extends State<OnBoarding> {
   UpdateType? updateType;
 
   final pages = [
-    Container(
+    const SizedBox(
       child: MyPageOne(),
     ),
-    Container(child: MyPageTwo()),
-    Container(
+    const SizedBox(child: MyPageTwo()),
+    const SizedBox(
       child: MyPageThree(),
     ),
   ];
@@ -34,14 +36,17 @@ class _OnBoardingState extends State<OnBoarding> {
       home: Scaffold(
         body: LiquidSwipe(
           pages: pages,
-          fullTransitionValue: 500,
+          fullTransitionValue: 900,
           enableLoop: true,
-          positionSlideIcon: 0.744,
+          positionSlideIcon: 0.650,
           waveType: WaveType.liquidReveal,
-          slideIconWidget: Icon(
-            Icons.arrow_back_ios,
-            size: 18,
-            color: Color(0xff546E7A),
+          slideIconWidget: const Padding(
+            padding: EdgeInsets.only(right: 10.0),
+            child: Icon(
+              Icons.arrow_back_ios,
+              size: 18,
+              color: Color(0xff546E7A),
+            ),
           ),
           initialPage: 1,
         ),
@@ -50,10 +55,10 @@ class _OnBoardingState extends State<OnBoarding> {
   }
 
   pageChangeCallback(int page) {
-    print(page);
+    log(page.toString());
   }
 
   updateTypeCallback(UpdateType updateType) {
-    print(updateType);
+    log(updateType.toString());
   }
 }

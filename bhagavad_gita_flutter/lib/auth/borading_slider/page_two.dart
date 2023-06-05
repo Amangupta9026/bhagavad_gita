@@ -1,28 +1,32 @@
+import 'package:bhagavad_gita_flutter/utils/colors.dart';
+import 'package:bhagavad_gita_flutter/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 import 'Info.dart';
-import 'MyPainter.dart';
+import 'my_painter.dart';
 
-class MyPageOne extends StatefulWidget {
+class MyPageTwo extends StatefulWidget {
+  const MyPageTwo({super.key});
+
   @override
   State createState() {
-    return _MyPageOneState();
+    return _MyPageTwoState();
   }
 }
 
-class _MyPageOneState extends State<MyPageOne> {
+class _MyPageTwoState extends State<MyPageTwo> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
+      backgroundColor: textColor,
+      body: SizedBox(
         child: Stack(
           children: <Widget>[
-            Container(color: Color(0xffB2EBF2)),
             Container(
-              child: MyPainter(Color(0xFFCEE8FF)),
-            ),
+                height: double.infinity,
+                decoration: AppUtils.decoration1(),
+                child: const MyPainter(textColor)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -37,13 +41,13 @@ class _MyPageOneState extends State<MyPageOne> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        '',
+                        ' ',
                         style: TextStyle(
                             fontFamily: 'Header',
                             fontSize: SizeConfig.blockSizeHorizontal * 5.2,
                             fontWeight: FontWeight.w900,
                             letterSpacing: 1.2,
-                            color: Color(0xff757575)),
+                            color: const Color(0xff757575)),
                       ),
                       Text(
                         'Skip',
@@ -52,7 +56,7 @@ class _MyPageOneState extends State<MyPageOne> {
                           fontSize: SizeConfig.blockSizeHorizontal * 4.4,
                           fontWeight: FontWeight.w700,
                           letterSpacing: 0.4,
-                          color: Colors.white,
+                          color: textColor,
                         ),
                       )
                     ],
@@ -63,7 +67,7 @@ class _MyPageOneState extends State<MyPageOne> {
                 ),
                 Center(
                   child: Image.asset(
-                    'assets/images/board1.jpg',
+                    'assets/images/board2.jpg',
                     fit: BoxFit.contain,
                     width: SizeConfig.screenWidth,
                     height: SizeConfig.blockSizeVertical! * 44,
@@ -76,13 +80,13 @@ class _MyPageOneState extends State<MyPageOne> {
                   padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    "COMMON",
+                    "Bhagavad Gita",
                     style: TextStyle(
                       fontFamily: 'Sofia',
                       fontSize: SizeConfig.blockSizeHorizontal * 5.4,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.4,
-                      color: Colors.white,
+                      color: textColor,
                     ),
                   ),
                 ),
@@ -91,13 +95,13 @@ class _MyPageOneState extends State<MyPageOne> {
                   padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    "WORKSPACE",
+                    "The Voice of the Lord",
                     style: TextStyle(
                       fontFamily: 'Sofia',
-                      fontSize: SizeConfig.blockSizeHorizontal * 10.4,
+                      fontSize: SizeConfig.blockSizeHorizontal * 5.4,
                       fontWeight: FontWeight.w700,
                       letterSpacing: 0.4,
-                      color: Colors.white,
+                      color: textColor,
                     ),
                   ),
                 ),
@@ -107,13 +111,12 @@ class _MyPageOneState extends State<MyPageOne> {
                       left: SizeConfig.blockSizeHorizontal * 14,
                       right: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    "Then, as you begin to further flesh out your speech, you will use supporting materials, like examples, statistics, testimony or a narrative, that back your claims. These will add credibility to your speech.",
+                    '“Krishna says: "Arjuna, I am the taste of pure water and the radiance of the sun and moon. I am the sacred word and the sound heard in air, and the courage of human beings. I am the sweet fragrance in the earth and the radiance of fire; I am the life in every creature and the striving of the spiritual aspirant”',
                     style: TextStyle(
-                      fontFamily: 'Sofia',
                       fontSize: SizeConfig.blockSizeHorizontal * 3.8,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 0.4,
-                      color: Colors.white,
+                      color: textColor,
                     ),
                   ),
                 ),
@@ -127,22 +130,22 @@ class _MyPageOneState extends State<MyPageOne> {
                   child: Row(
                     children: <Widget>[
                       CircleAvatar(
-                        radius: SizeConfig.blockSizeHorizontal * 1.4,
-                        backgroundColor: Color(0xffE0E0E0),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 4,
-                      ),
-                      CircleAvatar(
-                        radius: SizeConfig.blockSizeHorizontal * 1.4,
-                        backgroundColor: Color(0xffE0E0E0),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 4,
-                      ),
-                      CircleAvatar(
                         radius: SizeConfig.blockSizeHorizontal * 1.8,
-                        backgroundColor: Color(0xffB0BEC5),
+                        backgroundColor: textColor,
+                      ),
+                      SizedBox(
+                        width: SizeConfig.blockSizeHorizontal * 4,
+                      ),
+                      CircleAvatar(
+                        radius: SizeConfig.blockSizeHorizontal * 1.4,
+                        backgroundColor: const Color(0xffE0E0E0),
+                      ),
+                      SizedBox(
+                        width: SizeConfig.blockSizeHorizontal * 4,
+                      ),
+                      CircleAvatar(
+                        radius: SizeConfig.blockSizeHorizontal * 1.4,
+                        backgroundColor: const Color(0xffE0E0E0),
                       )
                     ],
                   ),

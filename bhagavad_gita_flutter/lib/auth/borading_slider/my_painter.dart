@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'Info.dart';
 
 class MyPainter extends StatelessWidget {
-  Color color;
-  MyPainter(this.color);
+ final Color color;
+  const MyPainter(this.color, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
+      painter: HomePainter(color),
       child: Container(
         height: SizeConfig.screenHeight,
       ),
-      painter: HomePainter(color),
     );
   }
 }
 
 class HomePainter extends CustomPainter {
-  Color _color;
+  final Color _color;
   HomePainter(this._color);
 
   @override
