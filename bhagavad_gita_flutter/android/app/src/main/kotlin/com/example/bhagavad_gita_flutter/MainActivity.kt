@@ -1,4 +1,4 @@
-package com.example.bhagavad_gita_flutter
+package com.flashcoders.bhagavad_gita_ai
 
 import io.flutter.embedding.android.FlutterActivity
 
