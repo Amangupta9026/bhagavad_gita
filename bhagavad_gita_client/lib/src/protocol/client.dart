@@ -8,40 +8,49 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'dart:io' as _i3;
-import 'protocol.dart' as _i4;
+import 'package:bhagavad_gita_client/src/protocol/users.dart' as _i3;
+import 'dart:io' as _i4;
+import 'protocol.dart' as _i5;
 
-class _EndpointExample extends _i1.EndpointRef {
-  _EndpointExample(_i1.EndpointCaller caller) : super(caller);
+class _EndpointUsers extends _i1.EndpointRef {
+  _EndpointUsers(_i1.EndpointCaller caller) : super(caller);
 
   @override
-  String get name => 'example';
+  String get name => 'users';
 
-  _i2.Future<String> hello(String name) => caller.callServerEndpoint<String>(
-        'example',
-        'hello',
-        {'name': name},
+  _i2.Future<Map<String, dynamic>> addUser({required String phoneNumber}) =>
+      caller.callServerEndpoint<Map<String, dynamic>>(
+        'users',
+        'addUser',
+        {'phoneNumber': phoneNumber},
+      );
+
+  _i2.Future<_i3.Users> getUserByPhoneNumber({required String phoneNumber}) =>
+      caller.callServerEndpoint<_i3.Users>(
+        'users',
+        'getUserByPhoneNumber',
+        {'phoneNumber': phoneNumber},
       );
 }
 
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i3.SecurityContext? context,
+    _i4.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i4.Protocol(),
+          _i5.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
-    example = _EndpointExample(this);
+    users = _EndpointUsers(this);
   }
 
-  late final _EndpointExample example;
+  late final _EndpointUsers users;
 
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'example': example};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {'users': users};
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
 }
