@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCkzoeXUPI4ZAJz48rkC1HRbahymwBSnbw',
-    appId: '1:724764116121:web:6f5a9c9bb371352c2de408',
-    messagingSenderId: '724764116121',
-    projectId: 'bhagavad-gita-ai',
-    authDomain: 'bhagavad-gita-ai.firebaseapp.com',
-    storageBucket: 'bhagavad-gita-ai.appspot.com',
+    apiKey: 'AIzaSyB56-b6UN0eE79ocFTC0B1ZUTxg1vjRQoo',
+    appId: '1:43979308495:web:6ef13ebbdc6aa0149e26ba',
+    messagingSenderId: '43979308495',
+    projectId: 'bhagwavad-ai-gita',
+    authDomain: 'bhagwavad-ai-gita.firebaseapp.com',
+    storageBucket: 'bhagwavad-ai-gita.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBfD7vQgw8uqH29BsqH29ZJNvk029gYGaY',
-    appId: '1:724764116121:android:b10f9de4c1fcb35e2de408',
-    messagingSenderId: '724764116121',
-    projectId: 'bhagavad-gita-ai',
-    storageBucket: 'bhagavad-gita-ai.appspot.com',
+    apiKey: 'AIzaSyAbEoAcTNC1x6XyYA_fCkpxwkUggKxzQts',
+    appId: '1:43979308495:android:1cef3d62893a999b9e26ba',
+    messagingSenderId: '43979308495',
+    projectId: 'bhagwavad-ai-gita',
+    storageBucket: 'bhagwavad-ai-gita.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA_00mY0wNKViSvki8LA5OsXqpwWD4sKW8',
-    appId: '1:724764116121:ios:c1b68450271661972de408',
-    messagingSenderId: '724764116121',
-    projectId: 'bhagavad-gita-ai',
-    storageBucket: 'bhagavad-gita-ai.appspot.com',
-    iosClientId: '724764116121-v0lhib0h4v43n5drl47inon016789fgi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDjqAP9mjMWLDJJ_Ll77QEzEfKnhu0Q4OE',
+    appId: '1:43979308495:ios:780428c33801d50b9e26ba',
+    messagingSenderId: '43979308495',
+    projectId: 'bhagwavad-ai-gita',
+    storageBucket: 'bhagwavad-ai-gita.appspot.com',
+    iosClientId: '43979308495-v84v7grb1o76re2p6nrk40pirovod0c4.apps.googleusercontent.com',
     iosBundleId: 'com.example.bhagavadGitaFlutter',
   );
 }

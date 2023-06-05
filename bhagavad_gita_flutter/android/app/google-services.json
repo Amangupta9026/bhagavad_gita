@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "724764116121",
-    "project_id": "bhagavad-gita-ai",
-    "storage_bucket": "bhagavad-gita-ai.appspot.com"
+    "project_number": "43979308495",
+    "project_id": "bhagwavad-ai-gita",
+    "storage_bucket": "bhagwavad-ai-gita.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:724764116121:android:b10f9de4c1fcb35e2de408",
+        "mobilesdk_app_id": "1:43979308495:android:1cef3d62893a999b9e26ba",
         "android_client_info": {
           "package_name": "com.flashcoders.bhagavad_gita_ai"
         }
       },
       "oauth_client": [
         {
-          "client_id": "724764116121-kg73po8g3b7cqablnkqdfrrqha2pjceo.apps.googleusercontent.com",
+          "client_id": "43979308495-ha3oou25ugibvb81ue7vpcfiaaokunrr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBfD7vQgw8uqH29BsqH29ZJNvk029gYGaY"
+          "current_key": "AIzaSyAbEoAcTNC1x6XyYA_fCkpxwkUggKxzQts"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "724764116121-kg73po8g3b7cqablnkqdfrrqha2pjceo.apps.googleusercontent.com",
+              "client_id": "43979308495-ha3oou25ugibvb81ue7vpcfiaaokunrr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
