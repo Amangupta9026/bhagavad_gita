@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724764116121",
+    "project_id": "bhagavad-gita-ai",
+    "storage_bucket": "bhagavad-gita-ai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724764116121:android:b10f9de4c1fcb35e2de408",
+        "android_client_info": {
+          "package_name": "com.example.bhagavad_gita_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724764116121-kg73po8g3b7cqablnkqdfrrqha2pjceo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfD7vQgw8uqH29BsqH29ZJNvk029gYGaY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724764116121-kg73po8g3b7cqablnkqdfrrqha2pjceo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
