@@ -29,6 +29,13 @@
             {
               "client_id": "43979308495-ha3oou25ugibvb81ue7vpcfiaaokunrr.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "43979308495-v84v7grb1o76re2p6nrk40pirovod0c4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.bhagavadGitaFlutter"
+              }
             }
           ]
         }

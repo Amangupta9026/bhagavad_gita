@@ -51,7 +51,7 @@ class _MyPageOneState extends State<MyPageOne> {
                     ),
                     InkWell(
                       onTap: () {
-                        context.pushReplacementNamed(RouteNames.main);
+                        context.pushReplacementNamed(RouteNames.signInScreen);
                       },
                       child: Text(
                         'Skip',

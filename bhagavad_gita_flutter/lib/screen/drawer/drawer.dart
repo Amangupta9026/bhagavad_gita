@@ -1,7 +1,22 @@
+import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
+import 'package:bhagavad_gita_flutter/router/routes_names.dart';
+import 'package:bhagavad_gita_flutter/widget/alertdialogbox.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
+
 import '../../utils/file_collection.dart';
 
-class DrawerScreen extends StatelessWidget {
+class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
+
+  @override
+  State<DrawerScreen> createState() => _DrawerScreenState();
+}
+
+class _DrawerScreenState extends State<DrawerScreen> {
+  bool isSwitched = false;
+  var textValue = 'Switch is OFF';
 
   @override
   Widget build(BuildContext context) {
@@ -10,39 +25,56 @@ class DrawerScreen extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.all(0),
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.orange[800],
-            ), //BoxDecoration
-            child: UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.orange[800]),
-              accountName: const Text(
-                "Mera Naam Aman",
-                style: TextStyle(fontSize: 18),
-              ),
-              accountEmail: const Text(""),
-              currentAccountPictureSize: const Size.square(50),
-              currentAccountPicture: const CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 165, 255, 137),
-                child: Text(
-                  "A",
-                  style: TextStyle(fontSize: 30.0, color: Colors.blue),
-                ), //Text
-              ), //circleAvatar
-            ), //UserAccountDrawerHeader
-          ), //DrawerHeader
-          ListTile(
-            leading: const Icon(Icons.dark_mode),
-            title: const Text('Dark Mode'),
-            onTap: () {
-              Navigator.pop(context);
-            },
+          //DrawerHeader
+          Image.asset(
+            'assets/images/board2.jpg',
           ),
+          const SizedBox(height: 12),
+          Consumer(builder: (context, ref, child) {
+            return ListTile(
+              leading: const Icon(Icons.dark_mode),
+              title: const Text('Dark Mode'),
+              onTap: () {
+                ref.read(themeNotifierProvider.notifier).changeTheme();
+              },
+              trailing: Transform.scale(
+                  scale: 0.8,
+                  child: Switch(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    onChanged: (value) {
+                      ref.read(themeNotifierProvider.notifier).changeTheme();
+                    },
+                    value:
+                        ref.watch(themeNotifierProvider.notifier).themeMode ==
+                            ThemeMode.dark,
+                    activeColor: primaryColor,
+                    activeTrackColor: Colors.orange[400],
+                    inactiveThumbColor: Colors.grey,
+                    inactiveTrackColor: Colors.grey.shade300,
+                  )),
+            );
+          }),
           ListTile(
             leading: const Icon(Icons.bookmark),
             title: const Text('Bookmarks'),
             onTap: () {
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.language),
+            title: const Text('App Language'),
+            onTap: () {
+              showMyDialog(
+                context,
+                'Please select your preference language',
+                'Choose your App Language you want to use in this app to read Bhagavad Gita.\n\nYou can change your preference language anytime from settings. ',
+                () {},
+                istwobutton: true,
+                actionButtonText1: 'English',
+                actiontap1: () {},
+                actionButtonText2: 'Hindi',
+              );
             },
           ),
           ListTile(
@@ -56,14 +88,16 @@ class DrawerScreen extends StatelessWidget {
             leading: const Icon(Icons.support),
             title: const Text('Support Us'),
             onTap: () {
-              Navigator.pop(context);
+              context.pushNamed(RouteNames.helpSupport);
             },
           ),
           ListTile(
             leading: const Icon(Icons.share),
             title: const Text('Share App'),
             onTap: () {
-              Navigator.pop(context);
+              Share.share(
+                  subject: 'Bhagavad Gita',
+                  'hey! check out this amazing Bhagavad Gita app https://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
             },
           ),
           ListTile(

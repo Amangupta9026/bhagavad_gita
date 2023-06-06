@@ -53,7 +53,7 @@ class _MyPageTwoState extends State<MyPageTwo> {
                       ),
                       InkWell(
                         onTap: () {
-                          context.pushReplacementNamed(RouteNames.main);
+                          context.pushReplacementNamed(RouteNames.signInScreen);
                         },
                         child: Text(
                           'Skip',
