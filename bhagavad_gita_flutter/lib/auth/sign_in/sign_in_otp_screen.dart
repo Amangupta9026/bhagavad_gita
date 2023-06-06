@@ -113,6 +113,16 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      bottomNavigationBar: SizedBox(
+        height: 150,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/images/flute1.png', height: 150),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
