@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_otp_screen.dart';
-import 'package:bhagavad_gita_flutter/utils/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+
+import '../../utils/file_collection.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({Key? key}) : super(key: key);
@@ -64,15 +65,14 @@ class _SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      bottomNavigationBar: SizedBox(
-        height: 150,
-        child: Column(
+      bottomNavigationBar: 
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/images/flute1.png', height: 150),
           ],
         ),
-      ),
+    
       body: SafeArea(
         child: Form(
           key: formKey,
