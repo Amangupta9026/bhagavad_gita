@@ -85,7 +85,7 @@ class _MyPageOneState extends State<MyPageOne> {
                 padding:
                     EdgeInsets.only(left: SizeConfig.blockSizeHorizontal * 14),
                 child: Text(
-                  "Lesson of Bhagavad Gita",
+                  "Lesson of Bhagwavad Gita",
                   style: TextStyle(
                     fontFamily: 'Sofia',
                     fontSize: SizeConfig.blockSizeHorizontal * 5.4,
@@ -101,7 +101,7 @@ class _MyPageOneState extends State<MyPageOne> {
                     left: SizeConfig.blockSizeHorizontal * 14,
                     right: SizeConfig.blockSizeHorizontal * 14),
                 child: Text(
-                  'The Bhagavad Gita gives the lesson of harmony of all the other yoga systems with the ultimate goal – surrender to Krishna, known as Bhakti Yoga. Also, we have imbibed the deep knowledge by this Book and the last portion of this book is knows as (Upanishads). The intellectual power we acquired and the knowledge includes in the Upanishads is not only the highest state of human intelligence but also gives us a glimpse of how a man can experience beyond his limits of intellect',
+                  'The Bhagwavad Gita gives the lesson of harmony of all the other yoga systems with the ultimate goal – surrender to Krishna, known as Bhakti Yoga. Also, we have imbibed the deep knowledge by this Book and the last portion of this book is knows as (Upanishads). The intellectual power we acquired and the knowledge includes in the Upanishads is not only the highest state of human intelligence but also gives us a glimpse of how a man can experience beyond his limits of intellect',
                   style: TextStyle(
                     fontFamily: 'Sofia',
                     fontSize: SizeConfig.blockSizeHorizontal * 3.8,

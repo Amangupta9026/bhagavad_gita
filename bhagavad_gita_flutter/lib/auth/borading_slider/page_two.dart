@@ -87,7 +87,7 @@ class _MyPageTwoState extends State<MyPageTwo> {
                   padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    "Bhagavad Gita",
+                    "Bhagwavad Gita",
                     style: TextStyle(
                       fontFamily: 'Sofia',
                       fontSize: SizeConfig.blockSizeHorizontal * 5.4,

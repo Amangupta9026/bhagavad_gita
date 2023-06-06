@@ -70,7 +70,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               showMyDialog(
                 context,
                 'Please select your preference language',
-                'Choose your App Language you want to use in this app to read Bhagavad Gita.\n\nYou can change your preference language anytime from settings. ',
+                'Choose your App Language you want to use in this app to read Bhagwavad Gita.\n\nYou can change your preference language anytime from settings. ',
                 () {},
                 istwobutton: true,
                 actionButtonText1: 'English',
@@ -98,8 +98,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
             title: const Text('Share App'),
             onTap: () {
               Share.share(
-                  subject: 'Bhagavad Gita',
-                  'hey! check out this amazing Bhagavad Gita app https://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+                  subject: 'Bhagwavad Gita',
+                  'hey! check out this amazing Bhagwavad Gita app https://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
             },
           ),
           ListTile(
