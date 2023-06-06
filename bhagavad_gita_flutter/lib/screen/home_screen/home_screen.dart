@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              'Bhagavad Gita',
+              'Bhagwavad Gita',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],

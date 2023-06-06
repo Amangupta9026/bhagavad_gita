@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       builder: (context, ref, child) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'Bhagavad Gita',
+          title: 'Bhagwavad Gita',
           darkTheme: ThemeData.light(),
           themeMode: ref.watch(themeNotifierProvider.notifier).themeMode,
           theme: themeData,
