@@ -9,12 +9,14 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
+import 'local/prefs.dart';
+
 var client = Client('http://localhost:8080/')
   ..connectivityMonitor = FlutterConnectivityMonitor();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await Prefs.init();
+  await Prefs.init();
 
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -29,8 +31,8 @@ class MyApp extends StatelessWidget {
       builder: (context, ref, child) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'QWise',
-          darkTheme: ThemeData.dark(),
+          title: 'Bhagavad Gita',
+          darkTheme: ThemeData.light(),
           themeMode: ref.watch(themeNotifierProvider.notifier).themeMode,
           theme: themeData,
           routerConfig: appRoute,

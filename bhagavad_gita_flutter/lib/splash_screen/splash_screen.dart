@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:bhagavad_gita_flutter/local/pref_names.dart';
+import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -18,9 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    Timer(const Duration(seconds: 2), () {
-      context.pushReplacementNamed(RouteNames.onBoarding);
-    });
+    isLogin();
 
     // controller = VideoPlayerController.asset("assets/images/splash_video.gif");
     // controller?.initialize().then((_) {
@@ -33,6 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
     //   });
     // });
     super.initState();
+  }
+
+  void isLogin() {
+    Timer(const Duration(seconds: 2), () {
+      if (Prefs.getBool(PrefNames.isLogin) ?? false) {
+        context.pushReplacementNamed(RouteNames.main);
+      } else {
+        context.pushReplacementNamed(RouteNames.onBoarding);
+      }
+    });
   }
 
   @override
@@ -59,14 +69,12 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Stack(
             children: <Widget>[
               // getVideoBackground(),
-      
-               Image.asset('assets/images/splash_video.gif',
-                  height: double.infinity,
-                  fit: BoxFit.cover),           
+
+              Image.asset('assets/images/splash_video.gif',
+                  height: double.infinity, fit: BoxFit.cover),
             ],
           ),
         ),
-       
       ),
     );
   }

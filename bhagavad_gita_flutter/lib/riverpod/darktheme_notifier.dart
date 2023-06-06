@@ -7,33 +7,16 @@ final themeNotifierProvider = NotifierProvider<ThemeNotifier, ThemeMode>(() {
 });
 
 class ThemeNotifier extends Notifier<ThemeMode> {
-  ThemeMode? themeMode = ThemeMode.dark;
+  ThemeMode? themeMode = ThemeMode.light;
 
   void changeTheme() {
-    if (themeMode == ThemeMode.dark) {
-      state = ThemeMode.light;
-    } else {
+    if (themeMode == ThemeMode.light) {
       state = ThemeMode.dark;
+    } else {
+      state = ThemeMode.light;
     }
     state = themeMode!;
   }
-
-  // void toggleSwitch(bool value) {
-  //   if (isSwitched == false) {
-  //     setState(() {
-  //       isSwitched = true;
-  //       textValue = 'Switch Button is ON';
-  //     });
-  //     log('Switch Button is ON');
-  //   } else {
-  //     setState(() {
-  //       isSwitched = false;
-  //       textValue = 'Switch Button is OFF';
-  //     });
-  //     log('Switch Button is OFF');
-  //   }
-
-  // }
 
   @override
   build() {

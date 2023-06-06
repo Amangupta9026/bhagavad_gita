@@ -1,3 +1,4 @@
+import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/widget/alertdialogbox.dart';
@@ -6,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../utils/file_collection.dart';
+import '../../widget/toast_widget.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({super.key});
@@ -46,7 +48,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     },
                     value:
                         ref.watch(themeNotifierProvider.notifier).themeMode ==
-                            ThemeMode.dark,
+                            ThemeMode.light,
                     activeColor: primaryColor,
                     activeTrackColor: Colors.orange[400],
                     inactiveThumbColor: Colors.grey,
@@ -104,7 +106,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
             leading: const Icon(Icons.logout),
             title: const Text('LogOut'),
             onTap: () {
-              Navigator.pop(context);
+              Prefs.clear();
+              toast('Logged Out Successfully');
+              context.pushNamed(RouteNames.signInScreen);
             },
           ),
         ],
