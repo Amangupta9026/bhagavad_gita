@@ -14,6 +14,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "43979308495-bbcauqcokmct0gheiutdrnjstno99mje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flashcoders.bhagavad_gita_ai",
+            "certificate_hash": "4d6534554ed7e48373d16d48eba44ef320bf52bc"
+          }
+        },
+        {
+          "client_id": "43979308495-e7qhi92n8qm8jgslunh8ojg0qm2nn30t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flashcoders.bhagavad_gita_ai",
+            "certificate_hash": "e0936e1fa72d4fdf859206f4161c017f8a17e2b6"
+          }
+        },
+        {
+          "client_id": "43979308495-vmd48a4ikt46iev4d69jjdu4vv6fdvjl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flashcoders.bhagavad_gita_ai",
+            "certificate_hash": "01f561c2cc0e33b1866a085c0d4c54791908e828"
+          }
+        },
+        {
           "client_id": "43979308495-ha3oou25ugibvb81ue7vpcfiaaokunrr.apps.googleusercontent.com",
           "client_type": 3
         }
