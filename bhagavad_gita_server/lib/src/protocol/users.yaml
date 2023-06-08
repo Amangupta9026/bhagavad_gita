@@ -1,6 +1,0 @@
-
-class: Users
-table: users
-
-fields:
-  phoneNumber: String
