@@ -81,7 +81,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ),
           ListTile(
             leading: const Icon(Icons.help),
-            title: const Text('About Us'),
+            title: const Text('About Gita'),
             onTap: () {
               Navigator.pop(context);
             },
@@ -101,6 +101,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   subject: 'Bhagwavad Gita',
                   'hey! check out this amazing Bhagwavad Gita app https://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
             },
+          ),
+          ListTile(
+            leading: const Icon(Icons.apps),
+            title: const Text('More App'),
+            onTap: () {},
           ),
           ListTile(
             leading: const Icon(Icons.logout),

@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_otp_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -21,10 +20,12 @@ class _SigninScreenState extends State<SigninScreen> {
   final TextEditingController mobileNumberController = TextEditingController();
   String mobileNumber = "";
   int? resendTokens;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   sendFirebaseOTP() async {
     try {
       EasyLoading.show(status: 'loading...');
+      auth.setSettings(forceRecaptchaFlow: true); // <-- here is the magic
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: mobileNumber,
         timeout: const Duration(seconds: 120),
@@ -33,6 +34,7 @@ class _SigninScreenState extends State<SigninScreen> {
         codeSent: (String verificationId, int? resendToken) async {
           resendTokens = resendToken;
           // Update the UI - wait for the user to enter the SMS code
+
           EasyLoading.dismiss();
 
           Navigator.push(
@@ -64,15 +66,17 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
-      bottomNavigationBar: 
-        Column(
+      floatingActionButton: SizedBox(
+        height: 150,
+        child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/images/flute1.png', height: 150),
           ],
         ),
-    
+      ),
       body: SafeArea(
         child: Form(
           key: formKey,
