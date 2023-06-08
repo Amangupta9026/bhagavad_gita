@@ -83,7 +83,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             leading: const Icon(Icons.help),
             title: const Text('About Gita'),
             onTap: () {
-              Navigator.pop(context);
+               context.pushNamed(RouteNames.aboutGita);
             },
           ),
           ListTile(

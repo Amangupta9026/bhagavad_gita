@@ -1,9 +1,13 @@
 import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_screen.dart';
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
+import 'package:bhagavad_gita_flutter/screen/drawer/about_gita_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/drawer/help.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/aarti/aarti_screen.dart';
+import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/divine_quotes/divine_quotes.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/ebook/ebook.dart';
+import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/ebook/ebook_detail_screen.dart';
+import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/video/video_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/main_screen.dart';
 import 'package:bhagavad_gita_flutter/splash_screen/splash_screen.dart';
@@ -86,7 +90,7 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.video,
     name: RouteNames.video,
     builder: (context, state) {
-      return const SigninScreen();
+      return const VideoScreen();
     },
   ),
   GoRoute(
@@ -100,28 +104,28 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.quotes,
     name: RouteNames.quotes,
     builder: (context, state) {
-      return const SigninScreen();
+      return const DivineQuotes();
     },
   ),
   GoRoute(
     path: RouteNames.articles,
     name: RouteNames.articles,
     builder: (context, state) {
-      return const SigninScreen();
+      return const DivineQuotes();
     },
   ),
   GoRoute(
     path: RouteNames.wallpaper,
     name: RouteNames.wallpaper,
     builder: (context, state) {
-      return const SigninScreen();
+      return const DivineQuotes();
     },
   ),
   GoRoute(
     path: RouteNames.favorite,
     name: RouteNames.favorite,
     builder: (context, state) {
-      return const SigninScreen();
+      return const DivineQuotes();
     },
   ),
   GoRoute(
@@ -129,6 +133,20 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     name: RouteNames.search,
     builder: (context, state) {
       return const SearchItemTextField();
+    },
+  ),
+  GoRoute(
+    path: RouteNames.ebookDetail,
+    name: RouteNames.ebookDetail,
+    builder: (context, state) {
+      return const EbookDetailScreen();
+    },
+  ),
+  GoRoute(
+    path: RouteNames.aboutGita,
+    name: RouteNames.aboutGita,
+    builder: (context, state) {
+      return const AboutGitaScreen();
     },
   ),
 ]);

@@ -1,4 +1,3 @@
-
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../utils/file_collection.dart';
@@ -8,7 +7,7 @@ void toast(String message) {
     msg: message,
     toastLength: Toast.LENGTH_SHORT,
     gravity: ToastGravity.BOTTOM,
-    backgroundColor: null,
+    backgroundColor: Colors.white,
     textColor: textColor,
     fontSize: 16.0,
   );

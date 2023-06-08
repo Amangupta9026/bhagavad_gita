@@ -55,39 +55,6 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(width: 10),
         ],
-        // bottom: PreferredSize(
-        //   preferredSize: const Size.fromHeight(50),
-        //   child: SizedBox(
-        //     height: 50,
-        //     child: ListView.builder(
-        //       scrollDirection: Axis.horizontal,
-        //       itemCount: 5,
-        //       itemBuilder: (context, index) {
-        //         return InkWell(
-        //           onTap: () {},
-        //           child: Container(
-        //             margin: const EdgeInsets.all(5),
-        //             padding: const EdgeInsets.all(5),
-        //             decoration: BoxDecoration(
-        //               borderRadius: BorderRadius.circular(10),
-        //               color: Colors.orange[800],
-        //             ),
-        //             child: Center(
-        //               child: Text(
-        //                 '${index + 1}',
-        //                 style: const TextStyle(
-        //                   color: Colors.white,
-        //                   fontSize: 20,
-        //                   fontWeight: FontWeight.bold,
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         );
-        //       },
-        //     ),
-        //   ),
-        // ),
       ),
       body: SafeArea(
           child: SingleChildScrollView(

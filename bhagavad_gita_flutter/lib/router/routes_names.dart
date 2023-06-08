@@ -15,6 +15,8 @@ class RouteNames {
   static const String wallpaper = '/wallpaper';
   static const String favorite = '/favorite';
   static const String search = '/search';
+  static const String ebookDetail = '/ebookDetail';
+  static const String aboutGita = '/aboutGita';
 
  
   

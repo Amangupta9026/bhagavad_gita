@@ -8,7 +8,8 @@ class HomeBanner extends StatelessWidget {
     "assets/images/board2.jpg",
     "assets/images/board3.jpg",
     "assets/images/board5.jpg",
-    "assets/images/board6.jpg",
+    "assets/images/bg21.jpg",
+    "assets/images/bg24.jpg",
     "assets/images/board7.jpg",
   ];
 

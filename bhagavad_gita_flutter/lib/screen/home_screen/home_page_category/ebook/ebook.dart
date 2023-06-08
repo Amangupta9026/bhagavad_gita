@@ -10,7 +10,7 @@ class EbookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
+        backgroundColor: Colors.white,
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: AppBarHeader(
@@ -19,27 +19,35 @@ class EbookScreen extends StatelessWidget {
         ),
         body: SafeArea(
             child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8, 8, 15),
+          child: Column(
+            children: [
+              Container(
+                color: backgroundColor,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 15),
                   child: InkWell(
                       onTap: () => context.pushNamed(RouteNames.ebook),
                       child: const SearchItemTextField()),
                 ),
-                ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 10,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.fromLTRB(6.0, 8, 6, 8),
+              ),
+              ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 40),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(6.0, 8, 6, 8),
+                      child: InkWell(
+                        onTap: () {
+                          context.pushNamed(
+                            RouteNames.ebookDetail,
+                          );
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: primaryLightColor),
+                            border: Border.all(color: Colors.grey[500]!),
                           ),
                           child: Column(children: [
                             Row(
@@ -52,19 +60,19 @@ class EbookScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Image.asset(
-                                          'assets/images/board3.jpg',
-                                          //ebookList[index].image,
-
-                                          fit: BoxFit.cover,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              3,
+                                        ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                              bottomLeft: Radius.circular(9),
+                                              topLeft: Radius.circular(9)),
+                                          child: Image.asset(
+                                            'assets/images/board3.jpg',
+                                            //ebookList[index].image,
+                                          ),
                                         ),
                                       ],
                                     ),
                                   ),
+                                  const SizedBox(width: 15),
                                   Expanded(
                                     flex: 3,
                                     child: Column(
@@ -75,7 +83,7 @@ class EbookScreen extends StatelessWidget {
                                       children: [
                                         const SizedBox(height: 8),
                                         Container(
-                                          padding: const EdgeInsets.all(7),
+                                          padding: const EdgeInsets.all(5),
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -93,12 +101,12 @@ class EbookScreen extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 8),
                                         const Text(
-                                            'Bhagavad Gita is a part of the 5th Veda (written by Vedavyasa - ancient Indian saint) and Indian Epic - Mahabharata. It was narrated for the first time in the battle of Kurukshetra, by Lord Krishna to Arjun. The Bhagavad Gita, also referred to as Gita, is a 700–verse Dharmic scripture that is part of the ancient Sanskrit epic Mahabharata. This scripture contains a conversation between Pandava prince Arjuna and his guide Krishna on a variety of philosophical issues. Faced with a fratricidal war, a despondent Arjuna turns to his charioteer Krishna for counsel on the battlefield. Krishna, through the course of the Bhagavad Gita, imparts to Arjuna wisdom, the path to devotion, and the doctrine of selfless action. The Bhagavad Gita upholds the essence and the philosophical tradition of the Upanishads. However, unlike the rigorous monism of the Upanishads, the Bhagavad Gita also integrates dualism and theism.',
+                                            'श्रीमद्भगवद्‌गीता हिन्दुओं के पवित्रतम ग्रन्थों में से एक है। महाभारत के अनुसार कुरुक्षेत्र युद्ध में भगवान श्री कृष्ण ने गीता का सन्देश अर्जुन को सुनाया था।',
                                             maxLines: 3,
                                             style: TextStyle(
-                                              fontSize: 10,
+                                              fontSize: 11,
                                               color: textColor,
-                                              fontWeight: FontWeight.w400,
+                                              fontWeight: FontWeight.w500,
                                             )),
                                       ],
                                     ),
@@ -106,10 +114,10 @@ class EbookScreen extends StatelessWidget {
                                 ]),
                           ]),
                         ),
-                      );
-                    }),
-              ],
-            ),
+                      ),
+                    );
+                  }),
+            ],
           ),
         )));
   }

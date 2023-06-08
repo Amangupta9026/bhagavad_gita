@@ -31,8 +31,16 @@ class SelectCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-      ),
+          border: Border(
+        right: BorderSide(
+          width: 1.2,
+          color: Colors.grey.shade300,
+        ),
+        bottom: BorderSide(
+          width: 1.2,
+          color: Colors.grey.shade300,
+        ),
+      )),
       child: InkWell(
         onTap: () {
           log(choice?.title.toString() ?? '');

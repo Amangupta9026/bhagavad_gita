@@ -1,9 +1,8 @@
-import 'package:bhagavad_gita_flutter/router/routes_names.dart';
-import 'package:bhagavad_gita_flutter/utils/colors.dart';
+import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../router/routes_names.dart';
 import 'Info.dart';
 import 'my_painter.dart';
 
@@ -21,8 +20,60 @@ class _MyPageThreeState extends State<MyPageThree> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      backgroundColor: textColor,
-      body: SizedBox(
+      bottomNavigationBar: Container(
+        height: 50,
+        decoration: AppUtils.decoration1(),
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: SizeConfig.blockSizeHorizontal * 14,
+              right: SizeConfig.blockSizeHorizontal * 14),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                children: [
+                  CircleAvatar(
+                    radius: SizeConfig.blockSizeHorizontal * 1.4,
+                    backgroundColor: const Color(0xffE0E0E0),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal * 4,
+                  ),
+                  CircleAvatar(
+                    radius: SizeConfig.blockSizeHorizontal * 1.4,
+                    backgroundColor: const Color(0xffE0E0E0),
+                  ),
+                  SizedBox(
+                    width: SizeConfig.blockSizeHorizontal * 4,
+                  ),
+                  CircleAvatar(
+                    radius: SizeConfig.blockSizeHorizontal * 1.8,
+                    backgroundColor: const Color(0xffB0BEC5),
+                  ),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  context.pushReplacementNamed(RouteNames.signInScreen);
+                },
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 0),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        fontFamily: 'Sofia',
+                        fontSize: SizeConfig.blockSizeHorizontal * 4.4,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.4,
+                        color: textColor,
+                      ),
+                    )),
+              )
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
         child: Stack(
           children: <Widget>[
             Container(
@@ -32,62 +83,20 @@ class _MyPageThreeState extends State<MyPageThree> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 6,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.blockSizeHorizontal * 6.4,
-                      right: SizeConfig.blockSizeHorizontal * 6.4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        '',
-                        style: TextStyle(
-                            fontFamily: 'Header',
-                            fontSize: SizeConfig.blockSizeHorizontal * 5.2,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.2,
-                            color: const Color(0xff757575)),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          context.pushReplacementNamed(RouteNames.signInScreen);
-                        },
-                        child: Text(
-                          'Skip',
-                          style: TextStyle(
-                            fontFamily: 'Sofia',
-                            fontSize: SizeConfig.blockSizeHorizontal * 4.4,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.4,
-                            color: textColor,
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical,
-                ),
                 Center(
                   child: Image.asset(
-                    'assets/images/board3.jpg',
-                    fit: BoxFit.contain,
-                    width: SizeConfig.screenWidth,
-                    height: SizeConfig.blockSizeVertical! * 44,
+                    'assets/images/board6.jpg',
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    // height: MediaQuery.of(context).size.height / 3.6,
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 4,
-                ),
+                const SizedBox(height: 30),
                 Padding(
                   padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    "Life Lessons",
+                    "Lesson of Bhagwavad Gita",
                     style: TextStyle(
                       fontFamily: 'Sofia',
                       fontSize: SizeConfig.blockSizeHorizontal * 5.4,
@@ -97,29 +106,15 @@ class _MyPageThreeState extends State<MyPageThree> {
                     ),
                   ),
                 ),
-                SizedBox(height: SizeConfig.blockSizeVertical),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.blockSizeHorizontal * 14),
-                  child: Text(
-                    "The Voice of the Lord",
-                    style: TextStyle(
-                      fontFamily: 'Sofia',
-                      fontSize: SizeConfig.blockSizeHorizontal * 5.4,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.4,
-                      color: textColor,
-                    ),
-                  ),
-                ),
-                SizedBox(height: SizeConfig.blockSizeVertical! * 2),
+                const SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.only(
                       left: SizeConfig.blockSizeHorizontal * 14,
                       right: SizeConfig.blockSizeHorizontal * 14),
                   child: Text(
-                    'The world is perishable and whoever comes to this world surely has to go one day. The soul can never be destroyed. Always remember you are a soul, not a body. Death is just the passing of the soul from the material world to the spirit realm.',
+                    'The Bhagwavad Gita gives the lesson of harmony of all the other yoga systems with the ultimate goal – surrender to Krishna, known as Bhakti Yoga. Also, we have imbibed the deep knowledge by this Book and the last portion of this book is knows as (Upanishads). The intellectual power we acquired and the knowledge includes in the Upanishads is not only the highest state of human intelligence but also gives us a glimpse of how a man can experience beyond his limits of intellect',
                     style: TextStyle(
+                      fontFamily: 'Sofia',
                       fontSize: SizeConfig.blockSizeHorizontal * 3.8,
                       fontWeight: FontWeight.w400,
                       letterSpacing: 0.4,
@@ -127,36 +122,6 @@ class _MyPageThreeState extends State<MyPageThree> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical! * 13,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      left: SizeConfig.blockSizeHorizontal * 14,
-                      right: SizeConfig.blockSizeHorizontal * 14),
-                  child: Row(
-                    children: <Widget>[
-                      CircleAvatar(
-                        radius: SizeConfig.blockSizeHorizontal * 1.4,
-                        backgroundColor: const Color(0xffE0E0E0),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 4,
-                      ),
-                      CircleAvatar(
-                        radius: SizeConfig.blockSizeHorizontal * 1.8,
-                        backgroundColor: const Color(0xffB0BEC5),
-                      ),
-                      SizedBox(
-                        width: SizeConfig.blockSizeHorizontal * 4,
-                      ),
-                      CircleAvatar(
-                        radius: SizeConfig.blockSizeHorizontal * 1.4,
-                        backgroundColor: const Color(0xffE0E0E0),
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           ],

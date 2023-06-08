@@ -1,11 +1,11 @@
-import 'package:bhagavad_gita_flutter/router/routes_names.dart';
-import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
-import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
 import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 
-class AudioScreen extends StatelessWidget {
-  const AudioScreen({super.key});
+import '../../../../utils/colors.dart';
+import '../../../../widget/app_bar_header.dart';
+
+class VideoScreen extends StatelessWidget {
+  const VideoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class AudioScreen extends StatelessWidget {
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBarHeader(
-          text: 'Bhakti Audio',
+          text: 'Video',
         ),
       ),
       body: SafeArea(
@@ -25,11 +25,9 @@ class AudioScreen extends StatelessWidget {
             children: [
               Container(
                 color: backgroundColor,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 8, 8, 15),
-                  child: InkWell(
-                      onTap: () => context.pushNamed(RouteNames.ebook),
-                      child: const SearchItemTextField()),
+                child: const Padding(
+                  padding: EdgeInsets.fromLTRB(8.0, 8, 8, 15),
+                  child: InkWell(onTap: null, child: SearchItemTextField()),
                 ),
               ),
               ListView.builder(
@@ -59,10 +57,12 @@ class AudioScreen extends StatelessWidget {
                           const Icon(Icons.play_circle_outline_rounded,
                               size: 40, color: Colors.black)
                         ]),
-                        const Divider(height: 30, thickness: 1)
+                        const Divider(
+                          color: Colors.grey,
+                        )
                       ],
                     );
-                  })
+                  }),
             ],
           ),
         ),
