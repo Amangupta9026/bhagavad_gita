@@ -33,13 +33,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
-  bhagavad_gita_client:
-    dependency: "direct main"
-    description:
-      path: "../bhagavad_gita_client"
-      relative: true
-    source: path
-    version: "0.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -88,22 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.17.1"
-  connectivity_plus:
-    dependency: transitive
-    description:
-      name: connectivity_plus
-      sha256: b74247fad72c171381dbe700ca17da24deac637ab6d43c343b42867acb95c991
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.6"
-  connectivity_plus_platform_interface:
-    dependency: transitive
-    description:
-      name: connectivity_plus_platform_interface
-      sha256: cf1d1c28f4416f8c654d7dc3cd638ec586076255d407cef3ddbdaf178272a71a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.4"
   convert:
     dependency: transitive
     description:
@@ -176,6 +153,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
+  firebase_app_check:
+    dependency: "direct main"
+    description:
+      name: firebase_app_check
+      sha256: "77cce0df447c33bb4bd3f28ec09fada9126c78eea0eb6381add3e06bd3f195cc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4+2"
+  firebase_app_check_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_app_check_platform_interface
+      sha256: "7b6998a5f41dd68f87afb2c1e885f83eb1b70e91de0dfe8ef25a4f8ee457f9d4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.8+2"
+  firebase_app_check_web:
+    dependency: transitive
+    description:
+      name: firebase_app_check_web
+      sha256: "6e64f5d8a9a326a405542d59f2ec0ae1f77124175096b2232f749fdab4d0c3df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.10+2"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -487,14 +488,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
-  nm:
-    dependency: transitive
-    description:
-      name: nm
-      sha256: "2c9aae4127bdc8993206464fcc063611e0e36e72018696cd9631023a31b24254"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
   path:
     dependency: transitive
     description:
@@ -623,30 +616,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  serverpod_client:
-    dependency: transitive
-    description:
-      name: serverpod_client
-      sha256: "27bf49f7f24c029270623030cd9f120f3be99c36c56cb5dac976e5aa78509f28"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
-  serverpod_flutter:
-    dependency: "direct main"
-    description:
-      name: serverpod_flutter
-      sha256: ed4c5d33cbd832c2e3b9b5242dbd327444faa0f5d4783650889daccbe0fbe76a
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
-  serverpod_serialization:
-    dependency: transitive
-    description:
-      name: serverpod_serialization
-      sha256: f4ccf17387f6a5a251a0234acca77ce1cb22212987987637668876c394929cb7
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.1.1"
   share_plus:
     dependency: "direct main"
     description:
@@ -900,14 +869,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.16"
-  web_socket_channel:
-    dependency: transitive
-    description:
-      name: web_socket_channel
-      sha256: d88238e5eac9a42bb43ca4e721edba3c08c6354d4a53063afaa568516217621b
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.4.0"
   win32:
     dependency: transitive
     description:

@@ -1,4 +1,4 @@
-import 'package:bhagavad_gita_client/bhagavad_gita_client.dart';
+
 import 'package:bhagavad_gita_flutter/firebase_options.dart';
 import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
 import 'package:bhagavad_gita_flutter/router/app_route.dart';
@@ -7,12 +7,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 import 'local/prefs.dart';
 
-var client = Client('http://localhost:8080/')
-  ..connectivityMonitor = FlutterConnectivityMonitor();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
