@@ -19,6 +19,7 @@ import 'package:go_router/go_router.dart';
 import '../auth/borading_slider/on_boarding.dart';
 import '../local/pref_names.dart';
 import '../screen/home_screen/home_page_category/audio/audio.dart';
+import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
 
 bool isUserLogin = Prefs.getBool(PrefNames.isLogin) ?? false;
 
@@ -120,7 +121,7 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.wallpaper,
     name: RouteNames.wallpaper,
     builder: (context, state) {
-      return const DivineQuotes();
+      return const WallpaperScreen();
     },
   ),
   GoRoute(

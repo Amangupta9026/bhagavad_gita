@@ -99,7 +99,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             onTap: () {
               Share.share(
                   subject: 'Bhagwavad Gita',
-                  'hey! check out this amazing Bhagwavad Gita app https://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+                  'hey! check out this amazing Bhagwavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
             },
           ),
           ListTile(

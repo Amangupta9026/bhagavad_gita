@@ -1,13 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/colors.dart';
 import '../../widget/app_bar_header.dart';
+import '../admin_riverpod/admin_wallpaper_notifier.dart';
 
-class AdminWallpaper extends StatelessWidget {
+class AdminWallpaper extends ConsumerWidget {
   const AdminWallpaper({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(adminWallpaperNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -32,17 +37,51 @@ class AdminWallpaper extends StatelessWidget {
             const SizedBox(height: 20),
 
             //Gallery Icon
-            Container(
-              height: 200,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10),
+            InkWell(
+              onTap: () => data.selectImages(),
+              child: Container(
+                height: 200,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(
+                  Icons.photo,
+                  size: 100,
+                  color: Colors.grey,
+                ),
               ),
-              child: const Icon(
-                Icons.photo,
-                size: 100,
-                color: Colors.grey,
+            ),
+
+            const SizedBox(height: 20),
+           if (data.imageFileList!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Text('Selected Images: ${data.imageFileList?.length}',
+                      style: const TextStyle(
+                          fontSize: 18,
+                          color: textColor,
+                          fontWeight: FontWeight.w600)),
+                  const SizedBox(height: 20),
+                  GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.imageFileList?.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Image.file(
+                          File(data.imageFileList?[index].path ?? ''),
+                          fit: BoxFit.cover,
+                        );
+                      }),
+                ],
               ),
             ),
 

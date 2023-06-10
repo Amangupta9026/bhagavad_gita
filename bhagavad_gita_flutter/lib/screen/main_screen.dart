@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Messaging.showMessage();
-    UpdateChecker.checkForUpdate();
+   // UpdateChecker.checkForUpdate();
     return Scaffold(
       bottomNavigationBar: BottomBarDoubleBullet(
         selectedIndex: 0,
