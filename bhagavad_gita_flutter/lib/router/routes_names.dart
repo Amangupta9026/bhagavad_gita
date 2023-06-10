@@ -13,6 +13,7 @@ class RouteNames {
   static const String quotes = '/quotes';
   static const String articles = '/articles';
   static const String wallpaper = '/wallpaper';
+  static const String wallpaperImage = '/wallpaperImage';
   static const String favorite = '/favorite';
   static const String search = '/search';
   static const String ebookDetail = '/ebookDetail';

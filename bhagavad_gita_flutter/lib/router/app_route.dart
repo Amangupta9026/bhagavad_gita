@@ -20,6 +20,7 @@ import '../auth/borading_slider/on_boarding.dart';
 import '../local/pref_names.dart';
 import '../screen/home_screen/home_page_category/audio/audio.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
+import '../screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
 
 bool isUserLogin = Prefs.getBool(PrefNames.isLogin) ?? false;
 
@@ -124,6 +125,18 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
       return const WallpaperScreen();
     },
   ),
+
+  GoRoute(
+    path: RouteNames.wallpaperImage,
+    name: RouteNames.wallpaperImage,
+    builder: (context, state) {
+      final imageUrl = state.extra as String?;
+      return WallpaperImage(
+        imageUrl: imageUrl,
+      );
+    },
+  ),
+
   GoRoute(
     path: RouteNames.favorite,
     name: RouteNames.favorite,

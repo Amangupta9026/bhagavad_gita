@@ -1,13 +1,13 @@
-import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
+import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class WallpaperScreen extends StatelessWidget {
-  final String? imageUrl;
-  const WallpaperScreen({super.key, this.imageUrl});
+  const WallpaperScreen({super.key});
 
-  imagedata(width, height, imageUrl) {
+  CachedNetworkImage imagedata(width, height, imageUrl) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       width: width,
@@ -56,18 +56,21 @@ class WallpaperScreen extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  var image = imagedata(
+                  CachedNetworkImage image = imagedata(
                     width,
                     height,
                     "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
                   );
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WallpaperImage(
-                                image: image,
-                                imageUrl: imageUrl,
-                              )));
+                  context.pushNamed(RouteNames.wallpaperImage,
+                      extra:
+                          'https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg');
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => WallpaperImage(
+                  //               image: image,
+                  //               imageUrl: imageUrl,
+                  //             )));
                 },
                 child: imagedata(
                   width,

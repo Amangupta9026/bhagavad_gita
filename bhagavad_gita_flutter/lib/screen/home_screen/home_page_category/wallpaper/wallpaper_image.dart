@@ -10,9 +10,9 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:share_plus/share_plus.dart';
 
 class WallpaperImage extends StatelessWidget {
-  final Widget? image;
+
   final String? imageUrl;
-  const WallpaperImage({Key? key, this.image, this.imageUrl}) : super(key: key);
+  const WallpaperImage({Key? key, this.imageUrl}) : super(key: key);
 
   save() async {
     EasyLoading.show(status: 'downloading...');
@@ -70,7 +70,7 @@ class WallpaperImage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: InteractiveViewer(
-                child: image!,
+                child: Image.network(imageUrl!),
               ),
             ),
           ),
