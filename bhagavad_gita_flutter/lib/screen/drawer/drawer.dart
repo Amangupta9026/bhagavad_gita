@@ -105,7 +105,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ListTile(
             leading: const Icon(Icons.apps),
             title: const Text('More App'),
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RouteNames.moreApps);
+            },
           ),
           ListTile(
             leading: const Icon(Icons.logout),

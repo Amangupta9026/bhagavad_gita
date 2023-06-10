@@ -17,7 +17,18 @@ class RouteNames {
   static const String search = '/search';
   static const String ebookDetail = '/ebookDetail';
   static const String aboutGita = '/aboutGita';
+  static const String moreApps = '/moreApps';
 
- 
+
+  //Admin Panel
+  static const String adminPanel = '/adminPanel';
+  static const String adminEbook = '/adminEbook';
+  static const String adminAudio = '/adminAudio';
+  static const String adminVideo = '/adminVideo';
+  static const String adminAarti = '/adminAarti';
+  static const String adminQuotes = '/adminQuotes';
+  static const String adminArticles = '/adminArticles';
+  static const String adminWallpaper = '/adminWallpaper'; 
+  static const String adminMoreApps = '/adminMoreApps'; 
   
 }

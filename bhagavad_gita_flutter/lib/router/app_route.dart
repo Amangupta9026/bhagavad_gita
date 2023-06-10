@@ -1,8 +1,10 @@
+import 'package:bhagavad_gita_flutter/admin_panel/admin_routes.dart';
 import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_screen.dart';
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/screen/drawer/about_gita_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/drawer/help.dart';
+import 'package:bhagavad_gita_flutter/screen/drawer/more_app.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/aarti/aarti_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/divine_quotes/divine_quotes.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/ebook/ebook.dart';
@@ -149,4 +151,16 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
       return const AboutGitaScreen();
     },
   ),
+  GoRoute(
+    path: RouteNames.moreApps,
+    name: RouteNames.moreApps,
+    builder: (context, state) {
+      return const MoreApps();
+    },
+  ),
+
+
+// Admin Routes
+  ...adminRoutes,
+
 ]);

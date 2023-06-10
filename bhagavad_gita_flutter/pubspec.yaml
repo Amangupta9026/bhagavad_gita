@@ -35,6 +35,7 @@ dependencies:
   flutter_riverpod: ^2.3.6
   fluttertoast: ^8.2.2
   firebase_app_check: ^0.1.4+2
+  url_launcher: ^6.1.11
 
 flutter_launcher_icons:
   android: "launcher_icon"

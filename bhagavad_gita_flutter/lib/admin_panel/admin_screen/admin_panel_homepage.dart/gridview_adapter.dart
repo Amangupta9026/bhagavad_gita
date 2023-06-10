@@ -1,31 +1,28 @@
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
-import 'package:bhagavad_gita_flutter/utils/global_admin_list.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../utils/file_collection.dart';
+import '../../../utils/file_collection.dart';
 
-class Choice {
-  const Choice({this.title, this.icon});
+class AdminPanelChoice {
+  const AdminPanelChoice({this.title, this.icon});
   final String? title;
   final IconData? icon;
 }
 
-const List<Choice> choices = <Choice>[
-  Choice(title: 'E-Books', icon: Icons.copy),
-  Choice(title: 'Audio', icon: Icons.music_note),
-  Choice(title: 'Video', icon: Icons.video_call),
-  Choice(title: 'Aarti', icon: Icons.music_note),
-  Choice(title: 'Divine Quotes', icon: Icons.note),
-  Choice(title: 'Articles', icon: Icons.article),
-  Choice(title: 'Wallpaper', icon: Icons.wallpaper),
-  Choice(title: 'My Faviorite', icon: Icons.favorite),
-  Choice(title: 'Admin Panel', icon: Icons.admin_panel_settings),
+const List<AdminPanelChoice> adminpanelchoices = <AdminPanelChoice>[
+  AdminPanelChoice(title: 'E-Books', icon: Icons.copy),
+  AdminPanelChoice(title: 'Audio', icon: Icons.music_note),
+  AdminPanelChoice(title: 'Video', icon: Icons.video_call),
+  AdminPanelChoice(title: 'Aarti', icon: Icons.music_note),
+  AdminPanelChoice(title: 'Divine Quotes', icon: Icons.note),
+  AdminPanelChoice(title: 'Articles', icon: Icons.article),
+  AdminPanelChoice(title: 'Wallpaper', icon: Icons.wallpaper),
+  AdminPanelChoice(title: 'More Apps', icon: Icons.apps),
 ];
 
-class SelectCard extends StatelessWidget {
-  const SelectCard({Key? key, this.choice}) : super(key: key);
-  final Choice? choice;
+class AdminPanelSelectCard extends StatelessWidget {
+  const AdminPanelSelectCard({Key? key, this.choice}) : super(key: key);
+  final AdminPanelChoice? choice;
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +42,21 @@ class SelectCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (choice?.title == 'E-Books') {
-            context.pushNamed(RouteNames.ebook);
+            context.pushNamed(RouteNames.adminEbook);
           } else if (choice?.title == 'Audio') {
-            context.pushNamed(RouteNames.audio);
+            context.pushNamed(RouteNames.adminAudio);
           } else if (choice?.title == 'Video') {
-            context.pushNamed(RouteNames.video);
+            context.pushNamed(RouteNames.adminVideo);
           } else if (choice?.title == 'Aarti') {
-            context.pushNamed(RouteNames.aarti);
+            context.pushNamed(RouteNames.adminAarti);
           } else if (choice?.title == 'Divine Quotes') {
-            context.pushNamed(RouteNames.quotes);
+            context.pushNamed(RouteNames.adminQuotes);
           } else if (choice?.title == 'Articles') {
-            context.pushNamed(RouteNames.articles);
+            context.pushNamed(RouteNames.adminArticles);
           } else if (choice?.title == 'Wallpaper') {
-            context.pushNamed(RouteNames.wallpaper);
-          } else if (choice?.title == 'My Faviorite') {
-            context.pushNamed(RouteNames.favorite);
-          } else if (adminList
-                  .contains(FirebaseAuth.instance.currentUser?.phoneNumber) &&
-              choice?.title == 'Admin Panel') {
-            context.pushNamed(RouteNames.adminPanel);
+            context.pushNamed(RouteNames.adminWallpaper);
+          } else if (choice?.title == 'More Apps') {
+            context.pushNamed(RouteNames.adminMoreApps);
           } else {}
         },
         child: Padding(
