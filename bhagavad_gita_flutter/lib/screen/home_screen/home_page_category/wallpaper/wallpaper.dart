@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 class WallpaperScreen extends StatelessWidget {
   const WallpaperScreen({super.key});
 
-  CachedNetworkImage imagedata(width, height, imageUrl) {
+  imagedata(width, height, imageUrl) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
       width: width,
@@ -56,21 +56,13 @@ class WallpaperScreen extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  CachedNetworkImage image = imagedata(
+                  var image = imagedata(
                     width,
                     height,
                     "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
                   );
-                  context.pushNamed(RouteNames.wallpaperImage,
-                      extra:
-                          'https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg');
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => WallpaperImage(
-                  //               image: image,
-                  //               imageUrl: imageUrl,
-                  //             )));
+                  context.pushNamed(RouteNames.wallpaperImage, extra: image);
+                 
                 },
                 child: imagedata(
                   width,

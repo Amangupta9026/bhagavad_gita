@@ -13,6 +13,7 @@ import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/vide
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/main_screen.dart';
 import 'package:bhagavad_gita_flutter/splash_screen/splash_screen.dart';
+import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
 import 'package:go_router/go_router.dart';
 
@@ -130,7 +131,7 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.wallpaperImage,
     name: RouteNames.wallpaperImage,
     builder: (context, state) {
-      final imageUrl = state.extra as String?;
+      final imageUrl = state.extra as Widget?;
       return WallpaperImage(
         imageUrl: imageUrl,
       );

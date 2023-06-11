@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, unused_local_variable
 
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +9,7 @@ import 'package:share_plus/share_plus.dart';
 
 class WallpaperImage extends StatelessWidget {
 
-  final String? imageUrl;
+  final Widget? imageUrl;
   const WallpaperImage({Key? key, this.imageUrl}) : super(key: key);
 
   save() async {
@@ -51,7 +49,7 @@ class WallpaperImage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () async {
-                log(imageUrl ?? '');
+                // log(imageUrl ?? '');
                 await save();
               },
             ),
@@ -70,7 +68,7 @@ class WallpaperImage extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               child: InteractiveViewer(
-                child: Image.network(imageUrl!),
+                child: imageUrl!,
               ),
             ),
           ),
