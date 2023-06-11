@@ -73,9 +73,10 @@ class AdminWallpaper extends ConsumerWidget {
                         itemCount: imageList.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10),
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
@@ -84,19 +85,38 @@ class AdminWallpaper extends ConsumerWidget {
                             child: Stack(
                               clipBehavior: Clip.none,
                               children: [
-                                Image.file(
-                                  File(imageList[index].path),
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
+                                Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: primaryColor,
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: Image.file(
+                                    File(imageList[index].path),
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
                                 ),
-                                const Positioned.fill(
-                                  top: -8,
-                                  right: -8,
+                                Positioned.fill(
+                                  top: -4,
+                                  right: -4,
                                   child: Align(
                                     alignment: Alignment.topRight,
-                                    child: Icon(
-                                      Icons.cancel,
-                                      color: primaryColor,
+                                    child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: primaryColor,
+                                      ),
+                                      child: const Center(
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 )
