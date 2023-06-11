@@ -42,7 +42,6 @@ class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
   }
 
   Future<void> wallpaperSubmit(BuildContext context) async {
-    EasyLoading.show(status: 'loading...');
     try {
       final wallpaperSnapShot = await FirebaseFirestore.instance
           .collection('wallpaper')
@@ -59,31 +58,39 @@ class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
         'server_time': FieldValue.serverTimestamp(),
       });
       if (_imageFileList.isNotEmpty) {
-        sendFileImage(wallpaperId);
+        sendFileImage(wallpaperId, context);
       }
-      context.pushNamed(RouteNames.main);
-      toast("Wallpaper Added Successfully");
     } catch (e) {
       log("$e");
     }
-    EasyLoading.dismiss();
   }
 
-  void sendFileImage(int wallpaperId) async {
+  void sendFileImage(int wallpaperId, BuildContext context) async {
+    EasyLoading.show(status: 'loading...');
     final ref = FirebaseStorage.instance
         .ref()
         .child('wallpaper')
         .child(wallpaperId.toString());
+    List<String> imageUrls = [];
     for (int i = 0; i < _imageFileList.length; i++) {
-      await ref.child(i.toString()).putFile(File(_imageFileList[i].path));
+      final imageUrl =
+          await ref.child(i.toString()).putFile(File(_imageFileList[i].path));
+      imageUrls.add(imageUrl.toString());
+      final getUrl = await imageUrl.ref.getDownloadURL();
+      imageUrls.add(getUrl);
+      log('urlget $imageUrls');
 
-      // final url = await ref.getDownloadURL();
+      //  final url = await ref.getDownloadURL();
       // await FirebaseFirestore.instance
       //     .collection('wallpaper')
       //     .doc(wallpaperId.toString())
       //     .update({
-      //   'url': url,
+      //   'url': getUrl,
       // });
+
+      EasyLoading.dismiss();
+      context.pushNamed(RouteNames.main);
+      toast("Wallpaper Added Successfully");
     }
 
     //  await ref. putFile(File(_imageFileList.first.path));
