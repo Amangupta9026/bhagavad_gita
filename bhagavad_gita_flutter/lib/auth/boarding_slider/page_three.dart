@@ -3,7 +3,7 @@ import 'package:bhagavad_gita_flutter/utils/utils.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../router/routes_names.dart';
-import 'Info.dart';
+import 'info.dart';
 import 'my_painter.dart';
 
 class MyPageThree extends StatefulWidget {

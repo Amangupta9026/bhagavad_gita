@@ -16,7 +16,7 @@ import 'package:bhagavad_gita_flutter/splash_screen/splash_screen.dart';
 import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
 import 'package:go_router/go_router.dart';
 
-import '../auth/borading_slider/on_boarding.dart';
+import '../auth/boarding_slider/on_boarding.dart';
 import '../local/pref_names.dart';
 import '../screen/home_screen/home_page_category/audio/audio.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';

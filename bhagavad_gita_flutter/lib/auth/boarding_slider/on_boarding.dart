@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:bhagavad_gita_flutter/auth/borading_slider/page_three.dart';
+import 'package:bhagavad_gita_flutter/auth/boarding_slider/page_three.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 

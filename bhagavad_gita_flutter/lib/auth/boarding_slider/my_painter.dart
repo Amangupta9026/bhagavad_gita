@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Info.dart';
+import 'info.dart';
 
 class MyPainter extends StatelessWidget {
  final Color color;

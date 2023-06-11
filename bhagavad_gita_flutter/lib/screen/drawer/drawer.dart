@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
@@ -49,9 +47,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     onChanged: (value) {
                       refRead.changeTheme();
                     },
-                    value:
-                        ref.watch(themeNotifierProvider).value ==
-                            ThemeMode.light,
+                    value: ref.watch(themeNotifierProvider).value ==
+                        ThemeMode.light,
                     activeColor: primaryColor,
                     activeTrackColor: Colors.orange[400],
                     inactiveThumbColor: Colors.grey,
