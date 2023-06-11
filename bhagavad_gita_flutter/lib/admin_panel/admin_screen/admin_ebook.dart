@@ -11,7 +11,7 @@ class AdminEbook extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(eBookNotifierProvider.notifier);
+    final data = ref.watch(eBookNotifierProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -36,7 +36,7 @@ class AdminEbook extends ConsumerWidget {
             Consumer(builder: (context, ref, child) {
               return TextFormFieldWidget(
                 hinttext1: 'Book Name',
-                controller1: data.bookTitleController,
+                controller1: data.value?.bookTitleController,
               );
             }),
             const SizedBox(height: 20),
@@ -49,7 +49,7 @@ class AdminEbook extends ConsumerWidget {
             Consumer(builder: (context, ref, child) {
               return TextFormFieldWidget(
                 hinttext1: 'Book Image',
-                controller1: data.bookImageController,
+                controller1: data.value?.bookImageController,
               );
             }),
             const SizedBox(height: 20),
@@ -62,20 +62,20 @@ class AdminEbook extends ConsumerWidget {
             Consumer(builder: (context, ref, child) {
               return TextFormFieldWidget(
                 hinttext1: 'Book Content',
-                controller1: data.bookDescriptionController,
+                controller1: data.value?.bookDescriptionController,
               );
             }),
 
             const SizedBox(height: 50),
             //Button
             Consumer(builder: (context, ref, child) {
-              final data = ref.read(eBookNotifierProvider.notifier);
+              final refRead = ref.read(eBookNotifierProvider.notifier);
               return SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    data.addBook();
+                    refRead.addBook();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
