@@ -35,19 +35,19 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ),
           const SizedBox(height: 12),
           Consumer(builder: (context, ref, child) {
-            log(ref.watch(themeNotifierProvider).value.toString());
+            final refRead = ref.read(themeNotifierProvider.notifier);
             return ListTile(
               leading: const Icon(Icons.dark_mode),
               title: const Text('Dark Mode'),
               onTap: () {
-                ref.read(themeNotifierProvider.notifier).changeTheme();
+                refRead.changeTheme();
               },
               trailing: Transform.scale(
                   scale: 0.8,
                   child: Switch(
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     onChanged: (value) {
-                      ref.read(themeNotifierProvider.notifier).changeTheme();
+                      refRead.changeTheme();
                     },
                     value:
                         ref.watch(themeNotifierProvider).value ==
