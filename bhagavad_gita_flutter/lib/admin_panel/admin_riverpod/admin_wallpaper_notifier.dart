@@ -4,11 +4,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final adminWallpaperNotifierProvider =
-    NotifierProvider<AdminWallpaperNotifier, List<XFile>>(() {
+    AsyncNotifierProvider<AdminWallpaperNotifier, List<XFile>>(() {
   return AdminWallpaperNotifier();
 });
 
-class AdminWallpaperNotifier extends Notifier<List<XFile>> {
+class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
   @override
   List<XFile> build() {
     return _imageFileList;
@@ -23,11 +23,11 @@ class AdminWallpaperNotifier extends Notifier<List<XFile>> {
       _imageFileList.addAll(selectedImages);
     }
     log("Image List Length: ${_imageFileList.length}");
-    state = [..._imageFileList];
+    state =  AsyncData([..._imageFileList])   ;
   }
 
   void removeImage(int index) {
     _imageFileList.removeAt(index);
-    state = [..._imageFileList];
+    state = AsyncData([..._imageFileList])   ;
   }
 }

@@ -56,12 +56,12 @@ class AdminWallpaper extends ConsumerWidget {
             ),
 
             const SizedBox(height: 20),
-            if (imageList.isNotEmpty)
+            if (imageList.value?.isNotEmpty ?? false)
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text('Selected Images: ${imageList.length}',
+                    Text('Selected Images: ${imageList.value?.length ?? 0}',
                         style: const TextStyle(
                             fontSize: 18,
                             color: textColor,
@@ -70,7 +70,7 @@ class AdminWallpaper extends ConsumerWidget {
                     GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: imageList.length,
+                        itemCount: imageList.value?.length ?? 0,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
@@ -93,7 +93,7 @@ class AdminWallpaper extends ConsumerWidget {
                                     ),
                                   ),
                                   child: Image.file(
-                                    File(imageList[index].path),
+                                    File(imageList.value?[index].path ?? ""),
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
