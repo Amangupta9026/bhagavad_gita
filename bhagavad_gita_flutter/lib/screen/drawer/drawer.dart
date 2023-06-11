@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
@@ -33,6 +35,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ),
           const SizedBox(height: 12),
           Consumer(builder: (context, ref, child) {
+            log(ref.watch(themeNotifierProvider).value.toString());
             return ListTile(
               leading: const Icon(Icons.dark_mode),
               title: const Text('Dark Mode'),
@@ -47,7 +50,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ref.read(themeNotifierProvider.notifier).changeTheme();
                     },
                     value:
-                        ref.watch(themeNotifierProvider.notifier).themeMode ==
+                        ref.watch(themeNotifierProvider).value ==
                             ThemeMode.light,
                     activeColor: primaryColor,
                     activeTrackColor: Colors.orange[400],
@@ -83,7 +86,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             leading: const Icon(Icons.help),
             title: const Text('About Gita'),
             onTap: () {
-               context.pushNamed(RouteNames.aboutGita);
+              context.pushNamed(RouteNames.aboutGita);
             },
           ),
           ListTile(

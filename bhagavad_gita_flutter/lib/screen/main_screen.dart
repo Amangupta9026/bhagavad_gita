@@ -1,5 +1,4 @@
 import 'package:bhagavad_gita_flutter/auth/borading_slider/on_boarding.dart';
-import 'package:bhagavad_gita_flutter/in_app_update/in_app_update.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
 import 'package:bottom_bar_matu/bottom_bar_matu.dart';
 import 'package:flutter/cupertino.dart';

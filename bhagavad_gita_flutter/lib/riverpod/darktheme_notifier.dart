@@ -2,24 +2,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../utils/file_collection.dart';
 
-final themeNotifierProvider = NotifierProvider<ThemeNotifier, ThemeMode>(() {
+final themeNotifierProvider =
+    AsyncNotifierProvider<ThemeNotifier, ThemeMode>(() {
   return ThemeNotifier();
 });
 
-class ThemeNotifier extends Notifier<ThemeMode> {
-  ThemeMode? themeMode = ThemeMode.light;
+class ThemeNotifier extends AsyncNotifier<ThemeMode> {
+  final ThemeMode _themeMode = ThemeMode.light;
 
   void changeTheme() {
-    if (themeMode == ThemeMode.light) {
-      state = ThemeMode.dark;
+    if (state.value == ThemeMode.light) {
+      state = const AsyncData(ThemeMode.dark);
     } else {
-      state = ThemeMode.light;
+      state = const AsyncData(ThemeMode.light);
     }
-    state = themeMode!;
   }
 
   @override
-  build() {
-    return themeMode!;
+  ThemeMode build() {
+    return _themeMode;
   }
 }

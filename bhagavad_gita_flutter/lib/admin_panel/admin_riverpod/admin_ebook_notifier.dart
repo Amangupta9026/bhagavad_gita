@@ -6,7 +6,7 @@ final eBookNotifierProvider = NotifierProvider<AdminEbookNotifier, dynamic>(() {
   return AdminEbookNotifier();
 });
 
-@riverpod
+
 class AdminEbookNotifier extends Notifier {
   TextEditingController bookTitleController = TextEditingController();
   TextEditingController bookDescriptionController = TextEditingController();
