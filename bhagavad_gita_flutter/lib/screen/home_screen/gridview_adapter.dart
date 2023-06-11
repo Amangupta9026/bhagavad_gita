@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/utils/global_admin_list.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -44,6 +46,7 @@ class SelectCard extends StatelessWidget {
       )),
       child: InkWell(
         onTap: () {
+          log(FirebaseAuth.instance.currentUser?.phoneNumber.toString() ?? "");
           if (choice?.title == 'E-Books') {
             context.pushNamed(RouteNames.ebook);
           } else if (choice?.title == 'Audio') {

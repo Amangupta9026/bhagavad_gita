@@ -12,7 +12,8 @@ class AdminWallpaper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(adminWallpaperNotifierProvider.notifier);
+    final imageList = ref.watch(adminWallpaperNotifierProvider);
+    final refRead = ref.read(adminWallpaperNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -38,7 +39,7 @@ class AdminWallpaper extends ConsumerWidget {
 
             //Gallery Icon
             InkWell(
-              onTap: () => data.selectImages(),
+              onTap: () => refRead.selectImages(),
               child: Container(
                 height: 200,
                 width: double.infinity,
@@ -55,35 +56,57 @@ class AdminWallpaper extends ConsumerWidget {
             ),
 
             const SizedBox(height: 20),
-           if (data.imageFileList!.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Text('Selected Images: ${data.imageFileList?.length}',
-                      style: const TextStyle(
-                          fontSize: 18,
-                          color: textColor,
-                          fontWeight: FontWeight.w600)),
-                  const SizedBox(height: 20),
-                  GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.imageFileList?.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Image.file(
-                          File(data.imageFileList?[index].path ?? ''),
-                          fit: BoxFit.cover,
-                        );
-                      }),
-                ],
+            if (imageList.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Text('Selected Images: ${imageList.length}',
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: textColor,
+                            fontWeight: FontWeight.w600)),
+                    const SizedBox(height: 20),
+                    GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: imageList.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10),
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              refRead.removeImage(index);
+                            },
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                Image.file(
+                                  File(imageList[index].path),
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                ),
+                                const Positioned.fill(
+                                  top: -8,
+                                  right: -8,
+                                  child: Align(
+                                    alignment: Alignment.topRight,
+                                    child: Icon(
+                                      Icons.cancel,
+                                      color: primaryColor,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  ],
+                ),
               ),
-            ),
 
             const SizedBox(height: 50),
 
