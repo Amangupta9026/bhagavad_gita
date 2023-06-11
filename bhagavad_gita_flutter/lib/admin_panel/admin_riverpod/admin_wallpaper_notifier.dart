@@ -23,11 +23,11 @@ class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
       _imageFileList.addAll(selectedImages);
     }
     log("Image List Length: ${_imageFileList.length}");
-    state =  AsyncData([..._imageFileList])   ;
+    state =  AsyncData([..._imageFileList]);
   }
 
   void removeImage(int index) {
     _imageFileList.removeAt(index);
-    state = AsyncData([..._imageFileList])   ;
+    state = AsyncData([..._imageFileList]);
   }
 }
