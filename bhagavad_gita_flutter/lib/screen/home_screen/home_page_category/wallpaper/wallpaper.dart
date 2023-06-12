@@ -1,6 +1,7 @@
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,37 +43,42 @@ class WallpaperScreen extends StatelessWidget {
       ),
       body: SafeArea(
           child: SingleChildScrollView(
-        child: Column(children: [
-          GridView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 40),
-            physics: const NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 15,
-            ),
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return InkWell(
-                onTap: () {
-                  var image = imagedata(
-                    width,
-                    height,
-                    "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
-                  );
-                  context.pushNamed(RouteNames.wallpaperImage, extra: image);
-                 
-                },
-                child: imagedata(
-                  width,
-                  height,
-                  "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
+        child: StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection('wallpaper').snapshots(),
+            builder: (context, snapshot) {
+              return Column(children: [
+                GridView.builder(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 40),
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 15,
+                  ),
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        var image = imagedata(
+                          width,
+                          height,
+                          "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
+                        );
+                        context.pushNamed(RouteNames.wallpaperImage,
+                            extra: image);
+                      },
+                      child: imagedata(
+                        width,
+                        height,
+                        "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ]),
+              ]);
+            }),
       )),
     );
   }

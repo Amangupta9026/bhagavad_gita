@@ -75,7 +75,7 @@ class AdminEbook extends ConsumerWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    refRead.addBook();
+                    refRead.addBook(context);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,

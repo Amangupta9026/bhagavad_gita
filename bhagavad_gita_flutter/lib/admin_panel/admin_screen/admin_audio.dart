@@ -1,14 +1,18 @@
 import 'package:bhagavad_gita_flutter/widget/textformfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../utils/colors.dart';
 import '../../widget/app_bar_header.dart';
+import '../admin_riverpod/admin_audio_notifier.dart';
 
-class AdminAudio extends StatelessWidget {
+class AdminAudio extends ConsumerWidget {
   const AdminAudio({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final data = ref.watch(audioNotifierProvider);
+    final refRead = ref.read(audioNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -30,8 +34,9 @@ class AdminAudio extends StatelessWidget {
                     color: textColor,
                     fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
-            const TextFormFieldWidget(
+            TextFormFieldWidget(
               hinttext1: 'Audio Name',
+              controller1: data.value?.audioTitleController,
             ),
             const SizedBox(height: 20),
             const Text('Audio Image',
@@ -40,8 +45,9 @@ class AdminAudio extends StatelessWidget {
                     color: textColor,
                     fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
-            const TextFormFieldWidget(
+            TextFormFieldWidget(
               hinttext1: 'Audio Image',
+              controller1: data.value?.audioImageController,
             ),
             const SizedBox(height: 20),
             const Text('Audio link',
@@ -50,8 +56,9 @@ class AdminAudio extends StatelessWidget {
                     color: textColor,
                     fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
-            const TextFormFieldWidget(
+            TextFormFieldWidget(
               hinttext1: 'Audio Link',
+              controller1: data.value?.audioUrlController,
             ),
 
             const SizedBox(height: 50),
@@ -60,7 +67,9 @@ class AdminAudio extends StatelessWidget {
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  refRead.onSubmit(context);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   shape: RoundedRectangleBorder(
