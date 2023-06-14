@@ -1,24 +1,23 @@
 import 'package:bhagavad_gita_flutter/widget/textformfield_widget.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../utils/colors.dart';
-import '../../widget/app_bar_header.dart';
-import '../admin_riverpod/admin_divine_quotes_notifier.dart';
+import '../../../utils/file_collection.dart';
+import '../../../widget/app_bar_header.dart';
+import '../../admin_riverpod/admin_mahabharat_notifier.dart';
 
-class AdminQuotes extends ConsumerWidget {
-  const AdminQuotes({super.key});
+class AdminMahabharat extends ConsumerWidget {
+  const AdminMahabharat({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final data = ref.watch(divineQuotesNotifierProvider);
-    final refRead = ref.read(divineQuotesNotifierProvider.notifier);
+    final data = ref.watch(playListNotifierProvider);
+    final refRead = ref.watch(playListNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBarHeader(
-          text: 'Admin Quotes',
+          text: 'Mahabharat',
         ),
       ),
       body: SafeArea(
@@ -28,27 +27,15 @@ class AdminQuotes extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Quotes',
+            const Text('Playlist Url',
                 style: TextStyle(
                     fontSize: 18,
                     color: textColor,
                     fontWeight: FontWeight.w600)),
             const SizedBox(height: 10),
             TextFormFieldWidget(
-              hinttext1: 'Quotes',
-              maxLines: 6,
-              controller1: data.value?.quotesController,
-            ),
-            const SizedBox(height: 30),
-            const Text('Background Image',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: textColor,
-                    fontWeight: FontWeight.w600)),
-            const SizedBox(height: 10),
-            TextFormFieldWidget(
-              hinttext1: 'Background Image',
-              controller1: data.value?.backgroundImageController,
+              hinttext1: 'Playlist Url',
+              controller1: data.value?.playListController,
             ),
 
             const SizedBox(height: 50),
@@ -58,7 +45,7 @@ class AdminQuotes extends ConsumerWidget {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  refRead.onSubmit(context);
+                  refRead.playListUrlAdd(context);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,

@@ -14,6 +14,8 @@ const List<AdminPanelChoice> adminpanelchoices = <AdminPanelChoice>[
   AdminPanelChoice(title: 'Audio', icon: Icons.music_note),
   AdminPanelChoice(title: 'Video', icon: Icons.video_call),
   AdminPanelChoice(title: 'Aarti', icon: Icons.music_note),
+  AdminPanelChoice(title: 'Mahabharat Story', icon: Icons.diamond),
+  AdminPanelChoice(title: 'Ramayana Story', icon: Icons.video_library),
   AdminPanelChoice(title: 'Divine Quotes', icon: Icons.note),
   AdminPanelChoice(title: 'Articles', icon: Icons.article),
   AdminPanelChoice(title: 'Wallpaper', icon: Icons.wallpaper),
@@ -49,6 +51,10 @@ class AdminPanelSelectCard extends StatelessWidget {
             context.pushNamed(RouteNames.adminVideo);
           } else if (choice?.title == 'Aarti') {
             context.pushNamed(RouteNames.adminAarti);
+          } else if (choice?.title == 'Mahabharat Story') {
+            context.pushNamed(RouteNames.adminMahabharat);
+          } else if (choice?.title == 'Ramayana Story') {
+            context.pushNamed(RouteNames.adminRamayana);
           } else if (choice?.title == 'Divine Quotes') {
             context.pushNamed(RouteNames.adminQuotes);
           } else if (choice?.title == 'Articles') {

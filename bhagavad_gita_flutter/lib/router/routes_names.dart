@@ -11,6 +11,9 @@ class RouteNames {
   static const String video = '/video';
   static const String aarti = '/aarti';
   static const String quotes = '/quotes';
+  static const String mahabharat = '/mahabharat';
+  static const String ramayana = '/ramayana';
+
   static const String articles = '/articles';
   static const String wallpaper = '/wallpaper';
   static const String wallpaperImage = '/wallpaperImage';
@@ -27,6 +30,8 @@ class RouteNames {
   static const String adminAudio = '/adminAudio';
   static const String adminVideo = '/adminVideo';
   static const String adminAarti = '/adminAarti';
+  static const String adminMahabharat = '/adminMahabharat';
+  static const String adminRamayana = '/adminRamayana';
   static const String adminQuotes = '/adminQuotes';
   static const String adminArticles = '/adminArticles';
   static const String adminWallpaper = '/adminWallpaper'; 

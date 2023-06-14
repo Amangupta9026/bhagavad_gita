@@ -18,6 +18,8 @@ const List<Choice> choices = <Choice>[
   Choice(title: 'Audio', icon: Icons.music_note),
   Choice(title: 'Video', icon: Icons.video_call),
   Choice(title: 'Aarti', icon: Icons.music_note),
+  Choice(title: 'Mahabharat Story', icon: Icons.diamond),
+  Choice(title: 'Ramayana Story', icon: Icons.video_library),
   Choice(title: 'Divine Quotes', icon: Icons.note),
   Choice(title: 'Articles', icon: Icons.article),
   Choice(title: 'Wallpaper', icon: Icons.wallpaper),
@@ -55,6 +57,10 @@ class SelectCard extends StatelessWidget {
             context.pushNamed(RouteNames.video);
           } else if (choice?.title == 'Aarti') {
             context.pushNamed(RouteNames.aarti);
+          } else if (choice?.title == 'Mahabharat Story') {
+            context.pushNamed(RouteNames.mahabharat);
+          } else if (choice?.title == 'Ramayana Story') {
+            context.pushNamed(RouteNames.ramayana);
           } else if (choice?.title == 'Divine Quotes') {
             context.pushNamed(RouteNames.quotes);
           } else if (choice?.title == 'Articles') {

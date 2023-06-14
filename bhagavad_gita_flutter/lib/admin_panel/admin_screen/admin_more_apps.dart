@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bhagavad_gita_flutter/widget/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -39,17 +41,7 @@ class AdminMoreApps extends ConsumerWidget {
               hinttext1: 'App Name',
               controller1: data.value?.appNameController,
             ),
-            const SizedBox(height: 20),
-            const Text('App Image',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: textColor,
-                    fontWeight: FontWeight.w600)),
-            const SizedBox(height: 10),
-            TextFormFieldWidget(
-              hinttext1: 'App Image',
-              controller1: data.value?.appImageController,
-            ),
+
             const SizedBox(height: 20),
             const Text('App link',
                 style: TextStyle(
@@ -60,6 +52,80 @@ class AdminMoreApps extends ConsumerWidget {
             TextFormFieldWidget(
               hinttext1: 'App Link',
               controller1: data.value?.appLinkController,
+            ),
+
+            const SizedBox(height: 20),
+            const Text('App Image',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: textColor,
+                    fontWeight: FontWeight.w600)),
+
+            const SizedBox(height: 20),
+            if (data.value?.getImage == null)
+              InkWell(
+                onTap: () {
+                  refRead.pickImage();
+                },
+                child: Container(
+                  height: 200,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.photo,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+
+            InkWell(
+              onTap: () {
+                refRead.removeImage();
+              },
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: primaryColor,
+                        width: 2,
+                      ),
+                    ),
+                    child: Image.file(
+                      File(data.value?.getImage?.path ?? ''),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                  ),
+                  Positioned.fill(
+                    top: -4,
+                    right: -4,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        width: 20,
+                        height: 20,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: primaryColor,
+                        ),
+                        child: const Center(
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
 
             const SizedBox(height: 50),

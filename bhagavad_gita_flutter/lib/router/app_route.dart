@@ -9,6 +9,7 @@ import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/aart
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/divine_quotes/divine_quotes.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/ebook/ebook.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/ebook/ebook_detail_screen.dart';
+import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/isFaviorite/my_faviorite_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/video/video_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/main_screen.dart';
@@ -20,6 +21,7 @@ import 'package:go_router/go_router.dart';
 import '../auth/boarding_slider/on_boarding.dart';
 import '../local/pref_names.dart';
 import '../screen/home_screen/home_page_category/audio/audio.dart';
+import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
 
@@ -106,6 +108,20 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
+    path: RouteNames.mahabharat,
+    name: RouteNames.mahabharat,
+    builder: (context, state) {
+      return Mahabharat();
+    },
+  ),
+  GoRoute(
+    path: RouteNames.ramayana,
+    name: RouteNames.ramayana,
+    builder: (context, state) {
+      return const AartiScreen();
+    },
+  ),
+  GoRoute(
     path: RouteNames.quotes,
     name: RouteNames.quotes,
     builder: (context, state) {
@@ -142,7 +158,7 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.favorite,
     name: RouteNames.favorite,
     builder: (context, state) {
-      return const DivineQuotes();
+      return const MyFavioriteScreen();
     },
   ),
   GoRoute(
@@ -153,10 +169,14 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
-    path: RouteNames.ebookDetail,
+    path: '/ebookDetail/:title/:description/:image',
     name: RouteNames.ebookDetail,
     builder: (context, state) {
-      return const EbookDetailScreen();
+      return EbookDetailScreen(
+        title: state.pathParameters['title'],
+        description: state.pathParameters['description'],
+        image: state.pathParameters['image'],
+      );
     },
   ),
   GoRoute(
@@ -174,8 +194,6 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
 
-
 // Admin Routes
   ...adminRoutes,
-
 ]);

@@ -1,13 +1,12 @@
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
-import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 
-class EbookScreen extends StatelessWidget {
-  const EbookScreen({super.key});
+class MyFavioriteScreen extends StatelessWidget {
+  const MyFavioriteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +15,17 @@ class EbookScreen extends StatelessWidget {
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: AppBarHeader(
-            text: 'E-Books',
+            text: 'My Faviorite',
           ),
         ),
         body: SafeArea(
             child: SingleChildScrollView(
           child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('e-books').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('isFaviorite')
+                  .snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                var ebooks = snapshot.data?.docs;
+                var isFaviorite = snapshot.data?.docs;
                 if (!snapshot.hasData) {
                   return const Align(
                     alignment: Alignment.center,
@@ -40,20 +40,11 @@ class EbookScreen extends StatelessWidget {
                 }
                 return Column(
                   children: [
-                    Container(
-                      color: backgroundColor,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 15),
-                        child: InkWell(
-                            onTap: () => context.pushNamed(RouteNames.ebook),
-                            child: const SearchItemTextField()),
-                      ),
-                    ),
                     ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(10, 5, 10, 40),
+                        padding: const EdgeInsets.fromLTRB(10, 20, 10, 40),
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: ebooks?.length ?? 0,
+                        itemCount: isFaviorite?.length ?? 0,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(6.0, 8, 6, 8),
@@ -61,11 +52,10 @@ class EbookScreen extends StatelessWidget {
                               onTap: () {
                                 context.pushNamed(RouteNames.ebookDetail,
                                     pathParameters: {
-                                      
-                                      'title': ebooks?[index]['bookTitle'],
-                                      'description': ebooks?[index]
+                                      'title': isFaviorite?[index]['bookTitle'],
+                                      'description': isFaviorite?[index]
                                           ['description'],
-                                      'image': ebooks?[index]['image'],
+                                      'image': isFaviorite?[index]['image'],
                                     });
                               },
                               child: Container(
@@ -101,8 +91,9 @@ class EbookScreen extends StatelessWidget {
                                                             0.17,
                                                     width: double.infinity,
                                                     fit: BoxFit.cover,
-                                                    imageUrl: ebooks?[index]
-                                                        ['image'],
+                                                    imageUrl:
+                                                        isFaviorite?[index]
+                                                            ['image'],
                                                     placeholder: (context,
                                                             url) =>
                                                         Center(
@@ -154,7 +145,8 @@ class EbookScreen extends StatelessWidget {
                                                   color: primaryLightColor,
                                                 ),
                                                 child: Text(
-                                                  ebooks?[index]['bookTitle'] ??
+                                                  isFaviorite?[index]
+                                                          ['bookTitle'] ??
                                                       '',
                                                   style: const TextStyle(
                                                     fontSize: 14,
@@ -165,7 +157,7 @@ class EbookScreen extends StatelessWidget {
                                               ),
                                               const SizedBox(height: 8),
                                               Text(
-                                                  ebooks?[index]
+                                                  isFaviorite?[index]
                                                           ['description'] ??
                                                       '',
                                                   maxLines: 4,

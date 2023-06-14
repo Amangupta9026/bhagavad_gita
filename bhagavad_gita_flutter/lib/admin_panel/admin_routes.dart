@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 import '../router/routes_names.dart';
 import 'admin_screen/admin_ebook.dart';
+import 'admin_screen/admin_panel_homepage.dart/admin_mahabharat.dart';
 
 final List<RouteBase> adminRoutes = [
   GoRoute(
@@ -46,6 +47,22 @@ final List<RouteBase> adminRoutes = [
       return const AdminPanel();
     },
   ),
+
+  GoRoute(
+    path: RouteNames.adminMahabharat,
+    name: RouteNames.adminMahabharat,
+    builder: (context, state) {
+      return const AdminMahabharat();
+    },
+  ),
+  GoRoute(
+    path: RouteNames.adminRamayana,
+    name: RouteNames.adminRamayana,
+    builder: (context, state) {
+      return const AdminQuotes();
+    },
+  ),
+
   GoRoute(
     path: RouteNames.adminQuotes,
     name: RouteNames.adminQuotes,
@@ -53,6 +70,7 @@ final List<RouteBase> adminRoutes = [
       return const AdminQuotes();
     },
   ),
+
   GoRoute(
     path: RouteNames.adminArticles,
     name: RouteNames.adminArticles,
@@ -68,7 +86,7 @@ final List<RouteBase> adminRoutes = [
     },
   ),
 
-   GoRoute(
+  GoRoute(
     path: RouteNames.adminMoreApps,
     name: RouteNames.adminMoreApps,
     builder: (context, state) {

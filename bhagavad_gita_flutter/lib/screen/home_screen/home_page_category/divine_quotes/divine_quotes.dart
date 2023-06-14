@@ -1,4 +1,6 @@
 import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../../utils/file_collection.dart';
 
@@ -16,24 +18,59 @@ class DivineQuotes extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-          child: Stack(
-        children: [
-          Opacity(
-            opacity: 0.89,
-            child: Image.asset('assets/images/bg4.jpg',
-                width: double.infinity,
-                height: double.infinity,
-                fit: BoxFit.cover),
-          ),
-          const Center(
-              child: Text(
-                  'दूसरों की परेशानी का आनंद ना लें,\nकहीं भगवान आपको वह गिफ्ट ना कर दें,\nक्योंकि भगवान वही देता हैं जिसमें\nआपको आनंद मिलता हैं।',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold))),
-        ],
+          child: StreamBuilder(
+        stream:
+            FirebaseFirestore.instance.collection('divineQuotes').snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          var data = snapshot.data?.docs;
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Stack(
+            children: [
+              Opacity(
+                opacity: 0.89,
+                child: data?.isNotEmpty ?? false
+                    ? Opacity(
+                        opacity: 0.35,
+                        child: CachedNetworkImage(
+                            height: double.infinity,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            filterQuality: FilterQuality.low,
+                            imageUrl: data?[0]['backGroundImage'],
+                            placeholder: (context, url) => Center(
+                                  child: Image.asset(
+                                    'assets/images/board2.jpg',
+                                    height: double.infinity,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                            errorWidget: (context, url, error) => Image.asset(
+                                  'assets/images/board2.jpg',
+                                  height: double.infinity,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                )),
+                      )
+                    : Image.asset('assets/images/bg4.jpg',
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.cover),
+              ),
+              Center(
+                  child: Text(data?[0]['quotes'] ?? '',
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold))),
+            ],
+          );
+        },
       )),
     );
   }

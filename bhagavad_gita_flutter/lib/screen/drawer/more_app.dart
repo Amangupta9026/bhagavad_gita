@@ -1,4 +1,5 @@
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,12 +40,10 @@ class MoreApps extends StatelessWidget {
       ),
       body: SafeArea(
         child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('moreApps')
-                .doc()
-                .snapshots(),
-            builder: (context, snapshot) {
-              //   final moreAppData = snapshot.data?.data();
+            stream:
+                FirebaseFirestore.instance.collection('moreApps').snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              var moreAppsData = snapshot.data?.docs;
               if (!snapshot.hasData) {
                 return const Align(
                   alignment: Alignment.center,
@@ -62,7 +61,7 @@ class MoreApps extends StatelessWidget {
                   physics: const ClampingScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 2,
-                  children: List.generate(4, (index) {
+                  children: List.generate(moreAppsData?.length ?? 0, (index) {
                     return InkWell(
                       onTap: () {
                         appPlayStoreLauncher(Uri(
@@ -70,7 +69,7 @@ class MoreApps extends StatelessWidget {
                           host: 'play.google.com',
                           path: 'store/apps/details',
                           queryParameters: {
-                            'id': 'com.flashcoders.bhagavad_gita_ai',
+                            'id': '${moreAppsData?[index]['appLink']}',
                             'hl': 'en_IN',
                             'gl': 'US',
                           },
@@ -94,22 +93,24 @@ class MoreApps extends StatelessWidget {
                               children: [
                                 Expanded(
                                   flex: 3,
-                                  child: Image.asset(
-                                    'assets/images/board3.jpg',
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
+                                  child: CachedNetworkImage(
+                                    imageUrl:
+                                        moreAppsData?[index]['appImage'] ?? '',
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset('assets/images/board4.jpg'),
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                const Expanded(
+                                Expanded(
                                   flex: 2,
                                   child: Center(
                                     child: Text(
-                                      //   moreAppData['appName'] ??
-                                      'QWise Learning',
-                                      // 'QWise Learning - Learn From Best',
+                                      moreAppsData?[index]['appName'] ?? '',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),

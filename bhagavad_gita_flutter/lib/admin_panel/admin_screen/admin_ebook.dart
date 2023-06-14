@@ -62,6 +62,7 @@ class AdminEbook extends ConsumerWidget {
             Consumer(builder: (context, ref, child) {
               return TextFormFieldWidget(
                 hinttext1: 'Book Content',
+                maxLines: 4,
                 controller1: data.value?.bookDescriptionController,
               );
             }),

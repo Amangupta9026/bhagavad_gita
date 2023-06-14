@@ -66,6 +66,7 @@ class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
   }
 
   void sendFileImage(int wallpaperId, BuildContext context) async {
+    //var
     EasyLoading.show(status: 'loading...');
     final ref = FirebaseStorage.instance
         .ref()

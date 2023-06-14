@@ -37,6 +37,7 @@ class AdminEbookNotifier extends AsyncNotifier<AdminEbookMode> {
         "bookTitle": _adminEbookMode.bookTitleController.text,
         "description": _adminEbookMode.bookDescriptionController.text,
         "image": _adminEbookMode.bookImageController.text,
+        'isFaviorite': false,
         "servertime": FieldValue.serverTimestamp()
       });
       EasyLoading.dismiss();
