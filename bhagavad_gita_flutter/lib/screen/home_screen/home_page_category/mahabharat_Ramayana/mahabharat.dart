@@ -1,10 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:bhagavad_gita_flutter/router/routes_names.dart';
+
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:go_router/go_router.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 import '../../../../widget/app_bar_header.dart';

@@ -11,7 +11,7 @@ class SearchItemTextField extends StatelessWidget {
       enabled: false,
       decoration: InputDecoration(
         filled: true,
-        hintText: "Search courses",
+        hintText: "Search Book",
         suffixIcon: Container(
           margin: const EdgeInsets.only(right: 12),
           decoration: const BoxDecoration(

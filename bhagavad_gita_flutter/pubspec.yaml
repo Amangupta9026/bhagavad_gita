@@ -26,14 +26,14 @@ dependencies:
   liquid_swipe: ^3.1.0
 
 
-  flutter_local_notifications: ^14.1.0
-  firebase_messaging: ^14.6.2
-  firebase_crashlytics: ^3.3.2
-  firebase_core: ^2.13.1
-  firebase_auth: ^4.6.2
-  cloud_firestore: ^4.7.1
-  firebase_storage: ^11.2.1
-  firebase_app_check: ^0.1.4+2
+  flutter_local_notifications: ^14.1.1
+  firebase_messaging: ^14.6.3
+  firebase_crashlytics: ^3.3.3
+  firebase_core: ^2.14.0
+  firebase_auth: ^4.6.3
+  cloud_firestore: ^4.8.1
+  firebase_storage: ^11.2.3
+  firebase_app_check: ^0.1.4+3
 
 
   carousel_animations: ^0.0.4
@@ -48,7 +48,7 @@ dependencies:
   
   url_launcher: ^6.1.11
   cached_network_image: ^3.2.3
-  image_gallery_saver: ^2.0.1
+  image_gallery_saver: ^2.0.2
   image_picker: ^0.8.8
 
   dio: ^5.2.1
@@ -57,11 +57,47 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   youtube_explode_dart: ^1.12.4
   pod_player: ^0.1.5
+  path_provider: ^2.0.15
+  gallery_saver: ^2.3.2
+
+
+  hive: ^2.2.3
+  on_audio_query: ^2.9.0
+  hive_flutter: ^1.1.0
+  get_it: ^7.6.0
+  audio_service: ^0.18.10
+  flip_card: ^0.7.0
+  material_design_icons_flutter: ^7.0.7296
+
+
+  sliding_up_panel: ^2.0.0+1
+  html_unescape: ^2.0.0
+  dart_des: ^1.0.2
+  flutter_lyric: ^2.0.4+6
+  audiotagger: ^2.2.1
+  app_links: ^3.4.3
+  palette_generator: ^0.3.3+2
+  marquee: ^2.2.3
+  metadata_god: ^0.4.1
+
+
+  permission_handler: ^10.3.0
+  flutter_displaymode: ^0.6.0
+  connectivity_plus: ^4.0.1
+  just_audio: ^0.9.34
+  rxdart: ^0.27.7
+  receive_sharing_intent: ^1.4.5
+  file_picker: ^5.2.10
+  carousel_slider: ^4.2.1
+  http: ^0.13.6
+  audio_session: ^0.1.16
+
+  flutter_tts: ^3.7.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/qwise.png"
+  image_path: "assets/images/flute2.png"
   min_sdk_android: 21
 
 dev_dependencies:

@@ -10,7 +10,7 @@ class MoreApps extends StatelessWidget {
   Future<void> appPlayStoreLauncher(Uri url) async {
     if (!await launchUrl(
       url,
-      mode: LaunchMode.inAppWebView,
+      mode: LaunchMode.externalApplication,
     )) {
       throw Exception('Could not launch $url');
     }
@@ -64,6 +64,11 @@ class MoreApps extends StatelessWidget {
                   children: List.generate(moreAppsData?.length ?? 0, (index) {
                     return InkWell(
                       onTap: () {
+                        //  launchUrl
+
+                        // (Uri.parse(
+                        //     moreAppsData?[index]['appLink'] ?? ''));
+
                         appPlayStoreLauncher(Uri(
                           scheme: 'https',
                           host: 'play.google.com',

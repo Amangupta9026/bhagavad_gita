@@ -65,7 +65,7 @@ class DivineQuotes extends StatelessWidget {
                   child: Text(data?[0]['quotes'] ?? '',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                          color: Colors.black,
+                          color: textColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold))),
             ],

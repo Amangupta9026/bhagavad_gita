@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,9 +28,14 @@ class AdminDivineQuotesNotifier extends AsyncNotifier<AdminDivineQuotesMode> {
     _adminDivineQuotesMode.backgroundImageController.clear();
   }
 
-  void onSubmit(BuildContext context) {
+  void onSubmit(BuildContext context) async {
     EasyLoading.show(status: 'loading...');
-    FirebaseFirestore.instance.collection('divineQuotes').add({
+    var quotesSnapShot = await FirebaseFirestore.instance
+        .collection('divineQuotes')
+        .where('id', isEqualTo: 1)
+        .get();
+    var docID = quotesSnapShot.docs.first.id;
+    FirebaseFirestore.instance.collection('divineQuotes').doc(docID).update({
       'quotes': _adminDivineQuotesMode.quotesController.text,
       'backGroundImage': _adminDivineQuotesMode.backgroundImageController.text,
       'servertime': FieldValue.serverTimestamp(),

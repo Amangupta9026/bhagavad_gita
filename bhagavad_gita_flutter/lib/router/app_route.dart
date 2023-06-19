@@ -20,7 +20,8 @@ import 'package:go_router/go_router.dart';
 
 import '../auth/boarding_slider/on_boarding.dart';
 import '../local/pref_names.dart';
-import '../screen/home_screen/home_page_category/audio/audio.dart';
+
+import '../screen/home_screen/home_page_category/audio/audio service/audio_home_page.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
@@ -90,7 +91,8 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     path: RouteNames.audio,
     name: RouteNames.audio,
     builder: (context, state) {
-      return const AudioScreen();
+      return const AudioHomePage();
+      //AudioScreen();
     },
   ),
   GoRoute(

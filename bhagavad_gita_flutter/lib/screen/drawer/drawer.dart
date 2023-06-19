@@ -1,8 +1,6 @@
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
-import 'package:bhagavad_gita_flutter/riverpod/darktheme_notifier.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/widget/alertdialogbox.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -24,101 +22,169 @@ class _DrawerScreenState extends State<DrawerScreen> {
   Widget build(BuildContext context) {
     return Drawer(
       backgroundColor: Colors.white,
-      child: ListView(
-        padding: const EdgeInsets.all(0),
-        children: [
-          //DrawerHeader
-          Image.asset(
-            'assets/images/board2.jpg',
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [primaryColor, lightPinkColor],
           ),
-          const SizedBox(height: 12),
-          Consumer(builder: (context, ref, child) {
-            final refRead = ref.read(themeNotifierProvider.notifier);
-            return ListTile(
-              leading: const Icon(Icons.dark_mode),
-              title: const Text('Dark Mode'),
+        ),
+        child: ListView(
+          padding: const EdgeInsets.all(0),
+          children: [
+            //DrawerHeader
+            Image.asset(
+              'assets/images/drawer1.gif',
+            ),
+            const SizedBox(height: 12),
+            // Consumer(builder: (context, ref, child) {
+            //   final refRead = ref.read(themeNotifierProvider.notifier);
+            //   return ListTile(
+            //     dense: true,
+            //     leading: const Icon(Icons.dark_mode),
+            //     title: const Text('Dark Mode'),
+            //     onTap: () {
+            //       refRead.changeTheme();
+            //     },
+            //     trailing: Transform.scale(
+            //         scale: 0.8,
+            //         child: Switch(
+            //           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            //           onChanged: (value) {
+            //             refRead.changeTheme();
+            //           },
+            //           value: ref.watch(themeNotifierProvider).value ==
+            //               ThemeMode.light,
+            //           activeColor: primaryColor,
+            //           activeTrackColor: Colors.orange[400],
+            //           inactiveThumbColor: Colors.grey,
+            //           inactiveTrackColor: Colors.grey.shade300,
+            //         )),
+            //   );
+            // }),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.favorite,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text(
+                'Favorite',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: textColor,
+                    fontWeight: FontWeight.w600),
+              ),
               onTap: () {
-                refRead.changeTheme();
+                context.pushNamed(RouteNames.favorite);
               },
-              trailing: Transform.scale(
-                  scale: 0.8,
-                  child: Switch(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    onChanged: (value) {
-                      refRead.changeTheme();
-                    },
-                    value: ref.watch(themeNotifierProvider).value ==
-                        ThemeMode.light,
-                    activeColor: primaryColor,
-                    activeTrackColor: Colors.orange[400],
-                    inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Colors.grey.shade300,
-                  )),
-            );
-          }),
-          ListTile(
-            leading: const Icon(Icons.bookmark),
-            title: const Text('Bookmarks'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: const Text('App Language'),
-            onTap: () {
-              showMyDialog(
-                context,
-                'Please select your preference language',
-                'Choose your App Language you want to use in this app to read Bhagwavad Gita.\n\nYou can change your preference language anytime from settings. ',
-                () {},
-                istwobutton: true,
-                actionButtonText1: 'English',
-                actiontap1: () {},
-                actionButtonText2: 'Hindi',
-              );
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.help),
-            title: const Text('About Gita'),
-            onTap: () {
-              context.pushNamed(RouteNames.aboutGita);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.support),
-            title: const Text('Support Us'),
-            onTap: () {
-              context.pushNamed(RouteNames.helpSupport);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.share),
-            title: const Text('Share App'),
-            onTap: () {
-              Share.share(
-                  subject: 'Bhagwavad Gita',
-                  'hey! check out this amazing Bhagavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.apps),
-            title: const Text('More App'),
-            onTap: () {
-              context.pushNamed(RouteNames.moreApps);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('LogOut'),
-            onTap: () {
-              Prefs.clear();
-              toast('Logged Out Successfully');
-              context.pushNamed(RouteNames.signInScreen);
-            },
-          ),
-        ],
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.language,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('App Language',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                showMyDialog(
+                  context,
+                  'Please select your preference language',
+                  'Choose your App Language you want to use in this app to read Bhagwavad Gita.\n\nYou can change your preference language anytime from settings. ',
+                  () {},
+                  istwobutton: true,
+                  actionButtonText1: 'English',
+                  actiontap1: () {},
+                  actionButtonText2: 'Hindi',
+                );
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.support,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('About Gita',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                context.pushNamed(RouteNames.aboutGita);
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.help,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('Support Us',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                context.pushNamed(RouteNames.helpSupport);
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.share,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('Share App',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                Share.share(
+                    subject: 'Bhagwavad Gita',
+                    'hey! check out this amazing Bhagavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.apps,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('More App',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                context.pushNamed(RouteNames.moreApps);
+              },
+            ),
+            ListTile(
+              dense: true,
+              leading: Icon(
+                Icons.logout,
+                color: Colors.grey[800]!.withOpacity(0.7),
+              ),
+              title: const Text('LogOut',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.w600)),
+              onTap: () {
+                Prefs.clear();
+                toast('Logged Out Successfully');
+                context.pushNamed(RouteNames.signInScreen);
+              },
+            ),
+          ],
+        ),
       ),
     ); //Drawe;
   }

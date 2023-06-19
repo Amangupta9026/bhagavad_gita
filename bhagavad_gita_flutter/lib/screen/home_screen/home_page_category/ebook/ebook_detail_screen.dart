@@ -8,7 +8,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../riverpod/ebook_notifier.dart';
 
-class EbookDetailScreen extends StatelessWidget {
+class EbookDetailScreen extends ConsumerWidget {
   final String? title;
   final String? description;
   final String? image;
@@ -16,7 +16,8 @@ class EbookDetailScreen extends StatelessWidget {
       {super.key, this.title, this.description, this.image});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final refRead = ref.read(eBookUserNotifierProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const PreferredSize(
@@ -42,15 +43,30 @@ class EbookDetailScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(15.0, 20, 15, 40),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(title ?? '',
-                            style: const TextStyle(
-                                color: textColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold)),
-                        const Spacer(),
+                        Expanded(
+                          flex: 1,
+                          child: Text(title ?? '',
+                              style: const TextStyle(
+                                  color: textColor,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        const SizedBox(width: 10),
+                        Consumer(builder: (context, ref, child) {
+                          return InkWell(
+                              onTap: () {
+                                refRead.speak(title ?? '');
+                              },
+                              child: const Icon(Icons.volume_up_outlined,
+                                  size: 30, color: textColor));
+                        }),
+                        const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
                             Clipboard.setData(
@@ -71,7 +87,7 @@ class EbookDetailScreen extends StatelessWidget {
                         StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('e-books')
-                                .where('description', isEqualTo: description)
+                                .where('bookTitle', isEqualTo: title)
                                 .snapshots(),
                             builder: (context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {

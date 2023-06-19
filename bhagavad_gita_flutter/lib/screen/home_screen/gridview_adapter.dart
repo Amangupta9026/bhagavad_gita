@@ -11,6 +11,7 @@ class Choice {
   const Choice({this.title, this.icon});
   final String? title;
   final IconData? icon;
+//  final bool isEnable = adminList.contains(FirebaseAuth.instance.currentUser?.phoneNumber);
 }
 
 const List<Choice> choices = <Choice>[
@@ -23,7 +24,6 @@ const List<Choice> choices = <Choice>[
   Choice(title: 'Divine Quotes', icon: Icons.note),
   Choice(title: 'Articles', icon: Icons.article),
   Choice(title: 'Wallpaper', icon: Icons.wallpaper),
-  Choice(title: 'My Faviorite', icon: Icons.favorite),
   Choice(title: 'Admin Panel', icon: Icons.admin_panel_settings),
 ];
 
@@ -67,8 +67,6 @@ class SelectCard extends StatelessWidget {
             context.pushNamed(RouteNames.articles);
           } else if (choice?.title == 'Wallpaper') {
             context.pushNamed(RouteNames.wallpaper);
-          } else if (choice?.title == 'My Faviorite') {
-            context.pushNamed(RouteNames.favorite);
           } else if (adminList
                   .contains(FirebaseAuth.instance.currentUser?.phoneNumber) &&
               choice?.title == 'Admin Panel') {
