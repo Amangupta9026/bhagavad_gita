@@ -16,6 +16,7 @@ final playListNotifierProvider =
 
 class AdminMahabharatMode {
   final TextEditingController playListController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
 }
 
 class AdminMahabharatNotifier extends AsyncNotifier<AdminMahabharatMode> {
@@ -31,9 +32,12 @@ class AdminMahabharatNotifier extends AsyncNotifier<AdminMahabharatMode> {
 
   void playListUrlAdd(BuildContext context) {
     EasyLoading.show(status: 'loading...');
-    if (_adminMahabharatMode.playListController.text.isNotEmpty) {
+    if (_adminMahabharatMode.playListController.text.isNotEmpty &&
+        _adminMahabharatMode.titleController.text.isNotEmpty) {
       FirebaseFirestore.instance.collection('playListMahabharat').add({
         "playListUrl": _adminMahabharatMode.playListController.text,
+        "title": _adminMahabharatMode.titleController.text,
+        "imageUrl": "",
         "servertime": FieldValue.serverTimestamp()
       });
       EasyLoading.dismiss();

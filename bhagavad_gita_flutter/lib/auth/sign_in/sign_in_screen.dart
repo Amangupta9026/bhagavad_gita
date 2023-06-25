@@ -47,7 +47,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       )));
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          EasyLoading.dismiss();
+         EasyLoading.dismiss();
         },
       );
     } catch (e) {

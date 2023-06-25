@@ -1,7 +1,6 @@
 import 'package:go_router/go_router.dart';
 
 import '../../utils/file_collection.dart';
-import '../../utils/utils.dart';
 import '../../widget/textformfield_widget.dart';
 
 class HelpSupport extends StatelessWidget {
@@ -10,6 +9,15 @@ class HelpSupport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: SizedBox(
+        height: 150,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/images/flute1.png', height: 150),
+          ],
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -30,8 +38,14 @@ class HelpSupport extends StatelessWidget {
         ),
       ),
       body: Container(
-        decoration: AppUtils.decoration1(),
         height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [primaryLightColor, lightPinkColor],
+        )),
         child: SafeArea(
             child: SingleChildScrollView(
           child: Padding(

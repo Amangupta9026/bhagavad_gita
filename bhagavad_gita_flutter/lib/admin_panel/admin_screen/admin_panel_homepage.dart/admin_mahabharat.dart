@@ -38,6 +38,18 @@ class AdminMahabharat extends ConsumerWidget {
               controller1: data.value?.playListController,
             ),
 
+            const SizedBox(height: 20),
+            const Text('Title',
+                style: TextStyle(
+                    fontSize: 18,
+                    color: textColor,
+                    fontWeight: FontWeight.w600)),
+            const SizedBox(height: 10),
+            TextFormFieldWidget(
+              hinttext1: 'Playlist Title',
+              controller1: data.value?.titleController,
+            ),
+
             const SizedBox(height: 50),
             //Button
             SizedBox(

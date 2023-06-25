@@ -82,51 +82,53 @@ class AdminMoreApps extends ConsumerWidget {
                 ),
               ),
 
-            InkWell(
-              onTap: () {
-                refRead.removeImage();
-              },
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: primaryColor,
-                        width: 2,
+            if (data.value?.getImage != null)
+              InkWell(
+                onTap: () {
+                  debugPrint('remove image');
+                  refRead.removeImage();
+                },
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primaryColor,
+                          width: 2,
+                        ),
+                      ),
+                      child: Image.file(
+                        File(data.value?.getImage?.path ?? ''),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
                       ),
                     ),
-                    child: Image.file(
-                      File(data.value?.getImage?.path ?? ''),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    ),
-                  ),
-                  Positioned.fill(
-                    top: -4,
-                    right: -4,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Container(
-                        width: 20,
-                        height: 20,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: primaryColor,
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.white,
-                            size: 16,
+                    Positioned.fill(
+                      top: -4,
+                      right: -4,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: primaryColor,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 16,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
-            ),
 
             const SizedBox(height: 50),
             //Button

@@ -1,7 +1,9 @@
 import 'package:bhagavad_gita_flutter/widget/app_bar_header.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../riverpod/ebook_notifier.dart';
 import '../../../../utils/file_collection.dart';
 
 class DivineQuotes extends StatelessWidget {
@@ -68,6 +70,24 @@ class DivineQuotes extends StatelessWidget {
                           color: textColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold))),
+              Consumer(builder: (context, ref, child) {
+                final refRead = ref.read(eBookUserNotifierProvider.notifier);
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        refRead.speak(data?[0]['quotes'] ?? '');
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.fromLTRB(30, 20, 20, 20),
+                        child: Icon(Icons.volume_up_outlined,
+                            size: 30, color: textColor),
+                      ),
+                    ),
+                  ],
+                );
+              }),
             ],
           );
         },

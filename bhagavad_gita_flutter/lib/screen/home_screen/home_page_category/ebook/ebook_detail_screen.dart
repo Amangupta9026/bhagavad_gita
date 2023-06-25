@@ -10,20 +10,28 @@ import '../../../../riverpod/ebook_notifier.dart';
 
 class EbookDetailScreen extends ConsumerWidget {
   final String? title;
-  final String? description;
+  final String description;
   final String? image;
   const EbookDetailScreen(
-      {super.key, this.title, this.description, this.image});
+      {super.key, this.title, this.description = '', this.image});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final refRead = ref.read(eBookUserNotifierProvider.notifier);
+    String? titleWord;
+    List<String> titleData = title?.split(' ') ?? [];
+    if (titleData.length >= 3) {
+      titleWord = '${titleData[0]} ${titleData[1]} ${titleData[2]}';
+    } else {
+      titleWord = title;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(50),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
         child: AppBarHeader(
-          text: 'Bhagavad Gita',
+          text: titleWord,
         ),
       ),
       body: SafeArea(
@@ -59,18 +67,33 @@ class EbookDetailScreen extends ConsumerWidget {
                         ),
                         const SizedBox(width: 10),
                         Consumer(builder: (context, ref, child) {
+                          String? descriptionData;
+                          if (description.length >= 4000) {
+                            descriptionData = description.substring(0, 4000);
+                          } else {
+                            descriptionData = description;
+                          }
+
                           return InkWell(
                               onTap: () {
-                                refRead.speak(title ?? '');
+                                refRead.speak(descriptionData.toString());
                               },
                               child: const Icon(Icons.volume_up_outlined,
                                   size: 30, color: textColor));
                         }),
                         const SizedBox(width: 10),
+                        Consumer(builder: (context, ref, child) {
+                          return InkWell(
+                              onTap: () {
+                                refRead.stop();
+                              },
+                              child: const Icon(Icons.pause_outlined,
+                                  size: 30, color: textColor));
+                        }),
+                        const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
-                            Clipboard.setData(
-                                ClipboardData(text: description ?? ''));
+                            Clipboard.setData(ClipboardData(text: description));
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Copied to clipboard'),
@@ -91,14 +114,6 @@ class EbookDetailScreen extends ConsumerWidget {
                                 .snapshots(),
                             builder: (context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
-                              // QueryDocumentSnapshot<Object?> ebooks =
-                              //     snapshot.data?.docs;
-                              // forEach((element) =>
-                              //     element['description'] == description);
-
-                              // firstWhere(
-                              //     (element) =>
-                              //         element['description'] == description);
                               if (!snapshot.hasData) {
                                 return const Align(
                                   alignment: Alignment.center,
@@ -118,7 +133,7 @@ class EbookDetailScreen extends ConsumerWidget {
                                   return InkWell(
                                       onTap: () {
                                         refRead.changeFaviorite(title ?? '',
-                                            description ?? '', image ?? '');
+                                            description, image ?? '');
                                       },
                                       child: Icon(
                                         snapshot.data?.docs
@@ -138,8 +153,7 @@ class EbookDetailScreen extends ConsumerWidget {
                         const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
-                            Share.share(
-                                '${description?.substring(1, 300) ?? ''} \n\n'
+                            Share.share('${description.substring(1, 300)} \n\n'
                                 'For read more please download Bhagavad Gita App\n\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
                           },
                           child: const Icon(
@@ -154,7 +168,7 @@ class EbookDetailScreen extends ConsumerWidget {
 
                     // About the book
 
-                    Text(description ?? '',
+                    Text(description,
                         style: const TextStyle(
                             color: textColor,
                             fontWeight: FontWeight.w600,

@@ -40,11 +40,12 @@ class AdminMoreAppsNotifier extends AsyncNotifier<AdminMoreAppsMode> {
     } on PlatformException catch (e) {
       log('Failed to pick image: $e');
     }
+    state = AsyncData(_adminMoreAppsMode);
   }
 
   void removeImage() {
-    _adminMoreAppsMode.getImage;
-    //  state = _adminMoreAppsMode.getImage as AsyncValue<AdminMoreAppsMode>;
+    _adminMoreAppsMode.getImage = null;
+    state = AsyncData(_adminMoreAppsMode);
   }
 
   void sendFileImage() async {

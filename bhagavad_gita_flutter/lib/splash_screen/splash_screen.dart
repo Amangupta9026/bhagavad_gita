@@ -70,7 +70,7 @@ class _SplashScreenState extends State<SplashScreen> {
             children: <Widget>[
               // getVideoBackground(),
 
-              Image.asset('assets/images/splash_video.gif',
+              Image.asset('assets/images/drawer1.gif',
                   height: double.infinity, fit: BoxFit.cover),
             ],
           ),

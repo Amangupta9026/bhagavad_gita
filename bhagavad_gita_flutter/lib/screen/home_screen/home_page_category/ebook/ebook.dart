@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../widget/shimmar_progress_widget.dart';
+
 class EbookScreen extends StatelessWidget {
   const EbookScreen({super.key});
 
@@ -37,35 +39,10 @@ class EbookScreen extends StatelessWidget {
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   var ebooks = snapshot.data?.docs;
                   if (!snapshot.hasData) {
-                    return const Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 60),
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                    );
+                    return const ShimmerProgressWidget();
                   }
                   return Column(
                     children: [
-                      // Container(
-                      //   decoration: const BoxDecoration(
-                      //     gradient: LinearGradient(
-                      //       begin: Alignment.topLeft,
-                      //       end: Alignment.bottomRight,
-                      //       colors: [primaryLightColor, lightPinkColor],
-                      //     ),
-                      //   ),
-                      //   // color: backgroundColor,
-                      //   child: Padding(
-                      //     padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 15),
-                      //     child: InkWell(
-                      //         onTap: () => context.pushNamed(RouteNames.ebook),
-                      //         child: const SearchItemTextField()),
-                      //   ),
-                      // ),
                       ListView.builder(
                           padding: const EdgeInsets.fromLTRB(10, 5, 10, 40),
                           shrinkWrap: true,

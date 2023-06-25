@@ -27,11 +27,11 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
       updateIsFavioriteValue(title, description, image);
       sendIsFaviorite(title, description, image);
 
-      toast("Added to Faviorite");
+      toast("Added to Favourite");
     } else {
       updateIsFavioriteValueFalse(title);
       sendIsFavioriteFalse(title);
-      toast("Removed from Faviorite");
+      toast("Removed from Favourite");
     }
     state = AsyncData(_ebookMode);
   }
@@ -54,6 +54,7 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
       FirebaseFirestore.instance.collection('isFaviorite').doc(docId).update(
           {'isFaviorite': true, "servertime": FieldValue.serverTimestamp()});
     }
+    state = AsyncData(_ebookMode);
   }
 
   // for update isFaviorite value False
@@ -67,6 +68,8 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
 
     FirebaseFirestore.instance.collection('isFaviorite').doc(docId).update(
         {'isFaviorite': false, "servertime": FieldValue.serverTimestamp()});
+
+    state = AsyncData(_ebookMode);
   }
 
   void updateIsFavioriteValue(
@@ -80,7 +83,7 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
     FirebaseFirestore.instance.collection('e-books').doc(docId).update(
         {'isFaviorite': true, "servertime": FieldValue.serverTimestamp()});
 
-    // sendIsFaviorite(title, description, image);
+    state = AsyncData(_ebookMode);
   }
 
   void updateIsFavioriteValueFalse(String title) async {
@@ -93,6 +96,8 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
 
     FirebaseFirestore.instance.collection('e-books').doc(docId).update(
         {'isFaviorite': false, "servertime": FieldValue.serverTimestamp()});
+
+    state = AsyncData(_ebookMode);
   }
 
   // Text to Speech
@@ -100,6 +105,11 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
   Future<void> speak(String title) async {
     initSetting();
     await _ebookMode.flutterTts.speak(title);
+    state = AsyncData(_ebookMode);
+  }
+
+  Future<void> stop() async {
+    await _ebookMode.flutterTts.stop();
     state = AsyncData(_ebookMode);
   }
 

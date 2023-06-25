@@ -1,9 +1,9 @@
-import 'dart:developer';
+
 
 import 'package:bhagavad_gita_flutter/auth/boarding_slider/page_three.dart';
+import 'package:bhagavad_gita_flutter/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
-
 import 'page_two.dart';
 import 'page_one.dart';
 
@@ -21,7 +21,6 @@ class _OnBoardingState extends State<OnBoarding> {
 
   final pages = [
     const SizedBox(child: MyPageOne()),
-    const SizedBox(child: MyPageOne()),
     const SizedBox(child: MyPageTwo()),
     const SizedBox(child: MyPageThree()),
   ];
@@ -34,28 +33,25 @@ class _OnBoardingState extends State<OnBoarding> {
         body: LiquidSwipe(
           pages: pages,
           fullTransitionValue: 900,
-          enableLoop: true,
+          enableLoop: false,
           positionSlideIcon: 0.650,
           waveType: WaveType.liquidReveal,
           slideIconWidget: const Padding(
             padding: EdgeInsets.only(right: 10.0),
-            child: Icon(
-              Icons.arrow_back_ios,
-              size: 18,
-              color: Color(0xff546E7A),
-            ),
+            child: Icon(Icons.arrow_back_ios, size: 18, color: textColor),
           ),
-          initialPage: 1,
+          initialPage: 0,
         ),
       ),
     );
   }
 
-  pageChangeCallback(int page) {
-    log(page.toString());
-  }
+  // pageChangeCallback(int valuepage) {
+  //   if (valuepage == 2) {
+  //     context.pushNamed(RouteNames.signInScreen);
+  //   }
+  //   log(page.toString(), name: 'page');
+  // }
 
-  updateTypeCallback(UpdateType updateType) {
-    log(updateType.toString());
-  }
+  updateTypeCallback(UpdateType updateType) {}
 }

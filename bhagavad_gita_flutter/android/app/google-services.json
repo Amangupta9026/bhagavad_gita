@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "43979308495-95saoipghr9vm1mq7os1md26omukipsu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flashcoders.bhagavad_gita_ai",
+            "certificate_hash": "5344fcbd53b40dc48db3ef1576331335317ebac2"
+          }
+        },
+        {
           "client_id": "43979308495-bbcauqcokmct0gheiutdrnjstno99mje.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

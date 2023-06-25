@@ -5,6 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../utils/colors.dart';
+import '../../../../widget/shimmar_progress_widget.dart';
+
 class WallpaperScreen extends StatelessWidget {
   const WallpaperScreen({super.key});
 
@@ -41,45 +44,61 @@ class WallpaperScreen extends StatelessWidget {
           text: 'Wallpaper',
         ),
       ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection('wallpaper').snapshots(),
-            builder: (context, snapshot) {
-              return Column(children: [
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.fromLTRB(10, 20, 10, 40),
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 15,
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        var image = imagedata(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [primaryLightColor, lightPinkColor],
+        )),
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('wallpaper')
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                final data = snapshot.data?.docs;
+                if (!snapshot.hasData) {
+                  return const ShimmerProgressWidget();
+                }
+
+                return Column(children: [
+                  GridView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 40),
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                    ),
+                    itemCount: data?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          context.pushNamed(
+                            RouteNames.wallpaperImage,
+                            pathParameters: {
+                              'url': data?[index]['url'],
+                            },
+                          );
+                        },
+                        child: imagedata(
                           width,
                           height,
-                          "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
-                        );
-                        context.pushNamed(RouteNames.wallpaperImage,
-                            extra: image);
-                      },
-                      child: imagedata(
-                        width,
-                        height,
-                        "https://m.media-amazon.com/images/I/71eKV2BYQrL._AC_UF894,1000_QL80_.jpg",
-                      ),
-                    );
-                  },
-                ),
-              ]);
-            }),
-      )),
+                          data?[index]['url'],
+                        ),
+                      );
+                    },
+                  ),
+                ]);
+              }),
+        )),
+      ),
     );
   }
 }

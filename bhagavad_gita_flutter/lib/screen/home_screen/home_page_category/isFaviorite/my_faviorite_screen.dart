@@ -15,7 +15,7 @@ class MyFavioriteScreen extends StatelessWidget {
         appBar: const PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: AppBarHeader(
-            text: 'My Faviorite',
+            text: 'My Favourite',
           ),
         ),
         floatingActionButton: SizedBox(

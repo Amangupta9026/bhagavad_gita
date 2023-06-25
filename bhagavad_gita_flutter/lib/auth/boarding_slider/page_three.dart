@@ -48,18 +48,18 @@ class _MyPageThreeState extends State<MyPageThree> {
                   ),
                   CircleAvatar(
                     radius: SizeConfig.blockSizeHorizontal * 1.8,
-                    backgroundColor: const Color(0xffB0BEC5),
+                    backgroundColor: textColor,
                   ),
                 ],
               ),
               InkWell(
                 onTap: () {
-                  context.pushReplacementNamed(RouteNames.signInScreen);
+                  context.pushNamed(RouteNames.signInScreen);
                 },
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(15.0, 0, 15, 0),
                     child: Text(
-                      'Skip',
+                      'Get Started',
                       style: TextStyle(
                         fontFamily: 'Sofia',
                         fontSize: SizeConfig.blockSizeHorizontal * 4.4,

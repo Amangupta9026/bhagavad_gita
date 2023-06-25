@@ -38,92 +38,161 @@ class AdminWallpaper extends ConsumerWidget {
             const SizedBox(height: 20),
 
             //Gallery Icon
-            InkWell(
-              onTap: () => refRead.selectImages(),
-              child: Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Icon(
-                  Icons.photo,
-                  size: 100,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
+            // InkWell(
+            //   onTap: () => refRead.selectImages(),
+            //   child: Container(
+            //     height: 200,
+            //     width: double.infinity,
+            //     decoration: BoxDecoration(
+            //       color: Colors.grey[200],
+            //       borderRadius: BorderRadius.circular(10),
+            //     ),
+            //     child: const Icon(
+            //       Icons.photo,
+            //       size: 100,
+            //       color: Colors.grey,
+            //     ),
+            //   ),
+            // ),
 
             const SizedBox(height: 20),
-            if (data.value?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
+
+            // if (data.value?.getImage != null)
+            //   Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Column(
+            //       children: [
+            //         Text('Selected Images: ${data.value?.getImage ?? 0}',
+            //             style: const TextStyle(
+            //                 fontSize: 18,
+            //                 color: textColor,
+            //                 fontWeight: FontWeight.w600)),
+            //         const SizedBox(height: 20),
+            //         GridView.builder(
+            //             shrinkWrap: true,
+            //             physics: const NeverScrollableScrollPhysics(),
+            //             itemCount: data.value?. _imageFileList.length ?? 0,
+            //             gridDelegate:
+            //                 const SliverGridDelegateWithFixedCrossAxisCount(
+            //               crossAxisCount: 3,
+            //               crossAxisSpacing: 20,
+            //               mainAxisSpacing: 20,
+            //             ),
+            //             itemBuilder: (BuildContext context, int index) {
+            //               return InkWell(
+            //                 onTap: () {
+            //                   refRead.removeImage(index);
+            //                 },
+            //                 child: Stack(
+            //                   clipBehavior: Clip.none,
+            //                   children: [
+            //                     Container(
+            //                       decoration: BoxDecoration(
+            //                         border: Border.all(
+            //                           color: primaryColor,
+            //                           width: 2,
+            //                         ),
+            //                       ),
+            //                       child: Image.file(
+            //                         File(data.value?[index].path ?? ""),
+            //                         fit: BoxFit.cover,
+            //                         width: double.infinity,
+            //                       ),
+            //                     ),
+            //                     Positioned.fill(
+            //                       top: -4,
+            //                       right: -4,
+            //                       child: Align(
+            //                         alignment: Alignment.topRight,
+            //                         child: Container(
+            //                           width: 20,
+            //                           height: 20,
+            //                           decoration: const BoxDecoration(
+            //                             shape: BoxShape.circle,
+            //                             color: primaryColor,
+            //                           ),
+            //                           child: const Center(
+            //                             child: Icon(
+            //                               Icons.close,
+            //                               color: Colors.white,
+            //                               size: 16,
+            //                             ),
+            //                           ),
+            //                         ),
+            //                       ),
+            //                     )
+            //                   ],
+            //                 ),
+            //               );
+            //             }),
+            //       ],
+            //     ),
+            //   ),
+
+            if (data.value?.getImage == null)
+              InkWell(
+                onTap: () {
+                  refRead.selectImages();
+                },
+                child: Container(
+                  height: 200,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Icon(
+                    Icons.photo,
+                    size: 100,
+                    color: Colors.grey,
+                  ),
+                ),
+              ),
+
+            if (data.value?.getImage != null)
+              InkWell(
+                onTap: () {
+                  debugPrint('remove image');
+                  refRead.removeImage();
+                },
+                child: Stack(
+                  clipBehavior: Clip.none,
                   children: [
-                    Text('Selected Images: ${data.value?.length ?? 0}',
-                        style: const TextStyle(
-                            fontSize: 18,
-                            color: textColor,
-                            fontWeight: FontWeight.w600)),
-                    const SizedBox(height: 20),
-                    GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: data.value?.length ?? 0,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primaryColor,
+                          width: 2,
                         ),
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {
-                              refRead.removeImage(index);
-                            },
-                            child: Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: primaryColor,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: Image.file(
-                                    File(data.value?[index].path ?? ""),
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                  ),
-                                ),
-                                Positioned.fill(
-                                  top: -4,
-                                  right: -4,
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: primaryColor,
-                                      ),
-                                      child: const Center(
-                                        child: Icon(
-                                          Icons.close,
-                                          color: Colors.white,
-                                          size: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
+                      ),
+                      child: Image.file(
+                        File(data.value?.getImage?.path ?? ''),
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                    Positioned.fill(
+                      top: -4,
+                      right: -4,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: primaryColor,
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 16,
                             ),
-                          );
-                        }),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

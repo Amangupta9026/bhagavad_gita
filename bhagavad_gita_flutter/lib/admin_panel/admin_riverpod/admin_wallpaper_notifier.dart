@@ -8,101 +8,94 @@ import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/widget/toast_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 final adminWallpaperNotifierProvider =
-    AsyncNotifierProvider<AdminWallpaperNotifier, List<XFile>>(() {
+    AsyncNotifierProvider<AdminWallpaperNotifier, AdminWallpaperMode>(() {
   return AdminWallpaperNotifier();
 });
 
-class AdminWallpaperNotifier extends AsyncNotifier<List<XFile>> {
+class AdminWallpaperMode {
+  File? getImage;
+}
+
+class AdminWallpaperNotifier extends AsyncNotifier<AdminWallpaperMode> {
+  final AdminWallpaperMode _adminWallpaperMode = AdminWallpaperMode();
   @override
-  List<XFile> build() {
-    return _imageFileList;
+  build() {
+    return _adminWallpaperMode;
   }
 
-  final ImagePicker _imagePicker = ImagePicker();
-  final List<XFile> _imageFileList = [];
+  Future selectImages() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      _adminWallpaperMode.getImage = imageTemp;
 
-  void selectImages() async {
-    final List<XFile> selectedImages = await _imagePicker.pickMultiImage();
-    if (selectedImages.isNotEmpty) {
-      _imageFileList.addAll(selectedImages);
+      // state = AsyncData(_adminMoreAppsMode.getImage! as AdminMoreAppsMode);
+    } on PlatformException catch (e) {
+      log('Failed to pick image: $e');
     }
-    log("Image List Length: ${_imageFileList.length}");
-    state = AsyncData([..._imageFileList]);
+    state = AsyncData(_adminWallpaperMode);
   }
 
-  void removeImage(int index) {
-    _imageFileList.removeAt(index);
-    state = AsyncData([..._imageFileList]);
+  void removeImage() {
+    _adminWallpaperMode.getImage = null;
+    state = AsyncData(_adminWallpaperMode);
   }
 
   Future<void> wallpaperSubmit(BuildContext context) async {
-    try {
-      final wallpaperSnapShot = await FirebaseFirestore.instance
-          .collection('wallpaper')
-          .orderBy("id", descending: true)
-          .limit(1)
-          .get();
-      int wallpaperId = 1;
-      if (wallpaperSnapShot.docs.isNotEmpty) {
-        wallpaperId =
-            (int.tryParse(wallpaperSnapShot.docs.first.data()['id']) ?? -1) + 1;
-      }
-      await FirebaseFirestore.instance.collection('wallpaper').add({
-        'id': wallpaperId.toString(),
-        'server_time': FieldValue.serverTimestamp(),
-      });
-      if (_imageFileList.isNotEmpty) {
-        sendFileImage(wallpaperId, context);
-      }
-    } catch (e) {
-      log("$e");
-    }
+    EasyLoading.show(status: 'loading...');
+    await FirebaseFirestore.instance.collection('wallpaper').add({
+      'id': _adminWallpaperMode.getImage!.path,
+      'server_time': FieldValue.serverTimestamp(),
+    });
+
+    sendFileImage();
+
+    EasyLoading.dismiss();
+
+    context.pushNamed(RouteNames.adminWallpaper);
+    toast("Wallpaper Added Successfully");
   }
 
-  void sendFileImage(int wallpaperId, BuildContext context) async {
+  void sendFileImage() async {
     //var
-    EasyLoading.show(status: 'loading...');
-    final ref = FirebaseStorage.instance
-        .ref()
-        .child('wallpaper')
-        .child(wallpaperId.toString());
-    List<String> imageUrls = [];
-    for (int i = 0; i < _imageFileList.length; i++) {
-      final imageUrl =
-          await ref.child(i.toString()).putFile(File(_imageFileList[i].path));
-      imageUrls.add(imageUrl.toString());
-      final getUrl = await imageUrl.ref.getDownloadURL();
-      imageUrls.add(getUrl);
-      log('urlget $imageUrls');
+    var wallpaperSnapShot = await FirebaseFirestore.instance
+        .collection('wallpaper')
+        .where('id', isEqualTo: _adminWallpaperMode.getImage!.path)
+        .get();
+    var docId = wallpaperSnapShot.docs.first.id;
 
-      //  final url = await ref.getDownloadURL();
-      // await FirebaseFirestore.instance
-      //     .collection('wallpaper')
-      //     .doc(wallpaperId.toString())
-      //     .update({
-      //   'url': getUrl,
-      // });
+    final ref = FirebaseStorage.instance.ref().child('wallpaper').child(docId);
+    // List<String> imageUrls = [];
+    // for (int i = 0; i < _adminWallpaperMode._imageFileList.length; i++) {
+    //   final imageUrl =
+    //       await ref.child(i.toString()).putFile(File(_adminWallpaperMode._imageFileList[i].path));
+    //   imageUrls.add(imageUrl.toString());
+    //   final getUrl = await imageUrl.ref.getDownloadURL();
+    //   imageUrls.add(getUrl);
+    //   log('urlget $imageUrls');
 
-      EasyLoading.dismiss();
-      context.pushNamed(RouteNames.main);
-      toast("Wallpaper Added Successfully");
-    }
+    //  final url = await ref.getDownloadURL();
+    // await FirebaseFirestore.instance
+    //     .collection('wallpaper')
+    //     .doc(wallpaperId.toString())
+    //     .update({
+    //   'url': getUrl,
+    // });
 
-    //  await ref. putFile(File(_imageFileList.first.path));
+    await ref.putFile(_adminWallpaperMode.getImage!);
 
-    //   final url = await ref.getDownloadURL();
-
-    //   await FirebaseFirestore.instance
-    //       .collection('wallpaper')
-    //       // .doc(wallpaperId.toString())
-    //       .add({
-    //     'url': url,
-    //   });
+    final url = await ref.getDownloadURL();
+    log(name: 'url', url);
+    await FirebaseFirestore.instance.collection('wallpaper').doc(docId).update({
+      'url': url,
+    });
   }
 }

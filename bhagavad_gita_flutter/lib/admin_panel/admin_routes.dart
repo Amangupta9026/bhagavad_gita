@@ -1,4 +1,4 @@
-import 'package:bhagavad_gita_flutter/admin_panel/admin_screen/admin_audio.dart';
+import 'package:bhagavad_gita_flutter/admin_panel/admin_screen/admin_aarti.dart';
 import 'package:bhagavad_gita_flutter/admin_panel/admin_screen/admin_divine_quotes.dart';
 import 'package:bhagavad_gita_flutter/admin_panel/admin_screen/admin_more_apps.dart';
 import 'package:bhagavad_gita_flutter/admin_panel/admin_screen/admin_panel.dart';
@@ -8,7 +8,9 @@ import 'package:go_router/go_router.dart';
 
 import '../router/routes_names.dart';
 import 'admin_screen/admin_ebook.dart';
+import 'admin_screen/admin_panel_homepage.dart/admin_aarti_book.dart';
 import 'admin_screen/admin_panel_homepage.dart/admin_mahabharat.dart';
+import 'admin_screen/admin_panel_homepage.dart/admin_ramayan.dart';
 
 final List<RouteBase> adminRoutes = [
   GoRoute(
@@ -30,7 +32,7 @@ final List<RouteBase> adminRoutes = [
     path: RouteNames.adminAudio,
     name: RouteNames.adminAudio,
     builder: (context, state) {
-      return const AdminAudio();
+      return const AdminAarti();
     },
   ),
   GoRoute(
@@ -44,7 +46,7 @@ final List<RouteBase> adminRoutes = [
     path: RouteNames.adminAarti,
     name: RouteNames.adminAarti,
     builder: (context, state) {
-      return const AdminPanel();
+      return const AdminAarti();
     },
   ),
 
@@ -59,7 +61,7 @@ final List<RouteBase> adminRoutes = [
     path: RouteNames.adminRamayana,
     name: RouteNames.adminRamayana,
     builder: (context, state) {
-      return const AdminQuotes();
+      return const AdminRamayan();
     },
   ),
 
@@ -72,10 +74,10 @@ final List<RouteBase> adminRoutes = [
   ),
 
   GoRoute(
-    path: RouteNames.adminArticles,
-    name: RouteNames.adminArticles,
+    path: RouteNames.adminAartiBook,
+    name: RouteNames.adminAartiBook,
     builder: (context, state) {
-      return const AdminPanel();
+      return const AdminAartiBook();
     },
   ),
   GoRoute(

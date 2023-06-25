@@ -32,7 +32,7 @@ class AdminVideoNotifier extends AsyncNotifier<AdminVideoMode> {
     if (_adminVideoMode.videoTitleController.text.isNotEmpty &&
         _adminVideoMode.videoImageController.text.isNotEmpty &&
         _adminVideoMode.videoUrlController.text.isNotEmpty) {
-      FirebaseFirestore.instance.collection('video').add({
+      FirebaseFirestore.instance.collection('allVideo').add({
         'videoTitle': _adminVideoMode.videoTitleController.text,
         'videoImage': _adminVideoMode.videoImageController.text,
         'videoUrl': _adminVideoMode.videoUrlController.text,

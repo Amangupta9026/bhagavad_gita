@@ -1,7 +1,9 @@
 import 'package:bhagavad_gita_flutter/screen/home_screen/banner.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/gridview_adapter.dart';
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../router/routes_names.dart';
 import '../drawer/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,11 +18,14 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primaryColor,
         leading: InkWell(
-            autofocus: true,
-            onTap: () {
-              scaffoldStateKey.currentState?.openDrawer();
-            },
-            child: const Icon(Icons.menu)),
+          autofocus: true,
+          onTap: () {
+            scaffoldStateKey.currentState?.openDrawer();
+          },
+          child: const Icon(
+            Icons.horizontal_split_rounded,
+          ),
+        ),
         centerTitle: true,
         title: const Column(
           children: [
@@ -50,29 +55,42 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(width: 7),
           InkWell(
             autofocus: true,
-            onTap: () {},
+            onTap: () {
+              context.pushNamed(RouteNames.notification);
+            },
             child: const Icon(Icons.notifications_none),
           ),
           const SizedBox(width: 10),
         ],
       ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-          children: [
-            HomeBanner(),
-            GridView.count(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                crossAxisCount: 3,
-                children: List.generate(choices.length, (index) {
-                  return Center(
-                    child: SelectCard(choice: choices[index]),
-                  );
-                }))
-          ],
-        ),
-      )),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [primaryLightColor, lightPinkColor],
+        )),
+        child: SafeArea(
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              HomeBanner(),
+              GridView.count(
+                
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  crossAxisCount: 3,
+                  children: List.generate(choices.length, (index) {
+                    return Center(
+                      child: SelectCard(choice: choices[index]),
+                    );
+                  }))
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

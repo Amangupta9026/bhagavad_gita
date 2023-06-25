@@ -38,98 +38,120 @@ class MoreApps extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        child: StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection('moreApps').snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              var moreAppsData = snapshot.data?.docs;
-              if (!snapshot.hasData) {
-                return const Align(
-                  alignment: Alignment.center,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 60),
-                      CircularProgressIndicator(),
-                    ],
-                  ),
-                );
-              }
+      floatingActionButton: SizedBox(
+        height: 150,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/images/flute1.png', height: 150),
+          ],
+        ),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [primaryLightColor, lightPinkColor],
+        )),
+        child: SafeArea(
+          child: StreamBuilder(
+              stream:
+                  FirebaseFirestore.instance.collection('moreApps').snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                var moreAppsData = snapshot.data?.docs;
+                if (!snapshot.hasData) {
+                  return const Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 60),
+                        CircularProgressIndicator(),
+                      ],
+                    ),
+                  );
+                }
 
-              return GridView.count(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  crossAxisCount: 2,
-                  children: List.generate(moreAppsData?.length ?? 0, (index) {
-                    return InkWell(
-                      onTap: () {
-                        //  launchUrl
+                return GridView.count(
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    children: List.generate(moreAppsData?.length ?? 0, (index) {
+                      return InkWell(
+                        onTap: () {
+                          //  launchUrl
 
-                        // (Uri.parse(
-                        //     moreAppsData?[index]['appLink'] ?? ''));
+                          // (Uri.parse(
+                          //     moreAppsData?[index]['appLink'] ?? ''));
 
-                        appPlayStoreLauncher(Uri(
-                          scheme: 'https',
-                          host: 'play.google.com',
-                          path: 'store/apps/details',
-                          queryParameters: {
-                            'id': '${moreAppsData?[index]['appLink']}',
-                            'hl': 'en_IN',
-                            'gl': 'US',
-                          },
-                        ));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15.0, 10, 0, 0),
-                        child: Card(
-                          elevation: 10,
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border: Border.all(
-                                color: Colors.grey.shade400,
-                                width: 1.5,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: CachedNetworkImage(
-                                    imageUrl:
-                                        moreAppsData?[index]['appImage'] ?? '',
-                                    placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset('assets/images/board4.jpg'),
-                                  ),
+                          appPlayStoreLauncher(Uri(
+                            scheme: 'https',
+                            host: 'play.google.com',
+                            path: 'store/apps/details',
+                            queryParameters: {
+                              'id': '${moreAppsData?[index]['appLink']}',
+                              'hl': 'en_IN',
+                              'gl': 'US',
+                            },
+                          ));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(15.0, 10, 0, 0),
+                          child: Card(
+                            elevation: 10,
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.grey.shade400,
+                                  width: 1.5,
                                 ),
-                                const SizedBox(height: 10),
-                                Expanded(
-                                  flex: 2,
-                                  child: Center(
-                                    child: Text(
-                                      moreAppsData?[index]['appName'] ?? '',
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: CachedNetworkImage(
+                                      imageUrl: moreAppsData?[index]
+                                              ['appImage'] ??
+                                          '',
+                                      placeholder: (context, url) =>
+                                          const Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Image.asset(
+                                              'assets/images/board4.jpg'),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Center(
+                                      child: Text(
+                                        moreAppsData?[index]['appName'] ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    );
-                  }));
-            }),
+                      );
+                    }));
+              }),
+        ),
       ),
     );
   }

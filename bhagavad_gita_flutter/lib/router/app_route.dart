@@ -1,6 +1,7 @@
 import 'package:bhagavad_gita_flutter/admin_panel/admin_routes.dart';
 import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_screen.dart';
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
+import 'package:bhagavad_gita_flutter/notification/notification.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/screen/drawer/about_gita_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/drawer/help.dart';
@@ -14,17 +15,24 @@ import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/vide
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_screen.dart';
 import 'package:bhagavad_gita_flutter/screen/main_screen.dart';
 import 'package:bhagavad_gita_flutter/splash_screen/splash_screen.dart';
-import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/boarding_slider/on_boarding.dart';
 import '../local/pref_names.dart';
 
+import '../screen/home_screen/home_page_category/aarti/aarti_view.dart';
+import '../screen/home_screen/home_page_category/aarti_book/aarti_book_details.dart';
 import '../screen/home_screen/home_page_category/audio/audio service/audio_home_page.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat.dart';
+import '../screen/home_screen/home_page_category/aarti_book/aarti_book_screen.dart';
+import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat_video.dart';
+import '../screen/home_screen/home_page_category/mahabharat_Ramayana/ramayan/ramayan.dart';
+import '../screen/home_screen/home_page_category/mahabharat_Ramayana/ramayan/ramayan_video.dart';
+import '../screen/home_screen/home_page_category/video/video_view.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
+import '../screen/post/widgets/post_detail_screen.dart';
 
 bool isUserLogin = Prefs.getBool(PrefNames.isLogin) ?? false;
 
@@ -95,18 +103,37 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
       //AudioScreen();
     },
   ),
+
   GoRoute(
     path: RouteNames.video,
     name: RouteNames.video,
     builder: (context, state) {
-      return const VideoScreen();
+      return VideoScreen();
+    },
+  ),
+  GoRoute(
+    path: '/videoView/:title',
+    name: RouteNames.videoView,
+    builder: (context, state) {
+      return VideoView(
+        title: state.pathParameters['title'],
+      );
     },
   ),
   GoRoute(
     path: RouteNames.aarti,
     name: RouteNames.aarti,
     builder: (context, state) {
-      return const AartiScreen();
+      return AartiScreen();
+    },
+  ),
+  GoRoute(
+    path: '/aartiBookDetails/:title',
+    name: RouteNames.aartiView,
+    builder: (context, state) {
+      return AartiView(
+        title: state.pathParameters['title'],
+      );
     },
   ),
   GoRoute(
@@ -117,10 +144,28 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
+    path: '/mahabharatVideo/:title',
+    name: RouteNames.mahabharatVideo,
+    builder: (context, state) {
+      return MahabharatVideo(
+        title: state.pathParameters['title'],
+      );
+    },
+  ),
+  GoRoute(
     path: RouteNames.ramayana,
     name: RouteNames.ramayana,
     builder: (context, state) {
-      return const AartiScreen();
+      return Ramayana();
+    },
+  ),
+  GoRoute(
+    path: '/ramayanaVideo/:title',
+    name: RouteNames.ramayanaVideo,
+    builder: (context, state) {
+      return RamayanaVideo(
+        title: state.pathParameters['title'],
+      );
     },
   ),
   GoRoute(
@@ -131,12 +176,24 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
-    path: RouteNames.articles,
-    name: RouteNames.articles,
+    path: RouteNames.aartiBook,
+    name: RouteNames.aartiBook,
     builder: (context, state) {
-      return const DivineQuotes();
+      return const ProvachanScreen();
     },
   ),
+  GoRoute(
+    path: '/aartibookDetail/:title/:description/:image',
+    name: RouteNames.aartibookDetail,
+    builder: (context, state) {
+      return AartiBookDetailScreen(
+        title: state.pathParameters['title'],
+        description: state.pathParameters['description'],
+        image: state.pathParameters['image'],
+      );
+    },
+  ),
+
   GoRoute(
     path: RouteNames.wallpaper,
     name: RouteNames.wallpaper,
@@ -146,12 +203,31 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
   ),
 
   GoRoute(
-    path: RouteNames.wallpaperImage,
+    path: '/wallpaperImage/:url',
     name: RouteNames.wallpaperImage,
     builder: (context, state) {
-      final imageUrl = state.extra as Widget?;
+      // final imageUrl = state.extra as Widget?;
+
       return WallpaperImage(
-        imageUrl: imageUrl,
+        //     imageUrl: imageUrl,
+        url: state.pathParameters['url'],
+      );
+    },
+  ),
+
+  GoRoute(
+    path: '/postDetailScreen/:url/:caption:/:timeAgo/:postid/:phone',
+    name: RouteNames.postDetailScreen,
+    builder: (context, state) {
+      // final imageUrl = state.extra as Widget?;
+
+      return PostDetailScreen(
+        //     imageUrl: imageUrl,
+        url: state.pathParameters['url'],
+        caption: state.pathParameters['caption'],
+        timeAgo: state.pathParameters['timeAgo'],
+        postid: state.pathParameters['postid'],
+        phone: state.pathParameters['phone'],
       );
     },
   ),
@@ -176,7 +252,7 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     builder: (context, state) {
       return EbookDetailScreen(
         title: state.pathParameters['title'],
-        description: state.pathParameters['description'],
+        description: state.pathParameters['description'] ?? '',
         image: state.pathParameters['image'],
       );
     },
@@ -193,6 +269,13 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     name: RouteNames.moreApps,
     builder: (context, state) {
       return const MoreApps();
+    },
+  ),
+   GoRoute(
+    path: RouteNames.notification,
+    name: RouteNames.notification,
+    builder: (context, state) {
+      return const NotificationScreen();
     },
   ),
 

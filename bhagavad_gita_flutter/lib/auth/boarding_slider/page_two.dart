@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'info.dart';
 import 'my_painter.dart';
 
-
 class MyPageTwo extends StatefulWidget {
   const MyPageTwo({super.key});
 
@@ -43,7 +42,7 @@ class _MyPageTwoState extends State<MyPageTwo> {
                   ),
                   CircleAvatar(
                     radius: SizeConfig.blockSizeHorizontal * 1.8,
-                    backgroundColor: const Color(0xffB0BEC5),
+                    backgroundColor: textColor,
                   ),
                   SizedBox(
                     width: SizeConfig.blockSizeHorizontal * 4,
