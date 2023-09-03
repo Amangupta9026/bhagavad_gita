@@ -1,7 +1,9 @@
+import 'package:bhagavad_gita_flutter/local/pref_names.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
+import '../local/prefs.dart';
 import '../widget/toast_widget.dart';
 
 final eBookUserNotifierProvider =
@@ -22,17 +24,17 @@ class EbookNotifier extends AsyncNotifier<EbookMode> {
   final EbookMode _ebookMode = EbookMode();
 
   void changeFaviorite(String title, String description, String image) {
-    _ebookMode.isFaviorite = !_ebookMode.isFaviorite;
-    if (_ebookMode.isFaviorite) {
-      updateIsFavioriteValue(title, description, image);
-      sendIsFaviorite(title, description, image);
-
-      toast("Added to Favourite");
+    
+    if (FavList.contains(title)) {
+      FavList.remove(title); 
+      toast('Removed from Favorite');
     } else {
-      updateIsFavioriteValueFalse(title);
-      sendIsFavioriteFalse(title);
-      toast("Removed from Favourite");
+      FavList.add(title);  
+      toast('Added to Favorite');
     }
+
+    Prefs.setStringList(PrefNames.isFaviorite, FavList);
+ 
     state = AsyncData(_ebookMode);
   }
 

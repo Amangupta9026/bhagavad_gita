@@ -16,10 +16,13 @@ const List<AdminPanelChoice> adminpanelchoices = <AdminPanelChoice>[
   AdminPanelChoice(title: 'Aarti', icon: Icons.music_note),
   AdminPanelChoice(title: 'Mahabharat Story', icon: Icons.diamond),
   AdminPanelChoice(title: 'Ramayana Story', icon: Icons.video_library),
+  AdminPanelChoice(title: 'Mahadev Story', icon: Icons.video_library),
+  AdminPanelChoice(title: 'Gita\nUpdesh', icon: Icons.video_library),
   AdminPanelChoice(title: 'Divine Quotes', icon: Icons.note),
   AdminPanelChoice(title: 'Aarti Book', icon: Icons.copy),
   AdminPanelChoice(title: 'Wallpaper', icon: Icons.wallpaper),
   AdminPanelChoice(title: 'More Apps', icon: Icons.apps),
+  AdminPanelChoice(title: 'Send\nNotification', icon: Icons.notifications),
 ];
 
 class AdminPanelSelectCard extends StatelessWidget {
@@ -55,6 +58,10 @@ class AdminPanelSelectCard extends StatelessWidget {
             context.pushNamed(RouteNames.adminMahabharat);
           } else if (choice?.title == 'Ramayana Story') {
             context.pushNamed(RouteNames.adminRamayana);
+          } else if (choice?.title == 'Mahadev Story') {
+            context.pushNamed(RouteNames.adminMahadev);
+          } else if (choice?.title == 'Gita\nUpdesh') {
+            context.pushNamed(RouteNames.adminGitaUpdesh);
           } else if (choice?.title == 'Divine Quotes') {
             context.pushNamed(RouteNames.adminQuotes);
           } else if (choice?.title == 'Aarti Book') {
@@ -63,7 +70,13 @@ class AdminPanelSelectCard extends StatelessWidget {
             context.pushNamed(RouteNames.adminWallpaper);
           } else if (choice?.title == 'More Apps') {
             context.pushNamed(RouteNames.adminMoreApps);
-          } else {}
+
+          } 
+          else if (choice?.title == 'Send\nNotification') {
+            context.pushNamed(RouteNames.adminSendNotification);
+
+          }
+          else {}
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

@@ -19,22 +19,53 @@ import 'package:bhagavad_gita_flutter/widget/search_widget.dart';
 import 'package:go_router/go_router.dart';
 
 import '../auth/boarding_slider/on_boarding.dart';
+import '../auth/sign_in/sign_in_otp_screen.dart';
 import '../local/pref_names.dart';
 
 import '../screen/home_screen/home_page_category/aarti/aarti_view.dart';
 import '../screen/home_screen/home_page_category/aarti_book/aarti_book_details.dart';
 import '../screen/home_screen/home_page_category/audio/audio service/audio_home_page.dart';
+import '../screen/home_screen/home_page_category/gita_updesh/gita_updesh.dart';
+import '../screen/home_screen/home_page_category/gita_updesh/gita_updesh_video.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat.dart';
 import '../screen/home_screen/home_page_category/aarti_book/aarti_book_screen.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/mahabharat_video.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/ramayan/ramayan.dart';
 import '../screen/home_screen/home_page_category/mahabharat_Ramayana/ramayan/ramayan_video.dart';
+import '../screen/home_screen/home_page_category/mahadev/mahadev.dart';
+import '../screen/home_screen/home_page_category/mahadev/mahadev_video.dart';
 import '../screen/home_screen/home_page_category/video/video_view.dart';
-import '../screen/home_screen/home_page_category/wallpaper/wallpaper.dart';
+import '../screen/home_screen/home_page_category/wallpaper/wallpaper_demo.dart';
 import '../screen/home_screen/home_page_category/wallpaper/wallpaper_image.dart';
 import '../screen/post/widgets/post_detail_screen.dart';
+import '../utils/file_collection.dart';
 
 bool isUserLogin = Prefs.getBool(PrefNames.isLogin) ?? false;
+
+CustomTransitionPage buildPageWithDefaultTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+  Offset? begin,
+}) {
+  return CustomTransitionPage<T>(
+    fullscreenDialog: true,
+    transitionDuration: const Duration(seconds: 1),
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return SlideTransition(
+        position: Tween<Offset>(
+          begin: begin ?? const Offset(0.1, 0.1),
+          end: Offset.zero,
+        ).animate(animation),
+        child: child,
+      );
+    },
+
+    //   FadeTransition(opacity: animation, child: child),
+  );
+}
 
 String getInitialRoute() {
   switch (isUserLogin) {
@@ -54,25 +85,45 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
+    path: '/otpScreen/:mobileNumber/:verificationId/:resendToken',
+    name: RouteNames.otpScreen,
+    builder: (context, state) {
+      return OTPScreen(
+          mobileNumber: state.pathParameters['mobileNumber'] ?? '',
+          verificationId: state.pathParameters['verificationId'] ?? '',
+          resendToken: state.pathParameters['resendToken']);
+    },
+  ),
+
+  GoRoute(
     path: RouteNames.main,
     name: RouteNames.main,
-    builder: (context, state) {
-      return const MainScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: const MainScreen(),
+    ),
   ),
   GoRoute(
     path: RouteNames.home,
     name: RouteNames.home,
-    builder: (context, state) {
-      return HomeScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: HomeScreen(),
+    ),
+    // builder: (context, state) {
+    //   return HomeScreen();
+    // },
   ),
   GoRoute(
     path: RouteNames.helpSupport,
     name: RouteNames.helpSupport,
-    builder: (context, state) {
-      return const HelpSupport();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: const HelpSupport(),
+    ),
   ),
   GoRoute(
     path: RouteNames.splashScreen,
@@ -82,162 +133,207 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
     },
   ),
   GoRoute(
-    path: RouteNames.signInScreen,
-    name: RouteNames.signInScreen,
-    builder: (context, state) {
-      return const SigninScreen();
-    },
-  ),
+      path: RouteNames.signInScreen,
+      name: RouteNames.signInScreen,
+      builder: (context, state) {
+        return const SigninScreen();
+      }),
   GoRoute(
     path: RouteNames.ebook,
     name: RouteNames.ebook,
-    builder: (context, state) {
-      return const EbookScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: const EbookScreen(),
+    ),
+
+    // builder: (context, state) {
+    //   return const EbookScreen();
+    // },
   ),
   GoRoute(
     path: RouteNames.audio,
     name: RouteNames.audio,
-    builder: (context, state) {
-      return const AudioHomePage();
-      //AudioScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: const AudioHomePage(),
+    ),
   ),
 
   GoRoute(
     path: RouteNames.video,
     name: RouteNames.video,
-    builder: (context, state) {
-      return VideoScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+      context: context,
+      state: state,
+      child: VideoScreen(),
+    ),
   ),
   GoRoute(
     path: '/videoView/:title',
     name: RouteNames.videoView,
-    builder: (context, state) {
-      return VideoView(
-        title: state.pathParameters['title'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: VideoView(
+          title: state.pathParameters['title'],
+        )),
+
+    // builder: (context, state) {
+    //   return VideoView(
+    //     title: state.pathParameters['title'],
+    //   );
+    // },
   ),
   GoRoute(
     path: RouteNames.aarti,
     name: RouteNames.aarti,
-    builder: (context, state) {
-      return AartiScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: AartiScreen()),
   ),
   GoRoute(
     path: '/aartiBookDetails/:title',
     name: RouteNames.aartiView,
-    builder: (context, state) {
-      return AartiView(
-        title: state.pathParameters['title'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: AartiView(
+          title: state.pathParameters['title'],
+        )),
   ),
   GoRoute(
     path: RouteNames.mahabharat,
     name: RouteNames.mahabharat,
-    builder: (context, state) {
-      return Mahabharat();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: Mahabharat()),
   ),
   GoRoute(
     path: '/mahabharatVideo/:title',
     name: RouteNames.mahabharatVideo,
-    builder: (context, state) {
-      return MahabharatVideo(
-        title: state.pathParameters['title'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: MahabharatVideo(
+          title: state.pathParameters['title'],
+        )),
   ),
   GoRoute(
     path: RouteNames.ramayana,
     name: RouteNames.ramayana,
-    builder: (context, state) {
-      return Ramayana();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: Ramayana()),
   ),
   GoRoute(
     path: '/ramayanaVideo/:title',
     name: RouteNames.ramayanaVideo,
-    builder: (context, state) {
-      return RamayanaVideo(
-        title: state.pathParameters['title'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: RamayanaVideo(
+          title: state.pathParameters['title'],
+        )),
   ),
+
+  GoRoute(
+    path: RouteNames.mahadev,
+    name: RouteNames.mahadev,
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: MahaDev()),
+  ),
+  GoRoute(
+    path: '/mahadevVideo/:title',
+    name: RouteNames.mahadevVideo,
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: MahaDevVideo(
+          title: state.pathParameters['title'],
+        )),
+  ),
+
+  GoRoute(
+    path: RouteNames.gitaUpdesh,
+    name: RouteNames.gitaUpdesh,
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: GitaUpdesh()),
+  ),
+
+  GoRoute(
+    path: '/gitaUpdesh/:title',
+    name: RouteNames.gitaUpdeshVideo,
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: GitaUpdeshVideo(
+          title: state.pathParameters['title'],
+        )),
+  ),
+
   GoRoute(
     path: RouteNames.quotes,
     name: RouteNames.quotes,
-    builder: (context, state) {
-      return const DivineQuotes();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const DivineQuotes()),
   ),
   GoRoute(
     path: RouteNames.aartiBook,
     name: RouteNames.aartiBook,
-    builder: (context, state) {
-      return const ProvachanScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const ProvachanScreen()),
   ),
   GoRoute(
     path: '/aartibookDetail/:title/:description/:image',
     name: RouteNames.aartibookDetail,
-    builder: (context, state) {
-      return AartiBookDetailScreen(
-        title: state.pathParameters['title'],
-        description: state.pathParameters['description'],
-        image: state.pathParameters['image'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: AartiBookDetailScreen(
+          title: state.pathParameters['title'],
+          description: state.pathParameters['description'],
+          image: state.pathParameters['image'],
+        )),
   ),
 
   GoRoute(
     path: RouteNames.wallpaper,
     name: RouteNames.wallpaper,
-    builder: (context, state) {
-      return const WallpaperScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const WallpaperDemo()),
   ),
 
   GoRoute(
     path: '/wallpaperImage/:url',
     name: RouteNames.wallpaperImage,
-    builder: (context, state) {
-      // final imageUrl = state.extra as Widget?;
-
-      return WallpaperImage(
-        //     imageUrl: imageUrl,
-        url: state.pathParameters['url'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: WallpaperImage(
+          //     imageUrl: imageUrl,
+          url: state.pathParameters['url'],
+        )),
   ),
 
   GoRoute(
     path: '/postDetailScreen/:url/:caption:/:timeAgo/:postid/:phone',
     name: RouteNames.postDetailScreen,
-    builder: (context, state) {
-      // final imageUrl = state.extra as Widget?;
-
-      return PostDetailScreen(
-        //     imageUrl: imageUrl,
-        url: state.pathParameters['url'],
-        caption: state.pathParameters['caption'],
-        timeAgo: state.pathParameters['timeAgo'],
-        postid: state.pathParameters['postid'],
-        phone: state.pathParameters['phone'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: PostDetailScreen(
+          url: state.pathParameters['url'],
+          caption: state.pathParameters['caption'],
+          timeAgo: state.pathParameters['timeAgo'],
+          postid: state.pathParameters['postid'],
+          phone: state.pathParameters['phone'],
+        )),
   ),
 
   GoRoute(
     path: RouteNames.favorite,
     name: RouteNames.favorite,
-    builder: (context, state) {
-      return const MyFavioriteScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const MyFavioriteScreen()),
   ),
   GoRoute(
     path: RouteNames.search,
@@ -249,34 +345,32 @@ final appRoute = GoRouter(initialLocation: getInitialRoute(), routes: [
   GoRoute(
     path: '/ebookDetail/:title/:description/:image',
     name: RouteNames.ebookDetail,
-    builder: (context, state) {
-      return EbookDetailScreen(
-        title: state.pathParameters['title'],
-        description: state.pathParameters['description'] ?? '',
-        image: state.pathParameters['image'],
-      );
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context,
+        state: state,
+        child: EbookDetailScreen(
+          title: state.pathParameters['title'],
+          description: state.pathParameters['description'] ?? '',
+          image: state.pathParameters['image'],
+        )),
   ),
   GoRoute(
     path: RouteNames.aboutGita,
     name: RouteNames.aboutGita,
-    builder: (context, state) {
-      return const AboutGitaScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const AboutGitaScreen()),
   ),
   GoRoute(
     path: RouteNames.moreApps,
     name: RouteNames.moreApps,
-    builder: (context, state) {
-      return const MoreApps();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const MoreApps()),
   ),
-   GoRoute(
+  GoRoute(
     path: RouteNames.notification,
     name: RouteNames.notification,
-    builder: (context, state) {
-      return const NotificationScreen();
-    },
+    pageBuilder: (context, state) => buildPageWithDefaultTransition<void>(
+        context: context, state: state, child: const NotificationScreen()),
   ),
 
 // Admin Routes

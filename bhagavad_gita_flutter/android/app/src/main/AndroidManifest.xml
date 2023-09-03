@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
+	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     
 
     <queries>
@@ -24,8 +29,8 @@
         android:requestLegacyExternalStorage="true">
 
         <meta-data
-            android:name="com.google.android.gms.car.application"
-            android:resource="@xml/automotive_app_desc" />
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9323538660645757~1218128883"/>
         
         <receiver
             android:name=".BlackHoleMusicWidget"
@@ -63,7 +68,7 @@
 
             <meta-data
            		android:name="com.google.firebase.messaging.default_notification_channel_id"
-	            android:value="Bhagawad_Gita"/> 
+	            android:value="@string/default_notification_channel_id"/> 
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

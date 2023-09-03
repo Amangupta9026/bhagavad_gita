@@ -1,6 +1,7 @@
 import 'package:bhagavad_gita_flutter/utils/utils.dart';
 
 import '../../utils/file_collection.dart';
+import '../widget/app_bar_header.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -8,13 +9,12 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const PreferredSize(
-      //     preferredSize: Size.fromHeight(46),
-      //     child: HeaderWidget(
-      //       text1: 'Notification',
-      //       isCenterTitle: true,
-      //       leading1: Icons.arrow_back,
-      //     )),
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(50),
+        child: AppBarHeader(
+          text: 'Notification',
+        ),
+      ),
       body: Container(
         decoration: AppUtils.decoration1(),
         height: double.infinity,

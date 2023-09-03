@@ -1,13 +1,17 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../riverpod/feedback_post_notifier.dart';
 import '../../utils/file_collection.dart';
 import '../../widget/textformfield_widget.dart';
 
-class HelpSupport extends StatelessWidget {
+class HelpSupport extends ConsumerWidget {
   const HelpSupport({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final refRead = ref.read(feedbackNotifierProvider.notifier);
+    final refWatch = ref.watch(feedbackNotifierProvider);
     return Scaffold(
       floatingActionButton: SizedBox(
         height: 150,
@@ -29,7 +33,7 @@ class HelpSupport extends StatelessWidget {
         centerTitle: true,
         backgroundColor: primaryColor,
         title: const Text(
-          'Help & Support',
+          'Feedback',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -61,8 +65,8 @@ class HelpSupport extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              const TextFormFieldWidget(
-                  //   controller1: subjectController,
+              TextFormFieldWidget(
+                  controller1: refWatch.value?.subjectController,
                   hinttext1: 'Please type subject'),
               const SizedBox(height: 30),
               const Text('Message',
@@ -72,8 +76,8 @@ class HelpSupport extends StatelessWidget {
                     fontSize: 18,
                   )),
               const SizedBox(height: 15),
-              const TextFormFieldWidget(
-                //   controller1: ref.messageController,
+              TextFormFieldWidget(
+                controller1: refWatch.value?.messageController,
                 hinttext1: 'Please type your message',
                 maxLines: 5,
               ),
@@ -81,7 +85,7 @@ class HelpSupport extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () {
-                    // ref.onSubmit(context);
+                    refRead.feedbackpost(context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(

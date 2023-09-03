@@ -28,7 +28,7 @@ class PushNotificationService {
 
       NotificationDetails notificationDetails = const NotificationDetails(
           android: AndroidNotificationDetails(
-        'QWise',
+        'Bhagawad_Gita',
         'E-Learning',
         channelDescription: 'Start | Learning',
         importance: Importance.max,

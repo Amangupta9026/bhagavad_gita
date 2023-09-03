@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'audioplayer.dart';
 
 class MiniPlayer extends StatefulWidget {
@@ -143,7 +142,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                 ListTile(
                                   dense: useDense,
                                   onTap: () {
-                                    Navigator.pushNamed(context, '/player');
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PlayScreen()));
+                                    //     Navigator.pushNamed(context, '/player');
                                   },
                                   title: Text(
                                     mediaItem.title,

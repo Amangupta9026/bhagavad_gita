@@ -42,7 +42,7 @@ class AudioScreen extends StatelessWidget {
                       children: [
                         Row(children: [
                           Image.asset(
-                            'assets/images/board3.jpg',
+                            'assets/images/board3.png',
                             width: 60,
                           ),
                           const SizedBox(width: 10),

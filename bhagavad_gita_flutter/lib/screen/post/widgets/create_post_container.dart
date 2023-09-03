@@ -77,9 +77,8 @@ class CreatePostContainer extends StatelessWidget {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   var postData = snapshot.data?.docs;
-                  int lastPostDocId = postData?.length ?? 0;
-                  // Last post doc id
-                  // log('lastPostDocId: $lastPostDocId');
+                  int lastPostDocId = (postData?.length ?? 0) + 1;
+                //  log('lastPostDocId $lastPostDocId');
 
                   return Consumer(builder: (context, ref, child) {
                     final postRead =
@@ -92,8 +91,7 @@ class CreatePostContainer extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              postRead.addPost(lastPostDocId + 1);
-                              
+                              postRead.addPost(lastPostDocId);
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -108,7 +106,7 @@ class CreatePostContainer extends StatelessWidget {
                               child: TextButton(
                                 onPressed: () {
                                   postRead.addPost(lastPostDocId + 1);
-                                  postRead.removeImage();
+                                  // postRead.removeImage();
                                 },
                                 child: const Row(
                                   children: [

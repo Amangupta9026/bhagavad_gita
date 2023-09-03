@@ -9,7 +9,10 @@ import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/audi
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/audio/audio%20service/audio_service.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/home_page_category/audio/config.dart';
 import 'package:bhagavad_gita_flutter/utils/theme.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,12 +21,23 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:metadata_god/metadata_god.dart';
 import 'package:path_provider/path_provider.dart';
 
-
-
 import 'local/prefs.dart';
+
+void crashlytics() {
+  if (kReleaseMode) {
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
+  }
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
 
@@ -38,12 +52,17 @@ Future<void> main() async {
 
   await startService();
   await Prefs.init();
+  crashlytics();
+
+  await FirebaseAppCheck.instance.activate(
+      webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+      androidProvider: AndroidProvider.playIntegrity);
   runApp(const ProviderScope(child: MyApp()));
 }
 
 Future<void> openHiveBox(String boxName, {bool limit = false}) async {
   final box = await Hive.openBox(boxName).onError((error, stackTrace) async {
-   // Logger.root.severe('Failed to open $boxName Box', error, stackTrace);
+    // Logger.root.severe('Failed to open $boxName Box', error, stackTrace);
     final Directory dir = await getApplicationDocumentsDirectory();
     final String dirPath = dir.path;
     File dbFile = File('$dirPath/$boxName.hive');
@@ -65,7 +84,7 @@ Future<void> openHiveBox(String boxName, {bool limit = false}) async {
 
 // Future<void> setOptimalDisplayMode() async {
 //   await FlutterDisplayMode.setHighRefreshRate();
-  
+
 // }
 
 Future<void> startService() async {
@@ -74,19 +93,18 @@ Future<void> startService() async {
   final AudioPlayerHandler audioHandler = await AudioService.init(
     builder: () => AudioPlayerHandlerImpl(),
     config: AudioServiceConfig(
-     androidNotificationChannelId: 'com.shadow.blackhole.channel.audio',
+      androidNotificationChannelId: 'com.shadow.blackhole.channel.audio',
       androidNotificationChannelName: 'Bhagwavad Gita',
-     androidNotificationIcon: 'drawable/ic_stat_music_note',
+      androidNotificationIcon: 'drawable/ic_stat_music_note',
       androidShowNotificationBadge: true,
       androidStopForegroundOnPause: false,
       // Hive.box('settings').get('stopServiceOnPause', defaultValue: true) as bool,
       notificationColor: Colors.grey[900],
     ),
   );
- GetIt.I.registerSingleton<AudioPlayerHandler>(audioHandler);
- GetIt.I.registerSingleton<MyTheme>(MyTheme());
+  GetIt.I.registerSingleton<AudioPlayerHandler>(audioHandler);
+  GetIt.I.registerSingleton<MyTheme>(MyTheme());
 }
-
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -97,8 +115,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Consumer(builder: (context, ref, child) {
       return MaterialApp.router(

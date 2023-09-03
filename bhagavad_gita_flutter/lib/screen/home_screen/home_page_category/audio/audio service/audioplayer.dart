@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:audio_service/audio_service.dart';
+import '../../../../../utils/colors.dart';
 import '../CustomWidgets/copy_clipboard.dart';
 import '../CustomWidgets/download_button.dart';
 import '../CustomWidgets/empty_screen.dart';
@@ -11,8 +12,6 @@ import '../CustomWidgets/gradient_containers.dart';
 import '../CustomWidgets/like_button.dart';
 import '../CustomWidgets/popup.dart';
 import '../CustomWidgets/seek_bar.dart';
-import '../CustomWidgets/snackbar.dart';
-import '../CustomWidgets/textinput_dialog.dart';
 import '../config.dart';
 import '../dominant_color.dart';
 
@@ -20,7 +19,6 @@ import '../mediaitem_converter.dart';
 import 'song_list.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyric_ui/ui_netease.dart';
 
@@ -28,7 +26,6 @@ import 'package:flutter_lyric/lyrics_reader_model.dart';
 import 'package:flutter_lyric/lyrics_reader_widget.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -52,7 +49,6 @@ class _PlayScreenState extends State<PlayScreen> {
   final PanelController _panelController = PanelController();
   final AudioPlayerHandler audioHandler = GetIt.I<AudioPlayerHandler>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
-  late Duration _time;
 
   bool isSharePopupShown = false;
 
@@ -62,119 +58,6 @@ class _PlayScreenState extends State<PlayScreen> {
 
   void sleepCounter(int count) {
     audioHandler.customAction('sleepCounter', {'count': count});
-  }
-
-  Future<dynamic> setTimer(
-    BuildContext context,
-    BuildContext? scaffoldContext,
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: Center(
-            child: Text(
-              'Select Duration',
-              // AppLocalizations.of(context)!.selectDur,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-            ),
-          ),
-          children: [
-            Center(
-              child: SizedBox(
-                height: 200,
-                width: 200,
-                child: CupertinoTheme(
-                  data: CupertinoThemeData(
-                    primaryColor: Theme.of(context).colorScheme.secondary,
-                    textTheme: CupertinoTextThemeData(
-                      dateTimePickerTextStyle: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                  child: CupertinoTimerPicker(
-                    mode: CupertinoTimerPickerMode.hm,
-                    onTimerDurationChanged: (value) {
-                      _time = value;
-                    },
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                    foregroundColor: Theme.of(context).colorScheme.secondary,
-                  ),
-                  onPressed: () {
-                    sleepTimer(0);
-                    Navigator.pop(context);
-                  },
-                  child: const Text(
-                    'Cancel',
-                    //AppLocalizations.of(context)!.cancel
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    foregroundColor:
-                        Theme.of(context).colorScheme.secondary == Colors.white
-                            ? Colors.black
-                            : Colors.white,
-                  ),
-                  onPressed: () {
-                    sleepTimer(_time.inMinutes);
-                    Navigator.pop(context);
-                    ShowSnackBar().showSnackBar(
-                      context,
-                      '${'sleepTimerSetFor'} ${_time.inMinutes} ${'minutes'
-
-                      // AppLocalizations.of(context)!.minutes
-                      }',
-                    );
-                  },
-                  child: const Text('ok'),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<dynamic> setCounter() async {
-    await showTextInputDialog(
-      context: context,
-      title: 'enterSongsCount',
-      initialText: '',
-      keyboardType: TextInputType.number,
-      onSubmitted: (String value) {
-        sleepCounter(
-          int.parse(value),
-        );
-        Navigator.pop(context);
-        ShowSnackBar().showSnackBar(
-          context,
-          'sleepTimerSetFor $value songs',
-          //   '${AppLocalizations.of(context)!.sleepTimerSetFor} $value ${AppLocalizations.of(context)!.songs}',
-        );
-      },
-    );
   }
 
   void updateBackgroundColors(List<Color?> value) {
@@ -188,8 +71,6 @@ class _PlayScreenState extends State<PlayScreen> {
 
   @override
   Widget build(BuildContext context) {
-    BuildContext? scaffoldContext;
-
     return Dismissible(
       direction: DismissDirection.down,
       background: const ColoredBox(color: Colors.transparent),
@@ -228,10 +109,10 @@ class _PlayScreenState extends State<PlayScreen> {
             child: SafeArea(
               child: Scaffold(
                 resizeToAvoidBottomInset: false,
-                backgroundColor: Colors.transparent,
+                // backgroundColor: Colors.transparent,
                 appBar: AppBar(
                   elevation: 0,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: primaryLightColor,
                   centerTitle: true,
                   leading: IconButton(
                     icon: const Icon(Icons.expand_more_rounded),
@@ -374,58 +255,6 @@ class _PlayScreenState extends State<PlayScreen> {
                         //     mode: LaunchMode.externalApplication,
                         //   );
                         // }
-                        if (value == 1) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return SimpleDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                title: Text(
-                                  'sleepTimer',
-                                  style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.secondary,
-                                  ),
-                                ),
-                                contentPadding: const EdgeInsets.all(10.0),
-                                children: [
-                                  ListTile(
-                                    title: const Text(
-                                      'sleepDur',
-                                    ),
-                                    subtitle: const Text(
-                                      'sleepDurSub',
-                                    ),
-                                    dense: true,
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      setTimer(
-                                        context,
-                                        scaffoldContext,
-                                      );
-                                    },
-                                  ),
-                                  ListTile(
-                                    title: const Text(
-                                      'sleepAfter',
-                                    ),
-                                    subtitle: const Text(
-                                      'sleepAfterSub',
-                                    ),
-                                    dense: true,
-                                    isThreeLine: true,
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      setCounter();
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
                       },
                       itemBuilder: (context) => offline
                           ? [
@@ -441,42 +270,7 @@ class _PlayScreenState extends State<PlayScreen> {
                                       ),
                                       const SizedBox(width: 10.0),
                                       const Text(
-                                        'viewAlbum',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              PopupMenuItem(
-                                value: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.timer,
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    const Text(
-                                      'sleepTimer',
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (Hive.box('settings').get(
-                                'supportEq',
-                                defaultValue: false,
-                              ) as bool)
-                                PopupMenuItem(
-                                  value: 4,
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.equalizer_rounded,
-                                        color:
-                                            Theme.of(context).iconTheme.color,
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      const Text(
-                                        'equalizer',
+                                        'View Album',
                                       ),
                                     ],
                                   ),
@@ -508,78 +302,11 @@ class _PlayScreenState extends State<PlayScreen> {
                                       ),
                                       SizedBox(width: 10.0),
                                       Text(
-                                        'viewAlbum',
+                                        'View Album',
                                       ),
                                     ],
                                   ),
                                 ),
-                              PopupMenuItem(
-                                value: 0,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.playlist_add_rounded,
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    const Text(
-                                      'addToPlaylist',
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              PopupMenuItem(
-                                value: 1,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.timer,
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    const Text(
-                                      'sleepTimer',
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              if (Hive.box('settings').get(
-                                'supportEq',
-                                defaultValue: false,
-                              ) as bool)
-                                PopupMenuItem(
-                                  value: 4,
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.equalizer_rounded,
-                                        color:
-                                            Theme.of(context).iconTheme.color,
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      const Text(
-                                        'equalizer',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              PopupMenuItem(
-                                value: 3,
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      MdiIcons.youtube,
-                                      color: Theme.of(context).iconTheme.color,
-                                    ),
-                                    const SizedBox(width: 10.0),
-                                    Text(
-                                      mediaItem.genre == 'YouTube'
-                                          ? 'watchVideo'
-                                          : 'searchVideo',
-                                    ),
-                                  ],
-                                ),
-                              ),
                               PopupMenuItem(
                                 value: 10,
                                 child: Row(
@@ -599,23 +326,57 @@ class _PlayScreenState extends State<PlayScreen> {
                     )
                   ],
                 ),
-                body: LayoutBuilder(
-                  builder: (
-                    BuildContext context,
-                    BoxConstraints constraints,
-                  ) {
-                    if (constraints.maxWidth > constraints.maxHeight) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                body: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [primaryLightColor, lightPinkColor],
+                    ),
+                  ),
+                  child: LayoutBuilder(
+                    builder: (
+                      BuildContext context,
+                      BoxConstraints constraints,
+                    ) {
+                      if (constraints.maxWidth > constraints.maxHeight) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Artwork
+                            ArtWorkWidget(
+                              cardKey: cardKey,
+                              mediaItem: mediaItem,
+                              width: min(
+                                constraints.maxHeight / 0.9,
+                                constraints.maxWidth / 1.8,
+                              ),
+                              audioHandler: audioHandler,
+                              offline: offline,
+                              getLyricsOnline: getLyricsOnline,
+                            ),
+
+                            // title and controls
+                            NameNControls(
+                              mediaItem: mediaItem,
+                              offline: offline,
+                              width: constraints.maxWidth / 2,
+                              height: constraints.maxHeight,
+                              panelController: _panelController,
+                              audioHandler: audioHandler,
+                            ),
+                          ],
+                        );
+                      }
+                      return Column(
                         children: [
                           // Artwork
                           ArtWorkWidget(
                             cardKey: cardKey,
                             mediaItem: mediaItem,
-                            width: min(
-                              constraints.maxHeight / 0.9,
-                              constraints.maxWidth / 1.8,
-                            ),
+                            width: constraints.maxWidth,
                             audioHandler: audioHandler,
                             offline: offline,
                             getLyricsOnline: getLyricsOnline,
@@ -625,39 +386,16 @@ class _PlayScreenState extends State<PlayScreen> {
                           NameNControls(
                             mediaItem: mediaItem,
                             offline: offline,
-                            width: constraints.maxWidth / 2,
-                            height: constraints.maxHeight,
+                            width: constraints.maxWidth,
+                            height: constraints.maxHeight -
+                                (constraints.maxWidth * 0.85),
                             panelController: _panelController,
                             audioHandler: audioHandler,
                           ),
                         ],
                       );
-                    }
-                    return Column(
-                      children: [
-                        // Artwork
-                        ArtWorkWidget(
-                          cardKey: cardKey,
-                          mediaItem: mediaItem,
-                          width: constraints.maxWidth,
-                          audioHandler: audioHandler,
-                          offline: offline,
-                          getLyricsOnline: getLyricsOnline,
-                        ),
-
-                        // title and controls
-                        NameNControls(
-                          mediaItem: mediaItem,
-                          offline: offline,
-                          width: constraints.maxWidth,
-                          height: constraints.maxHeight -
-                              (constraints.maxWidth * 0.85),
-                          panelController: _panelController,
-                          audioHandler: audioHandler,
-                        ),
-                      ],
-                    );
-                  },
+                    },
+                  ),
                 ),
                 // }
               ),

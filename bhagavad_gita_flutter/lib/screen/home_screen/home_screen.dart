@@ -2,6 +2,7 @@ import 'package:bhagavad_gita_flutter/screen/home_screen/banner.dart';
 import 'package:bhagavad_gita_flutter/screen/home_screen/gridview_adapter.dart';
 import 'package:bhagavad_gita_flutter/utils/file_collection.dart';
 import 'package:go_router/go_router.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../router/routes_names.dart';
 import '../drawer/drawer.dart';
@@ -9,6 +10,8 @@ import '../drawer/drawer.dart';
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldStateKey = GlobalKey<ScaffoldState>();
   HomeScreen({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +33,12 @@ class HomeScreen extends StatelessWidget {
         title: const Column(
           children: [
             Text(
-              '|| Shri Hari ||',
+              '|| Hare Krishna ||',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 5),
             Text(
-              'Bhagwavad Gita',
+              'Bhagavad Gita',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
@@ -43,16 +46,20 @@ class HomeScreen extends StatelessWidget {
         actions: [
           InkWell(
             autofocus: true,
-            onTap: () {},
-            child: const Icon(Icons.search),
+            onTap: () {
+              Share.share(
+                  subject: 'Bhagwavad Gita',
+                  'hey! check out this amazing Bhagavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+            },
+            child: const Icon(Icons.share),
           ),
           const SizedBox(width: 7),
-          InkWell(
-            autofocus: true,
-            onTap: () {},
-            child: const Icon(Icons.bookmark_border),
-          ),
-          const SizedBox(width: 7),
+          // InkWell(
+          //   autofocus: true,
+          //   onTap: () {},
+          //   child: const Icon(Icons.bookmark_border),
+          // ),
+          // const SizedBox(width: 7),
           InkWell(
             autofocus: true,
             onTap: () {
@@ -67,18 +74,18 @@ class HomeScreen extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
+            color: Colors.white,
             gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [primaryLightColor, lightPinkColor],
-        )),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [primaryLightColor, lightPinkColor],
+            )),
         child: SafeArea(
             child: SingleChildScrollView(
           child: Column(
             children: [
               HomeBanner(),
               GridView.count(
-                
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   crossAxisCount: 3,

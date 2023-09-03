@@ -88,7 +88,7 @@ class _MyPageTwoState extends State<MyPageTwo> {
                 children: <Widget>[
                   Center(
                     child: Image.asset(
-                      'assets/images/board3.jpg',
+                      'assets/images/board3.png',
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),

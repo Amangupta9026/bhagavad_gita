@@ -3,21 +3,22 @@ import 'package:bhagavad_gita_flutter/router/routes_names.dart';
 import 'package:bhagavad_gita_flutter/widget/alertdialogbox.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/file_collection.dart';
 import '../../widget/toast_widget.dart';
 
-class DrawerScreen extends StatefulWidget {
+class DrawerScreen extends StatelessWidget {
   const DrawerScreen({super.key});
 
-  @override
-  State<DrawerScreen> createState() => _DrawerScreenState();
-}
-
-class _DrawerScreenState extends State<DrawerScreen> {
-  bool isSwitched = false;
-  var textValue = 'Switch is OFF';
+  Future<void> appPlayStoreLauncher(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,22 +66,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
           //         )),
           //   );
           // }),
-          ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-              visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
-              minVerticalPadding: 0.0,
-              leading: Icon(
-                MdiIcons.heart,
-                color: Colors.black,
-              ),
-              title: const Text('Favorite',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-              onTap: () {
-                context.pushNamed(RouteNames.favorite);
-              }),
 
           ListTile(
-              contentPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+              contentPadding: const EdgeInsets.fromLTRB(20, 15, 0, 0),
               visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
               minVerticalPadding: 0.0,
               leading: Icon(
@@ -100,26 +88,50 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 MdiIcons.faceAgent,
                 color: Colors.black,
               ),
-              title: const Text('Support Us',
+              title: const Text('Feedback',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
               onTap: () {
                 context.pushNamed(RouteNames.helpSupport);
               }),
+          // ListTile(
+          //     contentPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+          //     visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
+          //     minVerticalPadding: 0.0,
+          //     leading: const Icon(
+          //       Icons.share,
+          //       color: Colors.black,
+          //     ),
+          //     title: const Text('Share App',
+          //         style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+          //     onTap: () {
+          //       Share.share(
+          //           subject: 'Bhagwavad Gita',
+          //           'hey! check out this amazing Bhagavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+          //     }),
+
           ListTile(
               contentPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               visualDensity: const VisualDensity(horizontal: 0, vertical: 0),
               minVerticalPadding: 0.0,
-              leading: const Icon(
-                Icons.share,
+              leading: Icon(
+                MdiIcons.heart,
                 color: Colors.black,
               ),
-              title: const Text('Share App',
+              title: const Text('Rate Us',
                   style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
               onTap: () {
-                Share.share(
-                    subject: 'Bhagwavad Gita',
-                    'hey! check out this amazing Bhagavad Gita app\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
+                appPlayStoreLauncher(Uri(
+                  scheme: 'https',
+                  host: 'play.google.com',
+                  path: 'store/apps/details',
+                  queryParameters: {
+                    'id': 'com.flashcoders.bhagavad_gita_ai',
+                    'hl': 'en_IN',
+                    'gl': 'US',
+                  },
+                ));
               }),
+
           ListTile(
               contentPadding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
               visualDensity: const VisualDensity(horizontal: 0, vertical: 0),

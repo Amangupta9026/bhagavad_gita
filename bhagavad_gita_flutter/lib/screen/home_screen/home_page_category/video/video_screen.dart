@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
@@ -37,97 +37,96 @@ class VideoScreen extends StatelessWidget {
           colors: [primaryLightColor, lightPinkColor],
         )),
         child: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 60),
-          child: Column(
-            children: [
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('allVideo')
-                    .orderBy('servertime', descending: false)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  final data = snapshot.data?.docs;
+            child: Scrollbar(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0.0, 0, 0, 0),
+            child: PaginateFirestore(
+              itemBuilderType:
+                  PaginateBuilderType.listView, //Change types accordingly
 
-                  if (!snapshot.hasData) {
-                    return const Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(height: 60),
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                    );
-                  }
-                  return
-                      // Container(
-                      //   color: backgroundColor,
-                      //   child: const Padding(
-                      //     padding: EdgeInsets.fromLTRB(8.0, 8, 8, 15),
-                      //     child:
-                      //         InkWell(onTap: null, child: SearchItemTextField()),
-                      //   ),
-                      // ),
-                      Consumer(builder: (context, ref, child) {
-                    final refRead = ref.read(videoNotifierProvider.notifier);
-                    return ListView.builder(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: data?.length ?? 0,
-                        itemBuilder: (context, int index) {
-                          String title = data?[index]['videoTitle'];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
-                            child: InkWell(
-                              onTap: () async {
-                                EasyLoading.show(status: 'Loading...');
+              // orderBy is compulsory to enable pagination
+              query: FirebaseFirestore.instance
+                  .collection('allVideo')
+                  .orderBy('servertime', descending: true),
 
-                                List<Video> videos = [];
+              itemsPerPage: 5,
+              // to fetch real-time data
+              // isLive: true,
+              allowImplicitScrolling: true,
+              bottomLoader: const Center(
+                child: CircularProgressIndicator(),
+              ),
+             
 
-                                var docSnapShot = await FirebaseFirestore
-                                    .instance
-                                    .collection("allVideo")
-                                    .where('videoTitle', isEqualTo: title)
-                                    .get();
+              itemBuilder: (context, documentSnapshots, index) {
+                final data = documentSnapshots[index].data() as Map?;
 
-                                var docID = docSnapShot.docs.first.id;
+                return Consumer(builder: (context, ref, child) {
+                  final refRead = ref.read(videoNotifierProvider.notifier);
+                  String title = data?['videoTitle'];
+                  //   log(title.length.toString());
+                  return InkWell(
+                    onTap: () async {
+                      EasyLoading.show(status: 'Loading...');
 
-                                final data = await FirebaseFirestore.instance
-                                    .collection("allVideo")
-                                    .doc(docID)
-                                    .get();
+                      List<Video> videos = [];
 
-                                final String? playListUrl =
-                                    data.data()?["videoUrl"];
-                                if (playListUrl == null) return;
-                                await for (var video in yt.playlists
-                                    .getVideos(Uri.parse(playListUrl))) {
-                                  videos.add(video);
-                                }
+                      var docSnapShot = await FirebaseFirestore.instance
+                          .collection("allVideo")
+                          .where('videoTitle', isEqualTo: title)
+                          .get();
 
-                                refRead.setVideos(videos);
+                      var docID = docSnapShot.docs.first.id;
 
-                                context.pushNamed(RouteNames.videoView,
-                                    pathParameters: {
-                                      'title': title,
-                                    });
-                                EasyLoading.dismiss();
-                              },
-                              child: Column(
+                      final data = await FirebaseFirestore.instance
+                          .collection("allVideo")
+                          .doc(docID)
+                          .get();
+
+                      final String? playListUrl = data.data()?["videoUrl"];
+                      if (playListUrl == null) return;
+                      await for (var video
+                          in yt.playlists.getVideos(Uri.parse(playListUrl))) {
+                        videos.add(video);
+                      }
+
+                      refRead.setVideos(videos);
+
+                      context.pushNamed(RouteNames.videoView, pathParameters: {
+                        'title': title,
+                      });
+                      EasyLoading.dismiss();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, bottom: 10, right: 10, top: 15),
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.13,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Row(children: [
-                                    CachedNetworkImage(
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(14),
+                                        topLeft: Radius.circular(14)),
+                                    child: CachedNetworkImage(
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.08,
+                                                0.13,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.2,
-                                        fit: BoxFit.fill,
-                                        imageUrl: data?[index]['videoImage'],
+                                                0.3,
+                                        fit: BoxFit.fitHeight,
+                                        imageUrl: data?['videoImage'],
                                         placeholder: (context, url) => Center(
                                               child: Image.asset(
                                                 'assets/images/board2.jpg',
@@ -155,35 +154,29 @@ class VideoScreen extends StatelessWidget {
                                                   0.2,
                                               fit: BoxFit.fill,
                                             )),
-                                    const SizedBox(width: 10),
-                                    Flexible(
-                                      flex: 2,
-                                      child: Text(
-                                        title,
-                                        style: const TextStyle(
-                                            fontSize: 16,
-                                            color: textColor,
-                                            fontWeight: FontWeight.w600),
-                                      ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Expanded(
+                                    child: Text(
+                                      title,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          color: textColor,
+                                          fontWeight: FontWeight.w600),
                                     ),
-                                    const Icon(
-                                        Icons.play_circle_outline_rounded,
-                                        size: 40,
-                                        color: Colors.black)
-                                  ]),
-                                  const Divider(
-                                    height: 25,
-                                    color: Colors.grey,
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        });
-                  });
-                },
-              ),
-            ],
+                                  ),
+                                  const Icon(Icons.play_circle_outline_rounded,
+                                      size: 40, color: Colors.black),
+                                  const SizedBox(width: 10),
+                                ]),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                });
+              },
+            ),
           ),
         )),
       ),

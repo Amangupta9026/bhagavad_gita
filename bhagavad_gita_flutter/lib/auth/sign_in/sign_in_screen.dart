@@ -1,11 +1,13 @@
-import 'dart:developer';
-
-import 'package:bhagavad_gita_flutter/auth/sign_in/sign_in_otp_screen.dart';
+import 'package:bhagavad_gita_flutter/widget/toast_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:permission_handler/permission_handler.dart';
 
+import '../../router/routes_names.dart';
 import '../../utils/file_collection.dart';
+import '../../utils/utils.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({Key? key}) : super(key: key);
@@ -37,34 +39,38 @@ class _SigninScreenState extends State<SigninScreen> {
 
           EasyLoading.dismiss();
 
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => OTPScreen(
-                        mobileNumber: mobileNumber,
-                        verificationId: verificationId,
-                        resendToken: resendTokens,
-                      )));
+          context.pushReplacementNamed(RouteNames.otpScreen, pathParameters: {
+            'mobileNumber': mobileNumber,
+            'verificationId': verificationId,
+            'resendToken': resendTokens.toString(),
+          });
         },
-        codeAutoRetrievalTimeout: (String verificationId) {
-         EasyLoading.dismiss();
-        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
       );
     } catch (e) {
-      EasyLoading.dismiss();
-      log("$e");
+      if ('[SmsRetrieverHelper] Timed out waiting for SMS' == e.toString()) {
+        EasyLoading.dismiss();
+        toast(
+            'Your previous OTP is not expired till yet, please wait for 2 min');
+      } else {
+        EasyLoading.dismiss();
+        toast(e.toString());
+      }
+
+    //  log("$e", name: "Firebase OTP");
     }
   }
 
-  @override
-  void dispose() {
-    mobileNumberController.dispose();
-    mobileNumberFocusNode.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   mobileNumberController.dispose();
+  //   mobileNumberFocusNode.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    AppUtils.handleNotification(Permission.notification);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -171,7 +177,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 ),
                                 onChanged: (phone) {
                                   mobileNumber = phone.completeNumber;
-                                  log(mobileNumber);
+                               //   log(mobileNumber);
                                 },
                                 onCountryChanged: (country) {},
                               ),

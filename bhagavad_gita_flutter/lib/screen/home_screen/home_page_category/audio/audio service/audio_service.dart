@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_renaming_method_parameters
 
 import 'dart:async';
@@ -693,7 +692,6 @@ class AudioPlayerHandlerImpl extends BaseAudioHandler
   @override
   Future<void> fastForward() async {
     if (mediaItem.value?.id != null) {
-     
       _broadcastState(_player!.playbackEvent);
     }
   }
@@ -701,7 +699,6 @@ class AudioPlayerHandlerImpl extends BaseAudioHandler
   @override
   Future<void> rewind() async {
     if (mediaItem.value?.id != null) {
-   
       _broadcastState(_player!.playbackEvent);
     }
   }
@@ -930,8 +927,7 @@ class AudioPlayerHandlerImpl extends BaseAudioHandler
   /// Broadcasts the current state to all clients.
   void _broadcastState(PlaybackEvent event) {
     final playing = _player!.playing;
- 
-   
+
     final queueIndex = getQueueIndex(
       event.currentIndex,
       _player!.shuffleIndices,
@@ -940,7 +936,6 @@ class AudioPlayerHandlerImpl extends BaseAudioHandler
     playbackState.add(
       playbackState.value.copyWith(
         controls: [
-        
           MediaControl.skipToPrevious,
           if (playing) MediaControl.pause else MediaControl.play,
           MediaControl.skipToNext,

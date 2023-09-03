@@ -6,9 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../../local/pref_names.dart';
 import '../../../../riverpod/ebook_notifier.dart';
 
-class EbookDetailScreen extends ConsumerWidget {
+class EbookDetailScreen extends ConsumerStatefulWidget {
   final String? title;
   final String description;
   final String? image;
@@ -16,14 +17,19 @@ class EbookDetailScreen extends ConsumerWidget {
       {super.key, this.title, this.description = '', this.image});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EbookDetailScreen> createState() => _EbookDetailScreenState();
+}
+
+class _EbookDetailScreenState extends ConsumerState<EbookDetailScreen> {
+  @override
+  Widget build(BuildContext context) {
     final refRead = ref.read(eBookUserNotifierProvider.notifier);
     String? titleWord;
-    List<String> titleData = title?.split(' ') ?? [];
+    List<String> titleData = widget.title?.split(' ') ?? [];
     if (titleData.length >= 3) {
       titleWord = '${titleData[0]} ${titleData[1]} ${titleData[2]}';
     } else {
-      titleWord = title;
+      titleWord = widget.title;
     }
 
     return Scaffold(
@@ -41,7 +47,6 @@ class EbookDetailScreen extends ConsumerWidget {
             opacity: 0.57,
             child: Image.asset(
               'assets/images/bg4.jpg',
-              // width: double.infinity,
               height: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -59,7 +64,7 @@ class EbookDetailScreen extends ConsumerWidget {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: Text(title ?? '',
+                          child: Text(widget.title ?? '',
                               style: const TextStyle(
                                   color: textColor,
                                   fontSize: 20,
@@ -68,10 +73,11 @@ class EbookDetailScreen extends ConsumerWidget {
                         const SizedBox(width: 10),
                         Consumer(builder: (context, ref, child) {
                           String? descriptionData;
-                          if (description.length >= 4000) {
-                            descriptionData = description.substring(0, 4000);
+                          if (widget.description.length >= 4000) {
+                            descriptionData =
+                                widget.description.substring(0, 4000);
                           } else {
-                            descriptionData = description;
+                            descriptionData = widget.description;
                           }
 
                           return InkWell(
@@ -93,7 +99,9 @@ class EbookDetailScreen extends ConsumerWidget {
                         const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
-                            Clipboard.setData(ClipboardData(text: description));
+                            Clipboard.setData(ClipboardData(
+                                text: (widget.description) +
+                                    ('\n\n\nFor Read More Please Download Bhagavad Gita App\n\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US')));
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Copied to clipboard'),
@@ -110,7 +118,7 @@ class EbookDetailScreen extends ConsumerWidget {
                         StreamBuilder(
                             stream: FirebaseFirestore.instance
                                 .collection('e-books')
-                                .where('bookTitle', isEqualTo: title)
+                                .where('bookTitle', isEqualTo: widget.title)
                                 .snapshots(),
                             builder: (context,
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -132,13 +140,14 @@ class EbookDetailScreen extends ConsumerWidget {
                                       .read(eBookUserNotifierProvider.notifier);
                                   return InkWell(
                                       onTap: () {
-                                        refRead.changeFaviorite(title ?? '',
-                                            description, image ?? '');
+                                        refRead.changeFaviorite(
+                                            widget.title ?? '',
+                                            widget.description,
+                                            widget.image ?? '');
+                                        setState(() {});
                                       },
                                       child: Icon(
-                                        snapshot.data?.docs
-                                                    .last['isFaviorite'] ==
-                                                true
+                                        FavList.contains(widget.title) == true
                                             ? Icons.favorite
                                             : Icons.favorite_border_outlined,
                                         // ebooks?['isFaviorite'] == true
@@ -153,7 +162,8 @@ class EbookDetailScreen extends ConsumerWidget {
                         const SizedBox(width: 10),
                         InkWell(
                           onTap: () {
-                            Share.share('${description.substring(1, 300)} \n\n'
+                            Share.share(
+                                '${widget.description.substring(1, 300)} \n\n'
                                 'For read more please download Bhagavad Gita App\n\nhttps://play.google.com/store/apps/details?id=com.flashcoders.bhagavad_gita_ai&hl=en_IN&gl=US');
                           },
                           child: const Icon(
@@ -168,7 +178,7 @@ class EbookDetailScreen extends ConsumerWidget {
 
                     // About the book
 
-                    Text(description,
+                    Text(widget.description,
                         style: const TextStyle(
                             color: textColor,
                             fontWeight: FontWeight.w600,

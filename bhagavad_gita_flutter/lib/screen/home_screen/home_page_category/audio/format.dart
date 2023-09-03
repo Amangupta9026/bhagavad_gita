@@ -539,18 +539,18 @@ class FormatResponse {
         final Map item = list[i] as Map;
         if (item['type'] == 'song') {
           if (item['mini_obj'] as bool? ?? false) {
-            Map cachedDetails = Hive.box('cache')
-                .get(item['id'].toString(), defaultValue: {}) as Map;
-            if (cachedDetails.isEmpty) {
-              cachedDetails =
-                  await SaavnAPI().fetchSongDetails(item['id'].toString());
-              Hive.box('cache')
-                  .put(cachedDetails['id'].toString(), cachedDetails);
-            }
-            list[i] = cachedDetails;
+                                   // Map cachedDetails = Hive.box('cache')
+            //     .get(item['id'].toString(), defaultValue: {}) as Map;
+            // if (cachedDetails.isEmpty) {
+            //   cachedDetails =
+            //       await SaavnAPI().fetchSongDetails(item['id'].toString());
+            //   Hive.box('cache')
+            //       .put(cachedDetails['id'].toString(), cachedDetails);
+            // }
+          //  list[i] = cachedDetails;
             continue;
           }
-          list[i] = await formatSingleSongResponse(item);
+        //  list[i] = await formatSingleSongResponse(item);
         }
       }
     }

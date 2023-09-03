@@ -3,6 +3,8 @@ class RouteNames {
   static const String onBoarding = '/onBoarding';
   static const String signInScreen = '/signInScreen';
 
+  static const String otpScreen = '/otpScreen';
+
   static const String main = '/main';
   static const String home = '/home';
   static const String helpSupport = '/helpSupport';
@@ -23,6 +25,12 @@ class RouteNames {
 
   static const String ramayana = '/ramayana';
   static const String ramayanaVideo = '/ramayanaVideo';
+
+  static const String mahadev = '/mahadev';
+  static const String mahadevVideo = '/mahadevVideo';
+
+  static const String gitaUpdesh = '/geetaUpdesh';
+  static const String gitaUpdeshVideo = '/geetaUpdeshVideo';
 
 
   static const String aartiBook = '/aartiBook';
@@ -47,9 +55,12 @@ class RouteNames {
   static const String adminAarti = '/adminAarti';
   static const String adminMahabharat = '/adminMahabharat';
   static const String adminRamayana = '/adminRamayana';
+  static const String adminMahadev = '/adminMahadev';
+  static const String adminGitaUpdesh = '/adminGitaUpdesh';
   static const String adminQuotes = '/adminQuotes';
   static const String adminAartiBook = '/adminAartiBook';
   static const String adminWallpaper = '/adminWallpaper'; 
   static const String adminMoreApps = '/adminMoreApps'; 
+  static const String adminSendNotification = '/adminSendNotification';
   
 }

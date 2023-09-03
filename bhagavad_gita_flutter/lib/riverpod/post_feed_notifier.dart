@@ -21,6 +21,7 @@ final postUserNotifierProvider =
 
 class PostMode {
   final TextEditingController textPostController = TextEditingController();
+  final TextEditingController textCommentController = TextEditingController();
   File? getImage;
 }
 
@@ -31,11 +32,11 @@ class PostNotifer extends AsyncNotifier<PostMode> {
     _postMode.textPostController.clear();
   }
 
-  void addPost(int id) {
+  Future<void> addPost(int id) async {
     EasyLoading.show(status: 'loading...');
     if (_postMode.textPostController.text.isNotEmpty ||
         _postMode.getImage != null) {
-      FirebaseFirestore.instance.collection('posts').add({
+      await FirebaseFirestore.instance.collection('posts').add({
         "id": id,
         "phone": FirebaseAuth.instance.currentUser!.phoneNumber,
         "post": _postMode.textPostController.text,
@@ -83,15 +84,15 @@ class PostNotifer extends AsyncNotifier<PostMode> {
     final ref = FirebaseStorage.instance
         .ref()
         .child('posts')
-        .child(_postMode.textPostController.text); // ref shortcut
+        .child(id.toString()); // ref shortcut
 
     await ref.putFile(_postMode.getImage!);
     final url = await ref.getDownloadURL();
     log(name: 'url', url);
     await FirebaseFirestore.instance.collection('posts').doc(docId).update({
       'userImage': url,
-      'id': id.toInt(),
     });
+    removeImage();
   }
 
   void removeImage() {
@@ -118,6 +119,39 @@ class PostNotifer extends AsyncNotifier<PostMode> {
     state = AsyncData(_postMode);
     navigateToPost(context);
   }
+
+  // // Post coments
+  // void addComment(int id) async {
+  //   EasyLoading.show(status: 'loading...');
+  //   if (_postMode.textCommentController.text.isNotEmpty) {
+  //     await FirebaseFirestore.instance.collection('comments').add({
+  //       "id": id,
+  //       "phone": FirebaseAuth.instance.currentUser!.phoneNumber,
+  //       "comment": _postMode.textCommentController.text,
+  //       "userName": "Anonymous",
+  //       "userImage": "",
+  //       "servertime": FieldValue.serverTimestamp()
+  //     });
+  // EasyLoading.dismiss();
+  // toast("Comment Added");
+  // clearTextFields();
+  //   } else {
+  //     EasyLoading.dismiss();
+  //     toast("Please fill the field");
+  //   }
+  // }
+
+  // // Get Post Document Id
+  // Future getPostDocumentId(int id) async {
+  //   var postSnapShot = await FirebaseFirestore.instance
+  //       .collection('posts')
+  //       .where('id', isEqualTo: id)
+  //       .get();
+  //   var docId = postSnapShot.docs.first.id;
+  //   log('docId: $docId');
+  //   log('id: $id');
+  //   return docId;
+  // }
 
   void navigateToPost(BuildContext context) {
     Navigator.pop(context);

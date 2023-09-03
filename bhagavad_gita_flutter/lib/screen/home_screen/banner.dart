@@ -6,7 +6,7 @@ class HomeBanner extends StatelessWidget {
 
   final List<String> imageList = [
     "assets/images/board2.jpg",
-    "assets/images/board3.jpg",
+    "assets/images/board3.png",
     "assets/images/board5.jpg",
     "assets/images/bg21.jpg",
     "assets/images/bg24.jpg",

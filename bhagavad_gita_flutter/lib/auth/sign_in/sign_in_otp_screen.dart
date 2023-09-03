@@ -11,6 +11,7 @@ import 'dart:developer';
 import 'package:bhagavad_gita_flutter/local/pref_names.dart';
 import 'package:bhagavad_gita_flutter/local/prefs.dart';
 import 'package:bhagavad_gita_flutter/router/routes_names.dart';
+import 'package:bottom_bar_matu/utils/app_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,7 @@ import '../../utils/file_collection.dart';
 class OTPScreen extends StatefulWidget {
   final String mobileNumber;
   final String verificationId;
-  final int? resendToken;
+  final String? resendToken;
   const OTPScreen({
     required this.mobileNumber,
     required this.verificationId,
@@ -40,7 +41,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
     mode: StopWatchMode.countDown,
-    presetMillisecond: StopWatchTimer.getMilliSecFromSecond(180),
+    presetMillisecond: StopWatchTimer.getMilliSecFromSecond(120),
   );
 
   // Future<void> initSmsListener() async {
@@ -87,7 +88,7 @@ class _OTPScreenState extends State<OTPScreen> {
           content: Text("Invalid OTP. Please try again."),
         ),
       );
-      log("$e");
+     log("$e");
     }
   }
 
@@ -101,21 +102,23 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   void dispose() {
     // AltSmsAutofill().unregisterListener();
-    _stopWatchTimer.dispose();
+
     try {
-      otpController.dispose();
+      _stopWatchTimer.dispose();
+      //   otpController.dispose();
     } catch (e) {
-      log(e.toString());
+     // log(e.toString());
     }
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: SizedBox(
-        height: 150, 
+        height: 150,
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -216,10 +219,10 @@ class _OTPScreenState extends State<OTPScreen> {
                     //do something or move to next screen when code complete
                   },
                   onChanged: (value) {
-                    log(value);
+                  //  log(value);
                     if (mounted) {
                       setState(() {
-                        log(value);
+                    //    log(value);
                       });
                     }
                   },
@@ -244,12 +247,12 @@ class _OTPScreenState extends State<OTPScreen> {
                             ? const Text(
                                 "Resend code in",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey),
+                                style:
+                                    TextStyle(fontSize: 16, color: Colors.grey),
                               )
                             : InkWell(
                                 onTap: () {
-                                  _stopWatchTimer.setPresetSecondTime(180);
+                                  _stopWatchTimer.setPresetSecondTime(120);
                                   _stopWatchTimer.onExecute
                                       .add(StopWatchExecute.start);
                                   sendFirebaseOTP();
@@ -342,7 +345,7 @@ class _OTPScreenState extends State<OTPScreen> {
         timeout: const Duration(seconds: 120),
         verificationCompleted: (PhoneAuthCredential credential) async {},
         verificationFailed: (FirebaseAuthException e) async {},
-        forceResendingToken: widget.resendToken,
+        forceResendingToken: widget.resendToken.toInt(),
         codeSent: (String verificationId, int? resendToken) async {
           // Update the UI - wait for the user to enter the SMS code
           EasyLoading.dismiss();
@@ -362,7 +365,7 @@ class _OTPScreenState extends State<OTPScreen> {
       );
     } catch (e) {
       EasyLoading.dismiss();
-      log("$e");
+    //  log("$e");
     }
   }
 }

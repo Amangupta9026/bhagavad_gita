@@ -4,8 +4,9 @@ import '../utils/file_collection.dart';
 
 class AppBarHeader extends StatelessWidget {
   final String? text;
+  final bool? isBackButton;
 
-  const AppBarHeader({super.key, this.text});
+  const AppBarHeader({super.key, this.text, this.isBackButton});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,15 @@ class AppBarHeader extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        leading: InkWell(
-          onTap: () {
-            context.pop();
-          },
-          child: const Icon(
-            Icons.arrow_back,
-          ),
-        ));
+        leading: isBackButton ?? true
+            ? InkWell(
+                onTap: () {
+                  context.pop();
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                ),
+              )
+            : const SizedBox());
   }
 }
