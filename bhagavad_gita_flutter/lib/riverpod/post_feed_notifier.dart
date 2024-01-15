@@ -74,6 +74,8 @@ class PostNotifer extends AsyncNotifier<PostMode> {
     state = AsyncData(_postMode);
   }
 
+
+
   void sendFileImage(int id) async {
     var postSnapShot = await FirebaseFirestore.instance
         .collection('posts')
